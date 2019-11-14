@@ -1,0 +1,107 @@
+/*
+ * uart.h
+ *
+ *  Created on: 2018��10��16��
+ *      Author: Administrator
+ */
+
+#ifndef __UART_H__
+#define __UART_H__
+
+#include <stdint.h>
+
+#if defined S32K14x
+#include "uart_s32k1xx.h"
+#elif defined STM32F10X_CL || defined STM32F205xx
+#include "uart_stm32fxxx.h"
+#else
+#error Mcu type not defined!!!
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
+/**
+ * @defgroup UART module index.
+ * @{
+ */
+#define UART0_INDEX       		                0
+#define UART1_INDEX       		                1
+/** @} */ /* End of group UART module index. */
+
+#define UART_FIFO_MAX_SIZE                      1000 /**< Ring fifo max size. */
+
+/**
+ * @defgroup UART header define.
+ * @{
+ */
+/*-----------------------------------------------------------------------------------
+ * Header
+ * +--------------------+-----------------+-----------------+-----------------+-----+
+ * | byte #0            | byte #1         | byte #2         | byte #3         | ... |
+ * +--------------------+-----------------+-----------------+-----------------+-----+
+ * | 0xAA               | 0x55            | data size low   | data size high  | ... |
+ * +--------------------+-----------------+-----------------+-----------------+-----+
+ *---------------------------------------------------------------------------------*/
+#define HEADER_FLAG      	                    0xAA55
+#define HEADER_SIZE  	                        4
+/** @} */ /* End of group UART header define. */
+
+/*******************************************************************************
+ * Function prototypes
+ ******************************************************************************/
+/**
+ * @brief  Initialize UART.
+ *
+ * @param  [in] _index UART index.
+ * @return Success(0) or failure(other values).
+ */
+int32_t uart_init(const uint8_t _index);
+
+/**
+ * @brief  De-initialize UART.
+ *
+ * @param  [in] _index UART index.
+ * @return Success(0) or failure(other values).
+ */
+int32_t uart_deinit(const uint8_t _index);
+
+/**
+ * @brief  Receive data from UART.
+ *
+ * @param  [in]  _index UART index.
+ * @param  [out] _buf   Receive buffer.
+ * @param  [in]  _size  Receive size.
+ * @return Received size.
+ */
+uint16_t uart_receive(const uint8_t _index, uint8_t *const _buf, const uint16_t _size);
+
+/**
+ * @brief  Transmit data to UART.
+ *
+ * @param  [in] _index UART index.
+ * @param  [in] _buf   Transmit buffer.
+ * @param  [in] _size  Transmit size.
+ * @return Transmitted size.
+ */
+uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const uint16_t _size);
+
+/**
+ * @brief  Transmit data to UART with header.
+ *
+ * @param  [in] _index UART index.
+ * @param  [in] _buf   Transmit buffer.
+ * @param  [in] _size  Transmit size.
+ * @return Transmitted size.
+ */
+uint16_t uart_transmit_with_header(const uint8_t _index, const uint8_t *const _buf, const uint16_t _size);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __UART_H__ */
