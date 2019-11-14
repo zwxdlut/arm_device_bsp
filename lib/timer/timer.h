@@ -99,7 +99,7 @@ int32_t timer_stop(const uint8_t _index);
 /**
  * @brief   Timer IRQ callback.
  *
- * @details This weak function can be implimented by user.
+ * @details This weak function can be implemented by user.
  *
  * @param   [in] _index Timer index.
  */
