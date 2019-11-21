@@ -49,18 +49,18 @@ extern "C" {
  * @defgroup Upper computer configuration.
  * @{
  */
-#define UC_POWER_GPIO 					        GPIOB
-#define UC_POWER_PIN						    GPIO_PIN_0
-#define UC_POWER_GPIO_CLK_ENABLE()              __HAL_RCC_GPIOB_CLK_ENABLE()
-#define UC_POWER_GPIO_CLK_DISABLE()             __HAL_RCC_GPIOB_CLK_DISABLE()
+#define UC_POWER_GPIO 					        GPIOC
+#define UC_POWER_PIN						    GPIO_PIN_5
+#define UC_POWER_GPIO_CLK_ENABLE()              __HAL_RCC_GPIOC_CLK_ENABLE()
+#define UC_POWER_GPIO_CLK_DISABLE()             __HAL_RCC_GPIOC_CLK_DISABLE()
 #define UC_WAKEUP_GPIO 					        GPIOB
 #define UC_WAKEUP_PIN						    GPIO_PIN_1
 #define UC_WAKEUP_GPIO_CLK_ENABLE()             __HAL_RCC_GPIOB_CLK_ENABLE()
 #define UC_WAKEUP_GPIO_CLK_DISABLE()            __HAL_RCC_GPIOB_CLK_DISABLE()
-#define UC_RESET_GPIO 					        GPIOC
-#define UC_RESET_PIN						    GPIO_PIN_5
-#define UC_RESET_GPIO_CLK_ENABLE()              __HAL_RCC_GPIOC_CLK_ENABLE()
-#define UC_RESET_GPIO_CLK_DISABLE()             __HAL_RCC_GPIOC_CLK_DISABLE()
+#define UC_RESET_GPIO 					        GPIOB
+#define UC_RESET_PIN						    GPIO_PIN_0
+#define UC_RESET_GPIO_CLK_ENABLE()              __HAL_RCC_GPIOB_CLK_ENABLE()
+#define UC_RESET_GPIO_CLK_DISABLE()             __HAL_RCC_GPIOB_CLK_DISABLE()
 /** @} */ /* End of group Upper computer configuration. */
 
 /**
