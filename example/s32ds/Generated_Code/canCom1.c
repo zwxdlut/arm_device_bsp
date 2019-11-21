@@ -7,7 +7,7 @@
 **     Version     : Component SDK_S32K1xx_15, Driver 01.00, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-11-13, 17:44, # CodeGen: 2
+**     Date/Time   : 2019-11-19, 15:12, # CodeGen: 17
 **
 **     Copyright 1997 - 2015 Freescale Semiconductor, Inc. 
 **     Copyright 2016-2017 NXP 
@@ -57,7 +57,7 @@ const flexcan_user_config_t canCom1_InitConfig0 = {
     .fd_enable = false,
     .pe_clock = FLEXCAN_CLK_SOURCE_OSC,
     .max_num_mb = 16,
-    .num_id_filters = FLEXCAN_RX_FIFO_ID_FILTERS_40,
+    .num_id_filters = FLEXCAN_RX_FIFO_ID_FILTERS_32,
     .is_rx_fifo_needed = true,
     .flexcanMode = FLEXCAN_NORMAL_MODE,
     .payload = FLEXCAN_PAYLOAD_SIZE_8,

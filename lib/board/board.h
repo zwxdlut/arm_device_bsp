@@ -13,7 +13,19 @@
 #if defined S32K14x
 #include "board_s32k1xx.h"
 #elif defined STM32F10X_CL || defined STM32F205xx
-#include "board_stm32fxxx.h"
+#if defined STM32F10X_CL
+#include "stm32f10x.h"
+#elif defined STM32F205xx
+#include "stm32f2xx.h"
+#else
+#endif
+#if defined USE_STDPERIPH_DRIVER
+#include "board_stm32fxxx_stdperiph.h"
+#elif defined USE_HAL_DRIVER
+#include "board_stm32fxxx_hal.h"
+#else
+#error SDK type not defined!!!
+#endif
 #else
 #error Mcu type not defined!!!
 #endif
@@ -75,9 +87,9 @@ void sys_reset(void);
 /**
  * @brief Transfer power mode.
  *
- * @param [in] _mode Power mode, as following values:
- *             @arg PWR_MODE_SLEEP.
- *             @arg PWR_MODE_DEEPSLEEP.
+ * @param [in] _mode Power mode:
+ *             @arg PWR_MODE_SLEEP Sleep.
+ *             @arg PWR_MODE_DEEPSLEEP Deep sleep.
  */
 void pwr_mode_trans(const uint8_t _mode);
 

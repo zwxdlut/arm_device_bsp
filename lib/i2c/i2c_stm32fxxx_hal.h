@@ -5,16 +5,8 @@
  *      Author: Administrator
  */
 
-#ifndef __I2C_STM32FXXX_H__
-#define __I2C_STM32FXXX_H__
-
-#if defined STM32F10X_CL
-#include "stm32f10x.h"
-#elif defined STM32F205xx
-#include "stm32f2xx.h"
-#else
-#error Mcu type not defined!!!
-#endif
+#ifndef __I2C_STM32FXXX_HAL_H__
+#define __I2C_STM32FXXX_HAL_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,8 +19,6 @@ extern "C" {
  * @defgroup I2C configuration.
  * @{
  */
-#if defined USE_STDPERIPH_DRIVER
-#elif defined USE_HAL_DRIVER
 #define I2C0_GPIO                               GPIOB
 #define I2C0_SCL_PIN                            GPIO_PIN_6
 #define I2C0_SDA_PIN                            GPIO_PIN_7
@@ -48,9 +38,6 @@ extern "C" {
                                                                       {__HAL_RCC_I2C1_FORCE_RESET();}} while(0)
 #define I2C_RELEASE_RESET(INDEX)                do { if(0 == (INDEX)) {__HAL_RCC_I2C1_RELEASE_RESET();} else\
                                                                       {__HAL_RCC_I2C1_RELEASE_RESET();}} while(0)
-#else
-#error Please define SDK type(USE_STDPERIPH_DRIVER or USE_HAL_DRIVER)!!!
-#endif
 #define I2C0_EV_IRQ_HANDLER                     I2C1_EV_IRQHandler
 #define I2C0_ER_IRQ_HANDLER                     I2C1_ER_IRQHandler
 /** @} */ /* End of I2C configuration. */
@@ -59,4 +46,4 @@ extern "C" {
 }
 #endif
 
-#endif /* __I2C_STM32FXXX_H__ */
+#endif /* __I2C_STM32FXXX_HAL_H__ */

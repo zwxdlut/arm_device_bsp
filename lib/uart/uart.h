@@ -13,7 +13,20 @@
 #if defined S32K14x
 #include "uart_s32k1xx.h"
 #elif defined STM32F10X_CL || defined STM32F205xx
-#include "uart_stm32fxxx.h"
+#if defined STM32F10X_CL
+#include "stm32f10x.h"
+#elif defined STM32F205xx
+#include "stm32f2xx.h"
+#else
+#endif
+#if defined USE_STDPERIPH_DRIVER
+#include "uart_stm32fxxx_stdperiph.h"
+#elif defined USE_HAL_DRIVER
+#include "uart_stm32fxxx_hal.h"
+#include "stm32f2xx_ll_usart.h"
+#else
+#error SDK type not defined!!!
+#endif
 #else
 #error Mcu type not defined!!!
 #endif
@@ -71,7 +84,7 @@ int32_t uart_init(const uint8_t _index);
 int32_t uart_deinit(const uint8_t _index);
 
 /**
- * @brief  Receive data from UART.
+ * @brief  Receive UART data.
  *
  * @param  [in]  _index UART index.
  * @param  [out] _buf   Receive buffer.
@@ -81,7 +94,7 @@ int32_t uart_deinit(const uint8_t _index);
 uint16_t uart_receive(const uint8_t _index, uint8_t *const _buf, const uint16_t _size);
 
 /**
- * @brief  Transmit data to UART.
+ * @brief  Transmit UART data.
  *
  * @param  [in] _index UART index.
  * @param  [in] _buf   Transmit buffer.
@@ -91,7 +104,7 @@ uint16_t uart_receive(const uint8_t _index, uint8_t *const _buf, const uint16_t 
 uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const uint16_t _size);
 
 /**
- * @brief  Transmit data to UART with header.
+ * @brief  Transmit UART data with header.
  *
  * @param  [in] _index UART index.
  * @param  [in] _buf   Transmit buffer.

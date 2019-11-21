@@ -14,7 +14,18 @@
 #if defined S32K14x
 #include "i2c_s32k1xx.h"
 #elif defined STM32F10X_CL || defined STM32F205xx
-#include "i2c_stm32fxxx.h"
+#if defined STM32F10X_CL
+#include "stm32f10x.h"
+#elif defined STM32F205xx
+#include "stm32f2xx.h"
+#else
+#endif
+#if defined USE_STDPERIPH_DRIVER
+#elif defined USE_HAL_DRIVER
+#include "i2c_stm32fxxx_hal.h"
+#else
+#error SDK type not defined!!!
+#endif
 #else
 #error Mcu type not defined!!!
 #endif
@@ -32,7 +43,7 @@ extern "C" {
  */
 #define I2C0_INDEX       		                0
 /** @} */ /* I2C module index. */																  
-																	  
+
 /** 
  * @defgroup EEPROM configuration.
  * @brief    Two-wire serial EEPROM AT24C02 2K(256 * 8 bit) 32 pages of 8 bytes each
@@ -104,7 +115,7 @@ extern "C" {
  * @{
  */
 #define ACCR_SYSMOD_STANDBY                     0u
-#define ACCR_SYSMOD_WAKE                        1u
+#define ACCR_SYSMOD_ACTIVE                      1u
 /** @} */ /* End of group Accelerometer system modes. */
 
 /** 
@@ -208,9 +219,9 @@ int32_t accr_deinit(void);
 /**
  * @brief  Transfer accelerometer system mode.
  *
- * @param  [in] _mode System mode as following values:
- *                    @arg ACCR_SYSMOD_STANDBY.
- *					  @arg ACCR_SYSMOD_WAKE.
+ * @param  [in] _mode System mode:
+ *                    @arg ACCR_SYSMOD_STANDBY Standby.
+ *				      @arg ACCR_SYSMOD_ACTIVE Active.
  * @return Success(0) or failure(other values).
  */
 int32_t accr_sys_mode_trans(const uint8_t _mode);
@@ -225,8 +236,8 @@ uint8_t accr_get_int_src(void);
 /**
  * @brief  Get X, Y, Z-axis sample data(MSB).
  *
- * @param  [in] _buf  Sample data buffer.
- * @param  [in] _size Sample data size.
+ * @param  [in] _buf  Data buffer.
+ * @param  [in] _size Data size.
  * @return Success(0) or failure(other values).
  */
 int32_t accr_get_xyz_sample(uint8_t *const _buf, const uint8_t _size);

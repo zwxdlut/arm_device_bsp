@@ -13,7 +13,19 @@
 #if defined S32K14x
 #include "can_s32k1xx.h"
 #elif defined STM32F10X_CL || defined STM32F205xx
-#include "can_stm32fxxx.h"
+#if defined STM32F10X_CL
+#include "stm32f10x.h"
+#elif defined STM32F205xx
+#include "stm32f2xx.h"
+#else
+#endif
+#if defined USE_STDPERIPH_DRIVER
+#include "can_stm32fxxx_stdperiph.h"
+#elif defined USE_HAL_DRIVER
+#include "can_stm32fxxx_hal.h"
+#else
+#error SDK type not defined!!!
+#endif
 #else
 #error Mcu type not defined!!!
 #endif
@@ -42,6 +54,8 @@ extern "C" {
 #define CAN_PWR_MODE_SLEEP                      0
 #define CAN_PWR_MODE_RUN                        1
 /** @} */ /* End of group CAN power modes. */
+
+#define CAN_SLAVE_START_FILTER_BANK_NUM         21 /**< Slave CAN start filter bank number */	
 
 /*******************************************************************************
  * Function prototypes
@@ -89,9 +103,9 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
  * @brief  Transfer CAN power mode.
  *
  * @param  [in] _index CAN index.
- * @param  [in] _mode  Power mode, as following values:
-				       @arg CAN_PWR_MODE_SLEEP.
-					   @arg CAN_PWR_MODE_RUN.
+ * @param  [in] _mode  Power mode:
+				       @arg CAN_PWR_MODE_SLEEP Sleep.
+					   @arg CAN_PWR_MODE_RUN Run.
  * @return Success(0) or failure(other values).
  */
 int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode);

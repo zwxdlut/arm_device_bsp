@@ -22,13 +22,6 @@ typedef struct
 #endif
 }comm_config_t;
 
-typedef struct
-{
-	uint32_t id_;
-	uint8_t  dlc_;
-	uint8_t  data_[8];
-}can_msg_t;
-
 static comm_config_t g_comm_config[CAN1_INDEX + 1] =
 {
 	{
@@ -113,13 +106,10 @@ static flexcan_state_t *g_state[CAN1_INDEX + 1] =
 #endif
 };
 
-static flexcan_msgbuff_t g_rx_buf[CAN1_INDEX + 1]; /**< CAN rx buffer */
-static can_msg_t         g_rx_fifo[CAN1_INDEX + 1][CAN_FIFO_MAX_SIZE]; /**< CAN rx ring fifo */
-static uint8_t           g_rx_fifo_head[CAN1_INDEX + 1]; /**< CAN rx fifo head index */
-static uint8_t           g_rx_fifo_tail[CAN1_INDEX + 1]; /**< CAN rx fifo tail index */
-static bool              g_rx_triggered[CAN1_INDEX + 1] = {false, false};  /**< CAN rx trigger flag */
-static int8_t            g_tx_mailbox[CAN1_INDEX + 1] = {31, 15}; /**< CAN tx mailboxes */
-static mutex_t           g_tx_mutex[CAN1_INDEX + 1]; /**< CAN tx mutex */
+static flexcan_msgbuff_t g_rx_buf[CAN1_INDEX + 1];                        /**< Rx buffer */
+static bool              g_rx_triggered[CAN1_INDEX + 1] = {false, false}; /**< Rx trigger flag */
+static int8_t            g_tx_mailbox[CAN1_INDEX + 1] = {31, 15};         /**< Tx mailboxes */
+static mutex_t           g_tx_mutex[CAN1_INDEX + 1];                      /**< Tx mutex */
 
 /*******************************************************************************
  * Local Function prototypes
@@ -170,7 +160,7 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, g_comm_config[_index].gpio_af_);
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].tx_pin_, g_comm_config[_index].gpio_af_);
 
-#ifdef USING_OS_FREERTOS
+#if defined USING_OS_FREERTOS
 	/* The interrupt calls an interrupt safe API function - so its priority must
 	   be equal to or lower than configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY */
 	for(uint8_t i = 0; i < sizeof(g_comm_config[_index].irqs_) && NotAvail_IRQn != g_comm_config[_index].irqs_[i]; i++)
@@ -190,7 +180,7 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 	PINS_DRV_SetPullSel(g_comm_config[_index].trans_inh_port_, g_comm_config[_index].trans_inh_pin_, PORT_INTERNAL_PULL_DOWN_ENABLED);
 	INT_SYS_InstallHandler(g_comm_config[_index].trans_inh_irq_, &pin_irq_handler, NULL);
 	INT_SYS_EnableIRQ(g_comm_config[_index].trans_inh_irq_);
-#ifdef USING_OS_FREERTOS
+#if defined USING_OS_FREERTOS
 	/* The interrupt calls an interrupt safe API function - so its priority must
 	   be equal to or lower than configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY */
 	INT_SYS_SetPriority( g_comm_config[_index].trans_inh_irq_, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY );
@@ -248,6 +238,8 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 {
 	assert(CAN1_INDEX >= _index && NULL != _buf);
 
+	uint8_t size = _size;
+
     /* Set information about the data to be sent:
        - 1 byte in length
        - Standard message ID
@@ -269,11 +261,19 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 
 	OSIF_MutexLock(&g_tx_mutex[_index], OSIF_WAIT_FOREVER);
 	/* Execute send non-blocking */
-	FLEXCAN_DRV_Send(g_handle[_index], g_tx_mailbox[_index], &dataInfo, _id, _buf);
-	while(STATUS_SUCCESS != FLEXCAN_DRV_GetTransferStatus(g_handle[_index], g_tx_mailbox[_index]));
+	if(STATUS_SUCCESS == FLEXCAN_DRV_Send(g_handle[_index], g_tx_mailbox[_index], &dataInfo, _id, _buf))
+	{
+		status_t status = STATUS_SUCCESS;
+
+		while(STATUS_BUSY == (status = FLEXCAN_DRV_GetTransferStatus(g_handle[_index], g_tx_mailbox[_index]))){}
+		if(STATUS_SUCCESS != status)
+			size = 0;
+	}
+	else
+		size = 0;
 	OSIF_MutexUnlock(&g_tx_mutex[_index]);
 
-	return _size;
+	return size;
 }
 
 int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode)

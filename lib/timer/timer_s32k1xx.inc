@@ -91,11 +91,6 @@ int32_t timer_stop(const uint8_t _index)
 	return 0;
 }
 
-__attribute__((weak)) void timer_irq_callback(const uint8_t _index)
-{
-	(void)_index;
-}
-
 /******************************************************************************
  * Local Functions
  ******************************************************************************/

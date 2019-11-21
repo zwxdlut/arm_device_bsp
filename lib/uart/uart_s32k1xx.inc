@@ -71,10 +71,7 @@ static lpuart_state_t *g_state[UART1_INDEX + 1] =
 };
 
 static uint8_t  g_rx_byte;
-static uint8_t  g_rx_fifo[UART1_INDEX + 1][UART_FIFO_MAX_SIZE]; /**< Ring fifo */
-static uint16_t g_rx_fifo_head[UART1_INDEX + 1];
-static uint16_t g_rx_fifo_tail[UART1_INDEX + 1];
-static mutex_t  g_tx_mutex[UART1_INDEX + 1]; /**< UART tx mutex */
+static mutex_t  g_tx_mutex[UART1_INDEX + 1]; /**< Tx mutex */
 
 /*******************************************************************************
  * Local Function prototypes
@@ -93,16 +90,15 @@ int32_t uart_init(const uint8_t _index)
 	g_rx_fifo_tail[_index] = 0;
 	OSIF_MutexCreate(&g_tx_mutex[_index]);
 
-	/* UART initialization */
-	LPUART_DRV_Init(g_handle[_index], g_state[_index], g_config[_index]);
-	LPUART_DRV_InstallRxCallback(g_handle[_index], uart_irq_handler, (void *)((uint32_t)_index));
-
 	/* GPIO initialization */
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, g_comm_config[_index].gpio_af_);
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].tx_pin_, g_comm_config[_index].gpio_af_);
 	PINS_DRV_SetPullSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, PORT_INTERNAL_PULL_UP_ENABLED);
 
-#ifdef USING_OS_FREERTOS
+	/* UART initialization */
+	LPUART_DRV_Init(g_handle[_index], g_state[_index], g_config[_index]);
+	LPUART_DRV_InstallRxCallback(g_handle[_index], uart_irq_handler, (void *)((uint32_t)_index));
+#if defined USING_OS_FREERTOS
 	/* The interrupt calls an interrupt safe API function - so its priority must
 	   be equal to or lower than configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY */
 	for(uint8_t i = 0; i < sizeof(g_comm_config[_index].irqs_) && NotAvail_IRQn != g_comm_config[_index].irqs_[i]; i++)
@@ -116,12 +112,11 @@ int32_t uart_deinit(const uint8_t _index)
 {
 	assert(UART1_INDEX >= _index);
 
-	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, PORT_PIN_DISABLED);
-	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].tx_pin_, PORT_PIN_DISABLED);
 	LPUART_DRV_AbortReceivingData(g_handle[_index]);
 	LPUART_DRV_AbortSendingData(g_handle[_index]);
 	LPUART_DRV_Deinit(g_handle[_index]);
-
+	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, PORT_PIN_DISABLED);
+	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].tx_pin_, PORT_PIN_DISABLED);
 	OSIF_MutexDestroy(&g_tx_mutex[_index]);
 
 	return 0;
@@ -151,16 +146,21 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 {
 	assert(UART1_INDEX >= _index && NULL != _buf);
 
+	uint16_t size = _size;
+
 	OSIF_MutexLock(&g_tx_mutex[_index], OSIF_WAIT_FOREVER);
-	LPUART_DRV_SendDataBlocking(g_handle[_index], _buf, _size, OSIF_WAIT_FOREVER);
+	if(STATUS_SUCCESS != LPUART_DRV_SendDataBlocking(g_handle[_index], _buf, _size, OSIF_WAIT_FOREVER))
+		size = 0;
 	OSIF_MutexUnlock(&g_tx_mutex[_index]);
 
-	return _size;
+	return size;
 }
 
 uint16_t uart_transmit_with_header(const uint8_t _index, const uint8_t *const _buf, const uint16_t _size)
 {
 	assert(UART1_INDEX >= _index && NULL != _buf);
+
+	uint16_t size = HEADER_SIZE + _size;
 
 	OSIF_MutexLock(&g_tx_mutex[_index], OSIF_WAIT_FOREVER);
 #if defined (HEADER_FLAG) && defined (HEADER_SIZE)
@@ -169,12 +169,14 @@ uint16_t uart_transmit_with_header(const uint8_t _index, const uint8_t *const _b
 	header[1] = HEADER_FLAG & 0xFF;
 	header[2] = _size;
 	header[3] = _size >> 8;
-	LPUART_DRV_SendDataBlocking(g_handle[_index], header, HEADER_SIZE, OSIF_WAIT_FOREVER);
+	if(STATUS_SUCCESS != LPUART_DRV_SendDataBlocking(g_handle[_index], header, HEADER_SIZE, OSIF_WAIT_FOREVER))
+		size -= HEADER_SIZE;
 #endif
-	LPUART_DRV_SendDataBlocking(g_handle[_index], _buf, _size, OSIF_WAIT_FOREVER);
+	if(STATUS_SUCCESS != LPUART_DRV_SendDataBlocking(g_handle[_index], _buf, _size, OSIF_WAIT_FOREVER))
+		size -= _size;
 	OSIF_MutexUnlock(&g_tx_mutex[_index]);
 
-	return _size;
+	return size;
 }
 
 /*******************************************************************************

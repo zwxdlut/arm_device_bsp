@@ -41,7 +41,7 @@ void gpio_init(void)
     PINS_DRV_SetPinIntSel(BTN_PORT, BTN_PIN, PORT_INT_RISING_EDGE);
     INT_SYS_InstallHandler(BTN_IRQ, &pin_irq_handler, NULL);
     INT_SYS_EnableIRQ(BTN_IRQ);
-#ifdef USING_OS_FREERTOS
+#if defined USING_OS_FREERTOS
     /* The interrupt calls an interrupt safe API function - so its priority must
        be equal to or lower than configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY */
     INT_SYS_SetPriority( BTN_IRQ, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY );
@@ -64,7 +64,7 @@ void gpio_init(void)
     PINS_DRV_SetPinIntSel(IGN_PORT, IGN_PIN, PORT_INT_FALLING_EDGE);
     INT_SYS_InstallHandler(IGN_IRQ, &pin_irq_handler, NULL);
     INT_SYS_EnableIRQ(IGN_IRQ);
-#ifdef USING_OS_FREERTOS
+#if defined USING_OS_FREERTOS
     /* The interrupt calls an interrupt safe API function - so its priority must
        be equal to or lower than configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY */
     INT_SYS_SetPriority( IGN_IRQ, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY );

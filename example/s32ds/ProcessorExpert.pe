@@ -3,7 +3,7 @@
   <Header>
     <Name>example</Name>
     <SavedBy>Administrator</SavedBy>
-    <ModificationStamp>10</ModificationStamp>
+    <ModificationStamp>11</ModificationStamp>
     <Date>2019-11-13</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.12.2.RT7_b1743-0713</PEversion>
@@ -18154,8 +18154,8 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
-        <Index>4</Index>
-        <EnumSymbVal>FLEXCAN_RX_FIFO_ID_FILTERS_40</EnumSymbVal>
+        <Index>3</Index>
+        <EnumSymbVal>FLEXCAN_RX_FIFO_ID_FILTERS_32</EnumSymbVal>
       </ItemState>
       <ItemState>
         <ItemSymbol>is_rx_fifo_needed0</ItemSymbol>

@@ -99,9 +99,9 @@ bool flash_ctrl_is_sector_aligned(const uint32_t _addr);
 /**
  * @brief  Program flash memory.
  *
- * @param  [in] _addr Start address.
+ * @param  [in] _addr Program start address.
  * @param  [in] _size Program size.
- * @param  [in] _buf  Program data buffer.
+ * @param  [in] _buf  Program buffer.
  * @return Success(0) or failure(other values).
  */
 int32_t flash_ctrl_program(const uint32_t _addr, const uint32_t _size, const uint8_t *const _buf);
@@ -109,9 +109,9 @@ int32_t flash_ctrl_program(const uint32_t _addr, const uint32_t _size, const uin
 /**
  * @brief  Verify programed flash memory.
  *
- * @param  [in] _addr Start address.
- * @param  [in] _size Program size.
- * @param  [in] _buf  Program data buffer.
+ * @param  [in] _addr Verify start address.
+ * @param  [in] _size verify size.
+ * @param  [in] _buf  verify buffer.
  * @return Success(0) or failure(other values).
  */
 int32_t flash_ctrl_program_verify(const uint32_t _addr, const uint32_t _size, const uint8_t *const _buf);
@@ -119,9 +119,9 @@ int32_t flash_ctrl_program_verify(const uint32_t _addr, const uint32_t _size, co
 /**
  * @brief  Write data to a flash area which is partitioned as EEPROM.
  *
- * @param  [in] _addr Start address.
- * @param  [in] _size Size in bytes.
- * @param  [in] _buf  Data buffer.
+ * @param  [in] _addr Write start address.
+ * @param  [in] _size Write size.
+ * @param  [in] _buf  Write buffer.
  * @return Success(0) or failure(other values).
  */
 int32_t flash_ctrl_write_e2(const uint32_t _addr, const uint32_t _size, const uint8_t *const _buf);
