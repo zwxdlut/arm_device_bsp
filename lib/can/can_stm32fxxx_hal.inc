@@ -119,9 +119,9 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 #if defined MX_TB
 	/* CAN Transceiver initialization */
 	CAN_TRANS_STB_N_GPIO_CLK_ENABLE(_index);
-	GPIO_InitStructure.Mode      = GPIO_MODE_OUTPUT_PP;
-	GPIO_InitStructure.Pull      = GPIO_PULLUP;
 	GPIO_InitStructure.Pin       = g_comm_config[_index].trans_stb_n_pin_;
+	GPIO_InitStructure.Mode      = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStructure.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
 	HAL_GPIO_Init(g_comm_config[_index].trans_stb_n_gpio_, &GPIO_InitStructure);
 	HAL_GPIO_WritePin(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, (GPIO_PinState)1);
 	CAN_TRANS_EN_GPIO_CLK_ENABLE(_index);
@@ -139,14 +139,12 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 #endif
 	/* GPIO initialization */
 	CAN_GPIO_CLK_ENABLE(_index);
-	GPIO_InitStructure.Mode      = GPIO_MODE_AF_PP;
-	GPIO_InitStructure.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
-	GPIO_InitStructure.Alternate = g_comm_config[_index].gpio_af_;
 	GPIO_InitStructure.Pin       = g_comm_config[_index].rx_pin_;
-	GPIO_InitStructure.Pull      = GPIO_PULLUP;
+	GPIO_InitStructure.Mode      = GPIO_MODE_AF_PP;
+	GPIO_InitStructure.Pull      = GPIO_NOPULL;
+	GPIO_InitStructure.Alternate = g_comm_config[_index].gpio_af_;
 	HAL_GPIO_Init(g_comm_config[_index].gpio_, &GPIO_InitStructure);
 	GPIO_InitStructure.Pin       = g_comm_config[_index].tx_pin_;
-	GPIO_InitStructure.Pull      = GPIO_NOPULL;
 	HAL_GPIO_Init(g_comm_config[_index].gpio_, &GPIO_InitStructure);
 	
 	/* CAN initialization */

@@ -25,9 +25,9 @@ void gpio_init(void)
 	
 	/* LEDs initialization */
 	LED0_GPIO_CLK_ENABLE();
+	GPIO_InitStructure.Pin   = LED0_PIN;
 	GPIO_InitStructure.Mode  = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH; 
-	GPIO_InitStructure.Pin   = LED0_PIN;
 	GPIO_INIT(LED0_GPIO, &GPIO_InitStructure);
 	GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_OFF);
 	LED1_GPIO_CLK_ENABLE();	
@@ -49,10 +49,10 @@ void gpio_init(void)
     HAL_NVIC_EnableIRQ(BTN_IRQ);
 #if defined MX_TB
 	/* Upper computer(EC20) initialization */
-	UC_POWER_GPIO_CLK_ENABLE();	
+	UC_POWER_GPIO_CLK_ENABLE();
+	GPIO_InitStructure.Pin  = UC_POWER_PIN;
 	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStructure.Pull = GPIO_NOPULL;	
-	GPIO_InitStructure.Pin  = UC_POWER_PIN;
 	GPIO_INIT(UC_POWER_GPIO, &GPIO_InitStructure);
 	GPIO_WRITE_PIN(UC_POWER_GPIO, UC_POWER_PIN, 0);
 	UC_WAKEUP_GPIO_CLK_ENABLE();

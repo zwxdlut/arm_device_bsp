@@ -53,11 +53,11 @@ int32_t i2c_master_init(const uint8_t _index)
 #endif
 	/* GPIO initialization */
 	I2C_GPIO_CLK_ENABLE(_index);
+	GPIO_InitStructure.Pin       = g_comm_config[_index].scl_pin_;
 	GPIO_InitStructure.Mode      = GPIO_MODE_AF_OD;
 	GPIO_InitStructure.Pull      = GPIO_PULLUP;
 	GPIO_InitStructure.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
 	GPIO_InitStructure.Alternate = g_comm_config[_index].gpio_af_;
-	GPIO_InitStructure.Pin       = g_comm_config[_index].scl_pin_;
 	HAL_GPIO_Init(g_comm_config[_index].gpio_, &GPIO_InitStructure);
 	GPIO_InitStructure.Pin       = g_comm_config[_index].sda_pin_;
 	HAL_GPIO_Init(g_comm_config[_index].gpio_, &GPIO_InitStructure);
