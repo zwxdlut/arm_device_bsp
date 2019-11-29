@@ -97,7 +97,7 @@ uint32_t sys_time_ms(void)
 	return OSIF_GetMilliseconds();
 }
 
-void sys_delay_ms(const uint32_t _ms)
+void delay_ms(const uint32_t _ms)
 {
 	OSIF_TimeDelay(_ms);
 }

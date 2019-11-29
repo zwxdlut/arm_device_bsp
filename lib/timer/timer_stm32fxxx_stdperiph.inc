@@ -9,7 +9,7 @@ static TIM_TypeDef *g_handle[TIMER0_INDEX + 1] = {TIMER0_INST};
 /******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t timer_init(const uint8_t _index)
+int32_t timer_init(const uint8_t _index, const uint32_t _period)
 {
 	assert(TIMER0_INDEX >= _index);
 
@@ -21,9 +21,9 @@ int32_t timer_init(const uint8_t _index)
 
  	/* Timer initialization */
 	RCC_GetClocksFreq(&clks);
-	TIM_TimeBaseStructure.TIM_Prescaler     = 2 * clks.PCLK1_Frequency / g_timer_config[_index].counter_clk_ - 1;
+	TIM_TimeBaseStructure.TIM_Prescaler     = 2 * clks.PCLK1_Frequency / g_timer_config[_index].clk_ - 1;
 	TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up; 
-	TIM_TimeBaseStructure.TIM_Period        = g_timer_config[_index].period_ - 1;
+	TIM_TimeBaseStructure.TIM_Period        = _period * g_timer_config[_index].clk_ / 1000 - 1;
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0; 
 	TIM_TimeBaseInit(g_handle[_index], &TIM_TimeBaseStructure);
 	TIM_ITConfig(g_handle[_index], TIM_IT_Update, ENABLE);

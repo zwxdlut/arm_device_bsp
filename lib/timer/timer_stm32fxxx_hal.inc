@@ -6,7 +6,6 @@ static TIM_HandleTypeDef g_handle[TIMER0_INDEX + 1] =
 	{
 		.Instance               = TIMER0_INST,
 		.Init.CounterMode       = TIM_COUNTERMODE_UP,
-		.Init.Period            = TIMER0_PERIOD - 1,
 		.Init.ClockDivision     = 0,
 		.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE
 	}
@@ -18,14 +17,15 @@ static TIM_HandleTypeDef g_handle[TIMER0_INDEX + 1] =
 /******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t timer_init(const uint8_t _index)
+int32_t timer_init(const uint8_t _index, const uint32_t _period)
 {
 	assert(TIMER0_INDEX >= _index);
 
 	TIMER_CLK_ENABLE(_index);
 
 	/* Timer initialization */
-	g_handle[_index].Init.Prescaler = 2 * HAL_RCC_GetPCLK1Freq() / g_timer_config[_index].counter_clk_ - 1;
+	g_handle[_index].Init.Prescaler = 2 * HAL_RCC_GetPCLK1Freq() / g_timer_config[_index].clk_ - 1;
+	g_handle[_index].Init.Period    = _period * g_timer_config[_index].clk_ / 1000 - 1;
 	HAL_TIM_Base_Init(&g_handle[_index]);
 	
 	/* NVIC initialization */

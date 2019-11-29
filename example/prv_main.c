@@ -47,7 +47,7 @@ void prv_main(void)
 	uart_init(UART1_INDEX);
 	can_init(CAN0_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
 	can_init(CAN1_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
-	timer_init(TIMER0_INDEX);
+	timer_init(TIMER0_INDEX, 10);
 	timer_start(TIMER0_INDEX);
 	wdog_enable();
 	
@@ -55,7 +55,7 @@ void prv_main(void)
 	{
 		wdog_refresh();
 		
-		sys_delay_ms(20);
+		delay_ms(20);
 		GPIO_TOGGLE_PIN(LED0_GPIO, LED0_PIN);
 #if defined TEST_LOW_PWR_MODE
 		if(RUN_TIME_THRESHOLD <= sys_time_ms() - run_time)
@@ -142,7 +142,7 @@ static void test_i2c(void)
 	
 	/* Write then read EEPROM and verify */
 	assert(0 == eeprom_write(EEPROM_RESET_TYPE_ADDR, &temp1, EEPROM_RESET_TYPE_SIZE));
-	sys_delay_ms(10);
+	delay_ms(10);
 	assert(0 == eeprom_read(EEPROM_RESET_TYPE_ADDR, &temp2, EEPROM_RESET_TYPE_SIZE));
 	assert(temp1 == temp2);
 	

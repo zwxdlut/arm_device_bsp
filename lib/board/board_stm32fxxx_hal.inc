@@ -108,7 +108,7 @@ uint32_t sys_time_ms(void)
 	return HAL_GetTick();
 }
 
-void sys_delay_ms(const uint32_t _ms)
+void delay_ms(const uint32_t _ms)
 {
 	HAL_Delay(_ms);
 }

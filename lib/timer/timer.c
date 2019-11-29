@@ -20,17 +20,15 @@
 #elif defined STM32F10X_CL || defined STM32F205xx
 typedef struct
 {
-	uint16_t  counter_clk_;
-	uint16_t  period_;
+	uint16_t  clk_;
 	IRQn_Type irq_;
 }timer_confg_t;
 
 static timer_confg_t g_timer_config[TIMER0_INDEX + 1] =
 {
 	{
-		.counter_clk_  = TIMER0_COUNTER_CLK,
-		.period_       = TIMER0_PERIOD,
-		.irq_          = TIMER0_IRQ
+		.clk_  = TIMER0_CLK,
+		.irq_  = TIMER0_IRQ
 	}
 };
 

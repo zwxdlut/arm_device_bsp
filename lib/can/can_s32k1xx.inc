@@ -315,7 +315,7 @@ static void can_irq_handler(uint8_t _inst, flexcan_event_type_t _event_type, uin
 	        	/* Push rx fifo */
 				g_rx_fifo[index][g_rx_fifo_tail[index]].id_ = g_rx_buf[index].msgId;
 				g_rx_fifo[index][g_rx_fifo_tail[index]].dlc_ = g_rx_buf[index].dataLen > 8 ? 8 : g_rx_buf[index].dataLen;
-				memcpy(g_rx_fifo[index][g_rx_fifo_tail[index]].data_, g_rx_buf[index].data, 8);
+				memcpy(g_rx_fifo[index][g_rx_fifo_tail[index]].data_, g_rx_buf[index].data, g_rx_fifo[index][g_rx_fifo_tail[index]].dlc_);
 				g_rx_fifo_tail[index] = (g_rx_fifo_tail[index] + 1) % CAN_FIFO_MAX_SIZE;
 			}
 			FLEXCAN_DRV_RxFifo(_inst, &g_rx_buf[index]);

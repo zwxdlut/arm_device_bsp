@@ -110,7 +110,7 @@ uint32_t sys_time_ms(void)
 	return g_sys_tick_cnt;
 }
 
-void sys_delay_ms(const uint32_t _ms)
+void delay_ms(const uint32_t _ms)
 {
 	uint32_t start = g_sys_tick_cnt;
     uint32_t delta = 0;

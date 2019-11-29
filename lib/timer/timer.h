@@ -27,8 +27,7 @@
 #include "stm32f2xx.h"
 #endif
 #define TIMER0_INST                             TIM3
-#define TIMER0_COUNTER_CLK                      10000
-#define TIMER0_PERIOD                           1000
+#define TIMER0_CLK                              10000
 #define TIMER0_IRQ                              TIM3_IRQn
 #define TIMER0_IRQ_HANDLER                      TIM3_IRQHandler
 #if defined USE_STDPERIPH_DRIVER
@@ -66,11 +65,12 @@ extern "C" {
 /**
  * @brief  Initialize timer.
  *
- * @param  [in] _index   Timer index.
+ * @param  [in] _index  Timer index.
+ * @param  [in] _period Timer period in milliseconds.
  * @return Success(0) or failure(other values).
  */
 
-int32_t timer_init(const uint8_t _index);
+int32_t timer_init(const uint8_t _index, const uint32_t _period);
 
 /**
  * @brief  Deinitialize timer.
