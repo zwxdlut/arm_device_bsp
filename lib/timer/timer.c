@@ -19,7 +19,7 @@
 #include "timer_s32k1xx.inc"
 #elif defined STM32F10X_CL || defined STM32F205xx
 typedef struct
-{
+{ 
 	uint16_t  clk_;
 	IRQn_Type irq_;
 }timer_confg_t;

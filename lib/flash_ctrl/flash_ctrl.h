@@ -110,8 +110,8 @@ int32_t flash_ctrl_program(const uint32_t _addr, const uint32_t _size, const uin
  * @brief  Verify programed flash memory.
  *
  * @param  [in] _addr Verify start address.
- * @param  [in] _size verify size.
- * @param  [in] _buf  verify buffer.
+ * @param  [in] _size Verify size.
+ * @param  [in] _buf  Verify buffer.
  * @return Success(0) or failure(other values).
  */
 int32_t flash_ctrl_program_verify(const uint32_t _addr, const uint32_t _size, const uint8_t *const _buf);
