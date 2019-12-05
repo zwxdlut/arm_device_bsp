@@ -39,23 +39,6 @@ static void uart_irq_handler(const uint8_t _index);
 #error SDK type not defined!!!
 #endif
 
-uint16_t uart_receive(const uint8_t _index, uint8_t *const _buf, const uint16_t _size)
-{
-	assert(UART1_INDEX >= _index && NULL != _buf);
-
-	uint16_t i = 0;
-
-	/* Rx fifo is not empty */
-	while(g_rx_fifo_head[_index] != g_rx_fifo_tail[_index] && i < _size && i < UART_FIFO_MAX_SIZE)
-	{
-		/* Pop rx fifo */
-		_buf[i++] = g_rx_fifo[_index][g_rx_fifo_head[_index]++];
-		g_rx_fifo_head[_index] = g_rx_fifo_head[_index] % UART_FIFO_MAX_SIZE;
-	}
-
-	return i;
-}
-
 uint16_t uart_transmit_with_header(const uint8_t _index, const uint8_t *const _buf, const uint16_t _size)
 {
 	uint16_t size = 0;
@@ -106,6 +89,23 @@ void UART1_IRQ_HANDLER(void)
 /*******************************************************************************
  * Functions
  ******************************************************************************/
+uint16_t uart_receive(const uint8_t _index, uint8_t *const _buf, const uint16_t _size)
+{
+	assert(UART1_INDEX >= _index && NULL != _buf);
+
+	uint16_t i = 0;
+
+	/* Rx fifo is not empty */
+	while(g_rx_fifo_head[_index] != g_rx_fifo_tail[_index] && i < _size && i < UART_FIFO_MAX_SIZE)
+	{
+		/* Pop rx fifo */
+		_buf[i++] = g_rx_fifo[_index][g_rx_fifo_head[_index]++];
+		g_rx_fifo_head[_index] = g_rx_fifo_head[_index] % UART_FIFO_MAX_SIZE;
+	}
+
+	return i;
+}
+
 /*******************************************************************************
  * Local Functions
  ******************************************************************************/

@@ -46,25 +46,6 @@ static void can_irq_handler(const uint8_t _index);
 #error SDK type not defined!!!
 #endif
 
-uint8_t can_receive(const uint8_t _index, uint32_t *const _id, uint8_t *const _buf,  const uint8_t _size)
-{
-	assert(CAN1_INDEX >= _index && NULL != _id && NULL != _buf);
-
-	uint8_t size = 0;
-
-	/* Rx fifo is not empty */
-	if(g_rx_fifo_head[_index] != g_rx_fifo_tail[_index])
-	{
-		/* Pop rx fifo */
-		*_id = g_rx_fifo[_index][g_rx_fifo_head[_index]].id_;
-		size = _size > g_rx_fifo[_index][g_rx_fifo_head[_index]].dlc_ ? g_rx_fifo[_index][g_rx_fifo_head[_index]].dlc_ : _size;
-		memcpy(_buf, g_rx_fifo[_index][g_rx_fifo_head[_index]].data_, size);
-		g_rx_fifo_head[_index] = (g_rx_fifo_head[_index] + 1) % CAN_FIFO_MAX_SIZE;
-	}
-
-	return size;
-}
-
 /**
  * @defgroup IRQ handlers.
  * @{
@@ -92,6 +73,25 @@ void CAN1_RX_IRQ_HANDLER(void)
 /*******************************************************************************
  * Functions
  ******************************************************************************/
+uint8_t can_receive(const uint8_t _index, uint32_t *const _id, uint8_t *const _buf,  const uint8_t _size)
+{
+	assert(CAN1_INDEX >= _index && NULL != _id && NULL != _buf);
+
+	uint8_t size = 0;
+
+	/* Rx fifo is not empty */
+	if(g_rx_fifo_head[_index] != g_rx_fifo_tail[_index])
+	{
+		/* Pop rx fifo */
+		*_id = g_rx_fifo[_index][g_rx_fifo_head[_index]].id_;
+		size = _size > g_rx_fifo[_index][g_rx_fifo_head[_index]].dlc_ ? g_rx_fifo[_index][g_rx_fifo_head[_index]].dlc_ : _size;
+		memcpy(_buf, g_rx_fifo[_index][g_rx_fifo_head[_index]].data_, size);
+		g_rx_fifo_head[_index] = (g_rx_fifo_head[_index] + 1) % CAN_FIFO_MAX_SIZE;
+	}
+
+	return size;
+}
+
 /*******************************************************************************
  * Local Functions
  ******************************************************************************/

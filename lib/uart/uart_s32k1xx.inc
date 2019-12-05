@@ -70,7 +70,7 @@ static lpuart_state_t *g_state[UART1_INDEX + 1] =
 #endif
 };
 
-static uint8_t  g_rx_byte;
+static uint8_t  g_rx_byte[UART1_INDEX + 1];  /**< Rx byte */
 static mutex_t  g_tx_mutex[UART1_INDEX + 1]; /**< Tx mutex */
 
 /*******************************************************************************
@@ -105,6 +105,9 @@ int32_t uart_init(const uint8_t _index)
 		INT_SYS_SetPriority( g_comm_config[_index].irqs_[i], configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY);
 #endif
 
+    /* Trigger receiving*/
+	LPUART_DRV_ReceiveData( g_handle[_index], g_rx_byte + _index, 1);
+
 	return 0;
 }
 
@@ -112,34 +115,12 @@ int32_t uart_deinit(const uint8_t _index)
 {
 	assert(UART1_INDEX >= _index);
 
-	LPUART_DRV_AbortReceivingData(g_handle[_index]);
-	LPUART_DRV_AbortSendingData(g_handle[_index]);
 	LPUART_DRV_Deinit(g_handle[_index]);
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, PORT_PIN_DISABLED);
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].tx_pin_, PORT_PIN_DISABLED);
 	OSIF_MutexDestroy(&g_tx_mutex[_index]);
 
 	return 0;
-}
-
-uint16_t uart_receive(const uint8_t _index, uint8_t *const _buf, const uint16_t _size)
-{
-	assert(UART1_INDEX >= _index && NULL != _buf);
-
-	uint16_t i = 0;
-
-	/* Trigger receiving */
-	LPUART_DRV_ReceiveData( g_handle[_index], &g_rx_byte, 1);
-
-	/* Rx fifo is not empty */
-	while(g_rx_fifo_head[_index] != g_rx_fifo_tail[_index] && i < _size && i < UART_FIFO_MAX_SIZE)
-	{
-		/* Pop rx fifo */
-		_buf[i++] = g_rx_fifo[_index][g_rx_fifo_head[_index]++];
-		g_rx_fifo_head[_index] = g_rx_fifo_head[_index] % UART_FIFO_MAX_SIZE;
-	}
-
-	return i;
 }
 
 uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const uint16_t _size)
@@ -201,11 +182,14 @@ static void uart_irq_handler(void *_state, uart_event_t _event, void *_user_data
 		if(g_rx_fifo_head[index] != (g_rx_fifo_tail[index] + 1) % UART_FIFO_MAX_SIZE)
 		{
 			/* Push rx fifo */
-			g_rx_fifo[index][g_rx_fifo_tail[index]++] = g_rx_byte;
+			g_rx_fifo[index][g_rx_fifo_tail[index]++] = g_rx_byte[index];
 			g_rx_fifo_tail[index] = g_rx_fifo_tail[index] % UART_FIFO_MAX_SIZE;
 		}
 
 		/* Update rx buffer and trigger next receive */
-		LPUART_DRV_SetRxBuffer(g_handle[index], &g_rx_byte, 1);
+		LPUART_DRV_SetRxBuffer(g_handle[index], g_rx_byte + index, 1);
     }
+
+    /* Trigger receiving*/
+    LPUART_DRV_ReceiveData( g_handle[index], g_rx_byte + index, 1);
 }

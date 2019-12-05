@@ -989,7 +989,7 @@
     <GenDriverVersion>01.00</GenDriverVersion>
     <GenEventModule />
     <HeaderAge>1332963169</HeaderAge>
-    <CodeAge>1332967831</CodeAge>
+    <CodeAge>1333169603</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>28</GenNumMethods>
     <FLEXCAN_DRV_SetBitrate>true</FLEXCAN_DRV_SetBitrate>

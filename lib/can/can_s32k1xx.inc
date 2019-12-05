@@ -107,7 +107,6 @@ static flexcan_state_t *g_state[CAN1_INDEX + 1] =
 };
 
 static flexcan_msgbuff_t g_rx_buf[CAN1_INDEX + 1];                        /**< Rx buffer */
-static bool              g_rx_triggered[CAN1_INDEX + 1] = {false, false}; /**< Rx trigger flag */
 static int8_t            g_tx_mailbox[CAN1_INDEX + 1] = {31, 15};         /**< Tx mailboxes */
 static mutex_t           g_tx_mutex[CAN1_INDEX + 1];                      /**< Tx mutex */
 
@@ -187,6 +186,9 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 #endif
 #endif
 
+	/* Trigger receiving */
+	FLEXCAN_DRV_RxFifo(g_handle[_index], &g_rx_buf[_index]);
+
 	return 0;
 }
 
@@ -206,32 +208,6 @@ int32_t can_deinit(const uint8_t _index)
 	OSIF_MutexDestroy(&g_tx_mutex[_index]);
 
 	return 0;
-}
-
-uint8_t can_receive(const uint8_t _index, uint32_t *const _id, uint8_t *const _buf,  const uint8_t _size)
-{
-	assert(CAN1_INDEX >= _index && NULL != _id && NULL != _buf);
-
-	uint8_t size = 0;
-
-	/* Check if receiving is triggered */
-	if(!g_rx_triggered[_index])
-	{
-		FLEXCAN_DRV_RxFifo(g_handle[_index], &g_rx_buf[_index]);
-		g_rx_triggered[_index] = true;
-	}
-
-	/* Rx fifo is not empty */
-	if(g_rx_fifo_head[_index] != g_rx_fifo_tail[_index])
-	{
-		/* Pop rx fifo */
-		*_id = g_rx_fifo[_index][g_rx_fifo_head[_index]].id_;
-		size = _size > g_rx_fifo[_index][g_rx_fifo_head[_index]].dlc_ ? g_rx_fifo[_index][g_rx_fifo_head[_index]].dlc_ : _size;
-		memcpy(_buf, g_rx_fifo[_index][g_rx_fifo_head[_index]].data_, size);
-		g_rx_fifo_head[_index] = (g_rx_fifo_head[_index] + 1) % CAN_FIFO_MAX_SIZE;
-	}
-
-	return size;
 }
 
 uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *const _buf, const uint8_t _size)
@@ -318,7 +294,6 @@ static void can_irq_handler(uint8_t _inst, flexcan_event_type_t _event_type, uin
 				memcpy(g_rx_fifo[index][g_rx_fifo_tail[index]].data_, g_rx_buf[index].data, g_rx_fifo[index][g_rx_fifo_tail[index]].dlc_);
 				g_rx_fifo_tail[index] = (g_rx_fifo_tail[index] + 1) % CAN_FIFO_MAX_SIZE;
 			}
-			FLEXCAN_DRV_RxFifo(_inst, &g_rx_buf[index]);
 			break;
 		case FLEXCAN_EVENT_TX_COMPLETE:
 		case FLEXCAN_EVENT_RXFIFO_WARNING:
@@ -327,6 +302,9 @@ static void can_irq_handler(uint8_t _inst, flexcan_event_type_t _event_type, uin
 		default:
 			break;
 	}
+
+	/* Trigger receiving */
+	FLEXCAN_DRV_RxFifo(_inst, &g_rx_buf[index]);
 }
 
 #if defined MX_TB
