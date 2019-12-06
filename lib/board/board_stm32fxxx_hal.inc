@@ -42,8 +42,8 @@ void gpio_init(void)
 	/* Button initialization */
 	BTN_GPIO_CLK_ENABLE();
 	GPIO_InitStructure.Pin  = BTN_PIN;
-	GPIO_InitStructure.Mode = GPIO_MODE_IT_FALLING;
-	GPIO_InitStructure.Pull = GPIO_PULLUP;
+	GPIO_InitStructure.Mode = GPIO_MODE_IT_RISING;
+	GPIO_InitStructure.Pull = GPIO_PULLDOWN;
 	GPIO_INIT(BTN_GPIO, &GPIO_InitStructure);
 	HAL_NVIC_SetPriority(BTN_IRQ, 0, 0);
     HAL_NVIC_EnableIRQ(BTN_IRQ);
