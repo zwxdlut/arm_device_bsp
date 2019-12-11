@@ -117,11 +117,12 @@ Section Cross References
     uart.o(i.uart_irq_handler) refers to uart.o(.data) for g_handle
     uart.o(i.uart_irq_handler) refers to uart.o(.bss) for g_rx_fifo
     uart.o(i.uart_receive) refers to assert.o(.text) for __aeabi_assert
-    uart.o(i.uart_receive) refers to uart.o(.data) for g_rx_fifo_head
     uart.o(i.uart_receive) refers to uart.o(.bss) for g_rx_fifo
+    uart.o(i.uart_receive) refers to uart.o(.data) for g_rx_fifo_head
     uart.o(i.uart_transmit) refers to assert.o(.text) for __aeabi_assert
     uart.o(i.uart_transmit) refers to stm32f2xx_hal_uart.o(i.HAL_UART_Transmit) for HAL_UART_Transmit
     uart.o(i.uart_transmit) refers to uart.o(.data) for g_handle
+    uart.o(i.uart_transmit_with_header) refers to assert.o(.text) for __aeabi_assert
     uart.o(i.uart_transmit_with_header) refers to uart.o(i.uart_transmit) for uart_transmit
     can.o(i.CAN1_RX0_IRQHandler) refers to can.o(i.can_irq_handler) for can_irq_handler
     can.o(i.CAN2_RX0_IRQHandler) refers to can.o(i.can_irq_handler) for can_irq_handler
@@ -1353,7 +1354,7 @@ Removing Unused input sections from the image.
     Removing rtos.o(.rrx_text), (6 bytes).
     Removing rtos.o(i.prv_on_timer), (56 bytes).
     Removing rtos.o(i.prv_task), (88 bytes).
-    Removing rtos.o(i.rtos_start), (148 bytes).
+    Removing rtos.o(i.rtos_start), (156 bytes).
     Removing rtos.o(i.ulMainGetRunTimeCounterValue), (4 bytes).
     Removing rtos.o(i.vApplicationIdleHook), (12 bytes).
     Removing rtos.o(i.vApplicationMallocFailedHook), (44 bytes).
@@ -1370,7 +1371,7 @@ Removing Unused input sections from the image.
     Removing uart.o(.revsh_text), (4 bytes).
     Removing uart.o(.rrx_text), (6 bytes).
     Removing uart.o(i.uart_deinit), (352 bytes).
-    Removing uart.o(i.uart_transmit_with_header), (64 bytes).
+    Removing uart.o(i.uart_transmit_with_header), (148 bytes).
     Removing can.o(.rev16_text), (4 bytes).
     Removing can.o(.revsh_text), (4 bytes).
     Removing can.o(.rrx_text), (6 bytes).
@@ -2004,7 +2005,7 @@ Removing Unused input sections from the image.
     Removing timers.o(.bss), (40 bytes).
     Removing timers.o(.data), (20 bytes).
 
-658 unused section(s) (total 69776 bytes) removed from the image.
+658 unused section(s) (total 69868 bytes) removed from the image.
 
 ==============================================================================
 
@@ -2384,33 +2385,33 @@ Image Symbol Table
     i.i2c_master_transmit                    0x08004cdc   Section        0  i2c.o(i.i2c_master_transmit)
     i.main                                   0x08004d94   Section        0  main.o(i.main)
     i.prv_main                               0x08004db4   Section        0  prv_main.o(i.prv_main)
-    i.pwr_mode_trans                         0x08004ee0   Section        0  board.o(i.pwr_mode_trans)
-    i.sys_clk_config                         0x08004f44   Section        0  board.o(i.sys_clk_config)
-    sys_clk_config                           0x08004f45   Thumb Code    78  board.o(i.sys_clk_config)
-    i.sys_init                               0x08004f92   Section        0  board.o(i.sys_init)
-    i.sys_reset                              0x08004fa0   Section        0  board.o(i.sys_reset)
-    i.sys_time_ms                            0x08004fec   Section        0  board.o(i.sys_time_ms)
-    i.test_flash                             0x08004ff4   Section        0  prv_main.o(i.test_flash)
-    test_flash                               0x08004ff5   Thumb Code   184  prv_main.o(i.test_flash)
-    i.test_i2c                               0x08005128   Section        0  prv_main.o(i.test_i2c)
-    test_i2c                                 0x08005129   Thumb Code   128  prv_main.o(i.test_i2c)
-    i.timer_init                             0x08005218   Section        0  timer.o(i.timer_init)
-    i.timer_irq_callback                     0x08005324   Section        0  prv_main.o(i.timer_irq_callback)
-    i.timer_irq_handler                      0x08005338   Section        0  timer.o(i.timer_irq_handler)
-    i.timer_start                            0x08005378   Section        0  timer.o(i.timer_start)
-    i.timer_stop                             0x080053e0   Section        0  timer.o(i.timer_stop)
-    i.uart_init                              0x08005448   Section        0  uart.o(i.uart_init)
-    i.uart_irq_handler                       0x08005614   Section        0  uart.o(i.uart_irq_handler)
-    uart_irq_handler                         0x08005615   Thumb Code   154  uart.o(i.uart_irq_handler)
-    i.uart_receive                           0x080056c0   Section        0  uart.o(i.uart_receive)
-    i.uart_transmit                          0x08005790   Section        0  uart.o(i.uart_transmit)
-    i.vTaskSwitchContext                     0x08005820   Section        0  tasks.o(i.vTaskSwitchContext)
-    i.wdog_enable                            0x080058ac   Section        0  board.o(i.wdog_enable)
-    i.wdog_refresh                           0x0800590c   Section        0  board.o(i.wdog_refresh)
-    .constdata                               0x0800591c   Section       12  prv_main.o(.constdata)
-    .constdata                               0x08005928   Section       24  system_stm32f2xx.o(.constdata)
-    .conststring                             0x08005940   Section      436  prv_main.o(.conststring)
-    .conststring                             0x08005af4   Section      254  flash_ctrl.o(.conststring)
+    i.pwr_mode_trans                         0x08004eec   Section        0  board.o(i.pwr_mode_trans)
+    i.sys_clk_config                         0x08004f50   Section        0  board.o(i.sys_clk_config)
+    sys_clk_config                           0x08004f51   Thumb Code    78  board.o(i.sys_clk_config)
+    i.sys_init                               0x08004f9e   Section        0  board.o(i.sys_init)
+    i.sys_reset                              0x08004fac   Section        0  board.o(i.sys_reset)
+    i.sys_time_ms                            0x08004ff8   Section        0  board.o(i.sys_time_ms)
+    i.test_flash                             0x08005000   Section        0  prv_main.o(i.test_flash)
+    test_flash                               0x08005001   Thumb Code   184  prv_main.o(i.test_flash)
+    i.test_i2c                               0x08005134   Section        0  prv_main.o(i.test_i2c)
+    test_i2c                                 0x08005135   Thumb Code   128  prv_main.o(i.test_i2c)
+    i.timer_init                             0x08005224   Section        0  timer.o(i.timer_init)
+    i.timer_irq_callback                     0x08005330   Section        0  prv_main.o(i.timer_irq_callback)
+    i.timer_irq_handler                      0x08005344   Section        0  timer.o(i.timer_irq_handler)
+    i.timer_start                            0x08005384   Section        0  timer.o(i.timer_start)
+    i.timer_stop                             0x080053ec   Section        0  timer.o(i.timer_stop)
+    i.uart_init                              0x08005454   Section        0  uart.o(i.uart_init)
+    i.uart_irq_handler                       0x08005628   Section        0  uart.o(i.uart_irq_handler)
+    uart_irq_handler                         0x08005629   Thumb Code   140  uart.o(i.uart_irq_handler)
+    i.uart_receive                           0x080056c4   Section        0  uart.o(i.uart_receive)
+    i.uart_transmit                          0x08005784   Section        0  uart.o(i.uart_transmit)
+    i.vTaskSwitchContext                     0x08005810   Section        0  tasks.o(i.vTaskSwitchContext)
+    i.wdog_enable                            0x0800589c   Section        0  board.o(i.wdog_enable)
+    i.wdog_refresh                           0x080058fc   Section        0  board.o(i.wdog_refresh)
+    .constdata                               0x0800590c   Section       12  prv_main.o(.constdata)
+    .constdata                               0x08005918   Section       24  system_stm32f2xx.o(.constdata)
+    .conststring                             0x08005930   Section      436  prv_main.o(.conststring)
+    .conststring                             0x08005ae4   Section      254  flash_ctrl.o(.conststring)
     .data                                    0x20000000   Section        4  main.o(.data)
     .data                                    0x20000004   Section      160  uart.o(.data)
     g_rx_fifo_head                           0x20000004   Data           4  uart.o(.data)
@@ -2774,26 +2775,26 @@ Image Symbol Table
     i2c_master_receive                       0x08004c25   Thumb Code   102  i2c.o(i.i2c_master_receive)
     i2c_master_transmit                      0x08004cdd   Thumb Code   102  i2c.o(i.i2c_master_transmit)
     main                                     0x08004d95   Thumb Code    26  main.o(i.main)
-    prv_main                                 0x08004db5   Thumb Code   292  prv_main.o(i.prv_main)
-    pwr_mode_trans                           0x08004ee1   Thumb Code    94  board.o(i.pwr_mode_trans)
-    sys_init                                 0x08004f93   Thumb Code    14  board.o(i.sys_init)
-    sys_reset                                0x08004fa1   Thumb Code    68  board.o(i.sys_reset)
-    sys_time_ms                              0x08004fed   Thumb Code     8  board.o(i.sys_time_ms)
-    timer_init                               0x08005219   Thumb Code   190  timer.o(i.timer_init)
-    timer_irq_callback                       0x08005325   Thumb Code    14  prv_main.o(i.timer_irq_callback)
-    timer_irq_handler                        0x08005339   Thumb Code    58  timer.o(i.timer_irq_handler)
-    timer_start                              0x08005379   Thumb Code    34  timer.o(i.timer_start)
-    timer_stop                               0x080053e1   Thumb Code    34  timer.o(i.timer_stop)
-    uart_init                                0x08005449   Thumb Code   374  uart.o(i.uart_init)
-    uart_receive                             0x080056c1   Thumb Code   130  uart.o(i.uart_receive)
-    uart_transmit                            0x08005791   Thumb Code    58  uart.o(i.uart_transmit)
-    vTaskSwitchContext                       0x08005821   Thumb Code   118  tasks.o(i.vTaskSwitchContext)
-    wdog_enable                              0x080058ad   Thumb Code    84  board.o(i.wdog_enable)
-    wdog_refresh                             0x0800590d   Thumb Code    12  board.o(i.wdog_refresh)
-    AHBPrescTable                            0x08005928   Data          16  system_stm32f2xx.o(.constdata)
-    APBPrescTable                            0x08005938   Data           8  system_stm32f2xx.o(.constdata)
-    Region$$Table$$Base                      0x08005bf4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08005c14   Number         0  anon$$obj.o(Region$$Table)
+    prv_main                                 0x08004db5   Thumb Code   302  prv_main.o(i.prv_main)
+    pwr_mode_trans                           0x08004eed   Thumb Code    94  board.o(i.pwr_mode_trans)
+    sys_init                                 0x08004f9f   Thumb Code    14  board.o(i.sys_init)
+    sys_reset                                0x08004fad   Thumb Code    68  board.o(i.sys_reset)
+    sys_time_ms                              0x08004ff9   Thumb Code     8  board.o(i.sys_time_ms)
+    timer_init                               0x08005225   Thumb Code   190  timer.o(i.timer_init)
+    timer_irq_callback                       0x08005331   Thumb Code    14  prv_main.o(i.timer_irq_callback)
+    timer_irq_handler                        0x08005345   Thumb Code    58  timer.o(i.timer_irq_handler)
+    timer_start                              0x08005385   Thumb Code    34  timer.o(i.timer_start)
+    timer_stop                               0x080053ed   Thumb Code    34  timer.o(i.timer_stop)
+    uart_init                                0x08005455   Thumb Code   384  uart.o(i.uart_init)
+    uart_receive                             0x080056c5   Thumb Code   114  uart.o(i.uart_receive)
+    uart_transmit                            0x08005785   Thumb Code    56  uart.o(i.uart_transmit)
+    vTaskSwitchContext                       0x08005811   Thumb Code   118  tasks.o(i.vTaskSwitchContext)
+    wdog_enable                              0x0800589d   Thumb Code    84  board.o(i.wdog_enable)
+    wdog_refresh                             0x080058fd   Thumb Code    12  board.o(i.wdog_refresh)
+    AHBPrescTable                            0x08005918   Data          16  system_stm32f2xx.o(.constdata)
+    APBPrescTable                            0x08005928   Data           8  system_stm32f2xx.o(.constdata)
+    Region$$Table$$Base                      0x08005be4   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08005c04   Number         0  anon$$obj.o(Region$$Table)
     exit_code                                0x20000000   Data           4  main.o(.data)
     uwTick                                   0x2000021c   Data           4  stm32f2xx_hal.o(.data)
     SystemCoreClock                          0x20000220   Data           4  system_stm32f2xx.o(.data)
@@ -2810,9 +2811,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000185
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00005e74, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x00005ca0])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00005e64, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x00005c90])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00005c14, Max: 0x00080000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00005c04, Max: 0x00080000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3034,35 +3035,35 @@ Memory Map of the image
     0x08004c24   0x08004c24   0x000000b8   Code   RO          653    i.i2c_master_receive  i2c.o
     0x08004cdc   0x08004cdc   0x000000b8   Code   RO          654    i.i2c_master_transmit  i2c.o
     0x08004d94   0x08004d94   0x00000020   Code   RO            1    i.main              main.o
-    0x08004db4   0x08004db4   0x0000012c   Code   RO           20    i.prv_main          prv_main.o
-    0x08004ee0   0x08004ee0   0x00000064   Code   RO          340    i.pwr_mode_trans    board.o
-    0x08004f44   0x08004f44   0x0000004e   Code   RO          341    i.sys_clk_config    board.o
-    0x08004f92   0x08004f92   0x0000000e   Code   RO          342    i.sys_init          board.o
-    0x08004fa0   0x08004fa0   0x0000004c   Code   RO          343    i.sys_reset         board.o
-    0x08004fec   0x08004fec   0x00000008   Code   RO          344    i.sys_time_ms       board.o
-    0x08004ff4   0x08004ff4   0x00000134   Code   RO           21    i.test_flash        prv_main.o
-    0x08005128   0x08005128   0x000000f0   Code   RO           22    i.test_i2c          prv_main.o
-    0x08005218   0x08005218   0x0000010c   Code   RO          763    i.timer_init        timer.o
-    0x08005324   0x08005324   0x00000014   Code   RO           23    i.timer_irq_callback  prv_main.o
-    0x08005338   0x08005338   0x00000040   Code   RO          765    i.timer_irq_handler  timer.o
-    0x08005378   0x08005378   0x00000068   Code   RO          766    i.timer_start       timer.o
-    0x080053e0   0x080053e0   0x00000068   Code   RO          767    i.timer_stop        timer.o
-    0x08005448   0x08005448   0x000001cc   Code   RO          464    i.uart_init         uart.o
-    0x08005614   0x08005614   0x000000ac   Code   RO          465    i.uart_irq_handler  uart.o
-    0x080056c0   0x080056c0   0x000000d0   Code   RO          466    i.uart_receive      uart.o
-    0x08005790   0x08005790   0x00000090   Code   RO          467    i.uart_transmit     uart.o
-    0x08005820   0x08005820   0x0000008c   Code   RO         4851    i.vTaskSwitchContext  tasks.o
-    0x080058ac   0x080058ac   0x00000060   Code   RO          346    i.wdog_enable       board.o
-    0x0800590c   0x0800590c   0x00000010   Code   RO          347    i.wdog_refresh      board.o
-    0x0800591c   0x0800591c   0x0000000c   Data   RO           24    .constdata          prv_main.o
-    0x08005928   0x08005928   0x00000018   Data   RO         4147    .constdata          system_stm32f2xx.o
-    0x08005940   0x08005940   0x000001b4   Data   RO           25    .conststring        prv_main.o
-    0x08005af4   0x08005af4   0x000000fe   Data   RO          842    .conststring        flash_ctrl.o
-    0x08005bf2   0x08005bf2   0x00000002   PAD
-    0x08005bf4   0x08005bf4   0x00000020   Data   RO         5459    Region$$Table       anon$$obj.o
+    0x08004db4   0x08004db4   0x00000138   Code   RO           20    i.prv_main          prv_main.o
+    0x08004eec   0x08004eec   0x00000064   Code   RO          340    i.pwr_mode_trans    board.o
+    0x08004f50   0x08004f50   0x0000004e   Code   RO          341    i.sys_clk_config    board.o
+    0x08004f9e   0x08004f9e   0x0000000e   Code   RO          342    i.sys_init          board.o
+    0x08004fac   0x08004fac   0x0000004c   Code   RO          343    i.sys_reset         board.o
+    0x08004ff8   0x08004ff8   0x00000008   Code   RO          344    i.sys_time_ms       board.o
+    0x08005000   0x08005000   0x00000134   Code   RO           21    i.test_flash        prv_main.o
+    0x08005134   0x08005134   0x000000f0   Code   RO           22    i.test_i2c          prv_main.o
+    0x08005224   0x08005224   0x0000010c   Code   RO          763    i.timer_init        timer.o
+    0x08005330   0x08005330   0x00000014   Code   RO           23    i.timer_irq_callback  prv_main.o
+    0x08005344   0x08005344   0x00000040   Code   RO          765    i.timer_irq_handler  timer.o
+    0x08005384   0x08005384   0x00000068   Code   RO          766    i.timer_start       timer.o
+    0x080053ec   0x080053ec   0x00000068   Code   RO          767    i.timer_stop        timer.o
+    0x08005454   0x08005454   0x000001d4   Code   RO          464    i.uart_init         uart.o
+    0x08005628   0x08005628   0x0000009c   Code   RO          465    i.uart_irq_handler  uart.o
+    0x080056c4   0x080056c4   0x000000c0   Code   RO          466    i.uart_receive      uart.o
+    0x08005784   0x08005784   0x0000008c   Code   RO          467    i.uart_transmit     uart.o
+    0x08005810   0x08005810   0x0000008c   Code   RO         4851    i.vTaskSwitchContext  tasks.o
+    0x0800589c   0x0800589c   0x00000060   Code   RO          346    i.wdog_enable       board.o
+    0x080058fc   0x080058fc   0x00000010   Code   RO          347    i.wdog_refresh      board.o
+    0x0800590c   0x0800590c   0x0000000c   Data   RO           24    .constdata          prv_main.o
+    0x08005918   0x08005918   0x00000018   Data   RO         4147    .constdata          system_stm32f2xx.o
+    0x08005930   0x08005930   0x000001b4   Data   RO           25    .conststring        prv_main.o
+    0x08005ae4   0x08005ae4   0x000000fe   Data   RO          842    .conststring        flash_ctrl.o
+    0x08005be2   0x08005be2   0x00000002   PAD
+    0x08005be4   0x08005be4   0x00000020   Data   RO         5459    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08005c14, Size: 0x00001350, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x0000008c])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08005c04, Size: 0x00001350, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x0000008c])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -3099,7 +3100,7 @@ Image component sizes
       1468        434          0         96          0       7148   i2c.o
         32          6          0          4          0       2091   main.o
        150         12          0          0          0        668   port.o
-       868        250        448          0          0     627736   prv_main.o
+       880        252        448          0          0     627736   prv_main.o
          0          0          0          0          0       2188   rtos.o
         64         26        388          0       1536        816   startup_stm32f205xx.o
        196         20          0          4          0       5884   stm32f2xx_hal.o
@@ -3118,10 +3119,10 @@ Image component sizes
         84         16         24          4          0       1351   system_stm32f2xx.o
        140         22          0         60        200       7704   tasks.o
        550        224          0         68          0       3634   timer.o
-      1012        268          0        160       2000      17591   uart.o
+       984        262          0        160       2000      17655   uart.o
 
     ----------------------------------------------------------------------
-     21134       2482       1148        608       4236     829933   Object Totals
+     21118       2478       1148        608       4236     829997   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         18          0          2          0          0          0   (incl. Padding)
 
@@ -3184,15 +3185,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     22424       2574       1148        608       4336     822809   Grand Totals
-     22424       2574       1148        140       4336     822809   ELF Image Totals (compressed)
-     22424       2574       1148        140          0          0   ROM Totals
+     22408       2570       1148        608       4336     822873   Grand Totals
+     22408       2570       1148        140       4336     822873   ELF Image Totals (compressed)
+     22408       2570       1148        140          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                23572 (  23.02kB)
+    Total RO  Size (Code + RO Data)                23556 (  23.00kB)
     Total RW  Size (RW Data + ZI Data)              4944 (   4.83kB)
-    Total ROM Size (Code + RO Data + RW Data)      23712 (  23.16kB)
+    Total ROM Size (Code + RO Data + RW Data)      23696 (  23.14kB)
 
 ==============================================================================
 

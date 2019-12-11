@@ -71,7 +71,6 @@ static lpuart_state_t *g_state[UART1_INDEX + 1] =
 };
 
 static uint8_t  g_rx_byte[UART1_INDEX + 1];  /**< Rx byte */
-static mutex_t  g_tx_mutex[UART1_INDEX + 1]; /**< Tx mutex */
 
 /*******************************************************************************
  * Local Function prototypes
@@ -81,14 +80,18 @@ static void uart_irq_handler(void *_state, uart_event_t _event, void *_user_data
 /*******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t uart_init(const uint8_t _index)
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 {
 	assert(UART1_INDEX >= _index);
+
+	lpuart_user_config_t config;
 
 	/* Initialize ring fifo */
 	g_rx_fifo_head[_index] = 0;
 	g_rx_fifo_tail[_index] = 0;
-	OSIF_MutexCreate(&g_tx_mutex[_index]);
+#if defined USING_OS_FREERTOS
+	g_tx_mutex[_index] = xSemaphoreCreateRecursiveMutex();
+#endif
 
 	/* GPIO initialization */
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, g_comm_config[_index].gpio_af_);
@@ -96,7 +99,9 @@ int32_t uart_init(const uint8_t _index)
 	PINS_DRV_SetPullSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, PORT_INTERNAL_PULL_UP_ENABLED);
 
 	/* UART initialization */
-	LPUART_DRV_Init(g_handle[_index], g_state[_index], g_config[_index]);
+	config = *g_config[_index];
+	config.baudRate = _baudrate;
+	LPUART_DRV_Init(g_handle[_index], g_state[_index], &config);
 	LPUART_DRV_InstallRxCallback(g_handle[_index], uart_irq_handler, (void *)((uint32_t)_index));
 #if defined USING_OS_FREERTOS
 	/* The interrupt calls an interrupt safe API function - so its priority must
@@ -118,7 +123,9 @@ int32_t uart_deinit(const uint8_t _index)
 	LPUART_DRV_Deinit(g_handle[_index]);
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, PORT_PIN_DISABLED);
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].tx_pin_, PORT_PIN_DISABLED);
-	OSIF_MutexDestroy(&g_tx_mutex[_index]);
+#if defined USING_OS_FREERTOS
+	vSemaphoreDelete(g_tx_mutex[_index]);
+#endif
 
 	return 0;
 }
@@ -127,35 +134,23 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 {
 	assert(UART1_INDEX >= _index && NULL != _buf);
 
-	uint16_t size = _size;
+	uint16_t size = 0;
 
-	OSIF_MutexLock(&g_tx_mutex[_index], OSIF_WAIT_FOREVER);
-	if(STATUS_SUCCESS != LPUART_DRV_SendDataBlocking(g_handle[_index], _buf, _size, OSIF_WAIT_FOREVER))
-		size = 0;
-	OSIF_MutexUnlock(&g_tx_mutex[_index]);
-
-	return size;
-}
-
-uint16_t uart_transmit_with_header(const uint8_t _index, const uint8_t *const _buf, const uint16_t _size)
-{
-	assert(UART1_INDEX >= _index && NULL != _buf);
-
-	uint16_t size = HEADER_SIZE + _size;
-
-	OSIF_MutexLock(&g_tx_mutex[_index], OSIF_WAIT_FOREVER);
-#if defined (HEADER_FLAG) && defined (HEADER_SIZE)
-	uint8_t	header[HEADER_SIZE];
-	header[0] = HEADER_FLAG >> 8;
-	header[1] = HEADER_FLAG & 0xFF;
-	header[2] = _size;
-	header[3] = _size >> 8;
-	if(STATUS_SUCCESS != LPUART_DRV_SendDataBlocking(g_handle[_index], header, HEADER_SIZE, OSIF_WAIT_FOREVER))
-		size -= HEADER_SIZE;
+#if defined USING_OS_FREERTOS
+	xSemaphoreTakeRecursive( g_tx_mutex[_index], portMAX_DELAY);
 #endif
-	if(STATUS_SUCCESS != LPUART_DRV_SendDataBlocking(g_handle[_index], _buf, _size, OSIF_WAIT_FOREVER))
-		size -= _size;
-	OSIF_MutexUnlock(&g_tx_mutex[_index]);
+	if(STATUS_SUCCESS == LPUART_DRV_SendData(g_handle[_index], _buf, _size))
+	{
+		status_t status = STATUS_SUCCESS;
+		uint32_t bytes = 0;
+
+		while(STATUS_BUSY == (status = LPUART_DRV_GetTransmitStatus(g_handle[_index], &bytes))){}
+		if(STATUS_SUCCESS == status)
+			size = _size - bytes;
+	}
+#if defined USING_OS_FREERTOS
+	xSemaphoreGiveRecursive( g_tx_mutex[_index] );
+#endif
 
 	return size;
 }
@@ -182,8 +177,8 @@ static void uart_irq_handler(void *_state, uart_event_t _event, void *_user_data
 		if(g_rx_fifo_head[index] != (g_rx_fifo_tail[index] + 1) % UART_FIFO_MAX_SIZE)
 		{
 			/* Push rx fifo */
-			g_rx_fifo[index][g_rx_fifo_tail[index]++] = g_rx_byte[index];
-			g_rx_fifo_tail[index] = g_rx_fifo_tail[index] % UART_FIFO_MAX_SIZE;
+			g_rx_fifo[index][g_rx_fifo_tail[index]] = g_rx_byte[index];
+			g_rx_fifo_tail[index] = (g_rx_fifo_tail[index] + 1) % UART_FIFO_MAX_SIZE;
 		}
 
 		/* Update rx buffer and trigger next receive */

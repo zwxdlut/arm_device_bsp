@@ -33,7 +33,7 @@ static USART_TypeDef *g_handle[UART1_INDEX + 1] = {UART0_INST, UART1_INST};
 /*******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t uart_init(const uint8_t _index)
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 {
 	assert(UART1_INDEX >= _index);
 	
@@ -59,7 +59,7 @@ int32_t uart_init(const uint8_t _index)
 	
 	/* UART initialization */
 	UART_CLK_ENABLE(_index);
-	USART_InitStructure.USART_BaudRate            = 115200;
+	USART_InitStructure.USART_BaudRate            = _baudrate;
 	USART_InitStructure.USART_WordLength          = USART_WordLength_8b;
 	USART_InitStructure.USART_StopBits            = USART_StopBits_1;
 	USART_InitStructure.USART_Parity              = USART_Parity_No;
@@ -116,8 +116,6 @@ int32_t uart_deinit(const uint8_t _index)
 uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const uint16_t _size)
 {
 	assert(UART1_INDEX >= _index && NULL != _buf);
-
-	uint16_t size = _size;
 	
 #if defined USING_OS_FREERTOS
 	xSemaphoreTakeRecursive( g_tx_mutex[_index], portMAX_DELAY);
@@ -132,7 +130,7 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 	xSemaphoreGiveRecursive( g_tx_mutex[_index] );
 #endif
 
-	return size;
+	return _size;
 }
 
 /*******************************************************************************
@@ -153,8 +151,8 @@ static void uart_irq_handler(const uint8_t _index)
 		if(g_rx_fifo_head[_index] != (g_rx_fifo_tail[_index] + 1) % UART_FIFO_MAX_SIZE)
 		{
 			/* Push rx fifo */
-			g_rx_fifo[_index][g_rx_fifo_tail[_index]++] = USART_ReceiveData(g_handle[_index]);
-			g_rx_fifo_tail[_index] = g_rx_fifo_tail[_index] % UART_FIFO_MAX_SIZE;
+			g_rx_fifo[_index][g_rx_fifo_tail[_index]] = USART_ReceiveData(g_handle[_index]);
+			g_rx_fifo_tail[_index] = (g_rx_fifo_tail[_index] + 1) % UART_FIFO_MAX_SIZE;
 		}		
     }
 }

@@ -48,8 +48,8 @@ void rtos_start( void )
 {	
 	sys_init();
 	gpio_init();
-	uart_init(UART0_INDEX);
-	uart_init(UART1_INDEX);
+	uart_init(UART0_INDEX, 115200);
+	uart_init(UART1_INDEX, 115200);
 	can_init(CAN0_INDEX, NULL, 0);
 	can_init(CAN1_INDEX, NULL, 0);	
 	

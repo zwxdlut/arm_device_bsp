@@ -58,7 +58,7 @@ static UART_HandleTypeDef g_handle[UART1_INDEX + 1] =
 /*******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t uart_init(const uint8_t _index)
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 {
 	assert(UART1_INDEX >= _index);
 	
@@ -84,6 +84,7 @@ int32_t uart_init(const uint8_t _index)
 	
 	/* UART initialization */
 	UART_CLK_ENABLE(_index);
+	g_handle[_index].Init.BaudRate = _baudrate;
 	HAL_UART_Init(&g_handle[_index]);
 	LL_USART_EnableIT_RXNE(g_handle[_index].Instance);
 	LL_USART_EnableIT_ERROR(g_handle[_index].Instance);
@@ -124,13 +125,13 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 {
 	assert(UART1_INDEX >= _index && NULL != _buf);
 
-	uint16_t size = _size;
+	uint16_t size = 0;
 	
 #if defined USING_OS_FREERTOS
 	xSemaphoreTakeRecursive( g_tx_mutex[_index], portMAX_DELAY);
 #endif
-	if(HAL_OK != HAL_UART_Transmit(&g_handle[_index], (uint8_t*)_buf, _size, HAL_MAX_DELAY))
-		size = 0;
+	if(HAL_OK == HAL_UART_Transmit(&g_handle[_index], (uint8_t*)_buf, _size, HAL_MAX_DELAY))
+		size = _size;
 #if defined USING_OS_FREERTOS
 	xSemaphoreGiveRecursive( g_tx_mutex[_index] );
 #endif
@@ -157,8 +158,8 @@ static void uart_irq_handler(const uint8_t _index)
 		{
 			/* Push rx fifo */
 
-			g_rx_fifo[_index][g_rx_fifo_tail[_index]++] = LL_USART_ReceiveData8(g_handle[_index].Instance);
-			g_rx_fifo_tail[_index] = g_rx_fifo_tail[_index] % UART_FIFO_MAX_SIZE;
+			g_rx_fifo[_index][g_rx_fifo_tail[_index]] = LL_USART_ReceiveData8(g_handle[_index].Instance);
+			g_rx_fifo_tail[_index] = (g_rx_fifo_tail[_index] + 1) % UART_FIFO_MAX_SIZE;
 		}		
     }
 }

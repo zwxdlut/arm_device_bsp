@@ -236,7 +236,6 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 	FLEXCAN_DRV_ConfigTxMb(g_handle[_index], g_tx_mailbox[_index], &dataInfo, _id);
 
 	OSIF_MutexLock(&g_tx_mutex[_index], OSIF_WAIT_FOREVER);
-	/* Execute send non-blocking */
 	if(STATUS_SUCCESS == FLEXCAN_DRV_Send(g_handle[_index], g_tx_mailbox[_index], &dataInfo, _id, _buf))
 	{
 		status_t status = STATUS_SUCCESS;

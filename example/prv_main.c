@@ -43,11 +43,11 @@ void prv_main(void)
 #if defined MX_TB
 	test_i2c();
 #endif
-	uart_init(UART0_INDEX);
-	uart_init(UART1_INDEX);
+	uart_init(UART0_INDEX, 115200);
+	uart_init(UART1_INDEX, 115200);
 	can_init(CAN0_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
 	can_init(CAN1_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
-	timer_init(TIMER0_INDEX, 10);
+	timer_init(TIMER0_INDEX, 500);
 	timer_start(TIMER0_INDEX);
 	wdog_enable();
 	

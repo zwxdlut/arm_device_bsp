@@ -70,10 +70,11 @@ extern "C" {
 /**
  * @brief  Initialize UART.
  *
- * @param  [in] _index UART index.
+ * @param  [in] _index    UART index.
+ * @param  [in] _baudrate UART baud rate.
  * @return Success(0) or failure(other values).
  */
-int32_t uart_init(const uint8_t _index);
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate);
 
 /**
  * @brief  De-initialize UART.
