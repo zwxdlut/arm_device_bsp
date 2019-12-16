@@ -103,12 +103,12 @@ void gpio_deinit(void)
 	BTN_GPIO_CLK_DISABLE();
 }
 
-uint32_t sys_time_ms(void)
+uint32_t sys_time(void)
 {
 	return HAL_GetTick();
 }
 
-void delay_ms(const uint32_t _ms)
+void delay(const uint32_t _ms)
 {
 	HAL_Delay(_ms);
 }

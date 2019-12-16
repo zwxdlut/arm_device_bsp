@@ -95,6 +95,16 @@ int32_t uart_deinit(const uint8_t _index);
 uint16_t uart_receive(const uint8_t _index, uint8_t *const _buf, const uint16_t _size);
 
 /**
+ * @brief  Receive UART data with header(0xAA55) in poll mode.
+ *
+ * @param  [in]  _index UART index.
+ * @param  [out] _buf   Receive buffer.
+ * @param  [in]  _size  Receive size.
+ * @return Received size without header.
+ */
+uint16_t uart_receive_with_header_poll( const uint8_t _index, uint8_t *const _buf, const uint16_t _size);
+
+/**
  * @brief  Transmit UART data.
  *
  * @param  [in] _index UART index.
@@ -113,6 +123,23 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
  * @return Transmitted size.
  */
 uint16_t uart_transmit_with_header(const uint8_t _index, const uint8_t *const _buf, const uint16_t _size);
+
+/**
+ * @brief Print debug information.
+ *
+ * @param [in] _info Information string.
+ */
+void debug(const char* _info, ...);
+
+/**
+ * @brief Print buffer.
+ *
+ * @param [in] _prefix Prefix information.
+ * @param [in] _id     ID.
+ * @param [in] _buf    Print buffer.
+ * @param [in] _size   Print size.
+ */
+void print_buf(const char *_prefix, const uint32_t _id, const uint8_t *_buf, const uint16_t _size);
 
 #ifdef __cplusplus
 }

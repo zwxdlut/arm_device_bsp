@@ -92,12 +92,12 @@ void gpio_deinit(void)
 	PINS_DRV_SetMuxModeSel(BTN_PORT, BTN_PIN, PORT_PIN_DISABLED);
 }
 
-uint32_t sys_time_ms(void)
+uint32_t sys_time(void)
 {
 	return OSIF_GetMilliseconds();
 }
 
-void delay_ms(const uint32_t _ms)
+void delay(const uint32_t _ms)
 {
 	OSIF_TimeDelay(_ms);
 }

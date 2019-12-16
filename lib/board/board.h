@@ -70,14 +70,14 @@ void gpio_deinit(void);
  *
  * @return Time in milliseconds.
  */
-uint32_t sys_time_ms(void);
+uint32_t sys_time(void);
 
 /**
  * @brief Delay milliseconds function.
  *
  * @param [in] _ms Time in milliseconds.
  */
-void delay_ms(const uint32_t _ms);
+void delay(const uint32_t _ms);
 
 /**
  * @brief Reset system.

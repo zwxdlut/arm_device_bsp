@@ -35,7 +35,7 @@ void prv_main(void)
 	uint16_t size = 0;
 	uint32_t id = 0;
 	uint32_t run_time = 0;
-	uint32_t filter_id_list[] = {0x328, 0x424, 0x3B0};
+	uint32_t filter_id_list[] = {0x328, 0x118, 0x3B0};
 	
 	sys_init();
 	gpio_init();
@@ -55,10 +55,10 @@ void prv_main(void)
 	{
 		wdog_refresh();
 		
-		delay_ms(20);
+		delay(20);
 		GPIO_TOGGLE_PIN(LED0_GPIO, LED0_PIN);
 #if defined TEST_LOW_PWR_MODE
-		if(RUN_TIME_THRESHOLD <= sys_time_ms() - run_time)
+		if(RUN_TIME_THRESHOLD <= sys_time() - run_time)
 		{
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_ON);
 			GPIO_WRITE_PIN(LED1_GPIO, LED1_PIN, LED_OFF);
@@ -68,7 +68,7 @@ void prv_main(void)
 			pwr_mode_trans(PWR_MODE_DEEPSLEEP);
 			can_pwr_mode_trans(CAN0_INDEX, CAN_PWR_MODE_RUN);
 			can_pwr_mode_trans(CAN1_INDEX, CAN_PWR_MODE_RUN);
-			run_time = sys_time_ms();
+			run_time = sys_time();
 			timer_start(TIMER0_INDEX);
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_OFF);
 			wdog_refresh();
@@ -83,7 +83,7 @@ void prv_main(void)
 		{
 			if(0 != (size = can_receive(i, &id, buf, sizeof(buf))))
 			{
-				run_time = sys_time_ms();
+				run_time = sys_time();
 				can_transmit(i, id, buf, size);
 			}
 		}
@@ -142,7 +142,7 @@ static void test_i2c(void)
 	
 	/* Write then read EEPROM and verify */
 	assert(0 == eeprom_write(EEPROM_RESET_TYPE_ADDR, &temp1, EEPROM_RESET_TYPE_SIZE));
-	delay_ms(10);
+	delay(10);
 	assert(0 == eeprom_read(EEPROM_RESET_TYPE_ADDR, &temp2, EEPROM_RESET_TYPE_SIZE));
 	assert(temp1 == temp2);
 	
