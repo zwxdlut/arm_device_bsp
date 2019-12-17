@@ -110,7 +110,7 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 		INT_SYS_SetPriority( g_comm_config[_index].irqs_[i], configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY);
 #endif
 
-    /* Trigger receiving*/
+    /* Trigger receiving */
 	LPUART_DRV_ReceiveData( g_handle[_index], g_rx_byte + _index, 1);
 
 	return 0;

@@ -130,7 +130,7 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 #if defined USING_OS_FREERTOS
 	xSemaphoreTakeRecursive( g_tx_mutex[_index], portMAX_DELAY);
 #endif
-	if(HAL_OK == HAL_UART_Transmit(&g_handle[_index], (uint8_t*)_buf, _size, HAL_MAX_DELAY))
+	if(HAL_OK == HAL_UART_Transmit(&g_handle[_index], (uint8_t*)_buf, _size, 1000))
 		size = _size;
 #if defined USING_OS_FREERTOS
 	xSemaphoreGiveRecursive( g_tx_mutex[_index] );
@@ -157,7 +157,6 @@ static void uart_irq_handler(const uint8_t _index)
 		if(g_rx_fifo_head[_index] != (g_rx_fifo_tail[_index] + 1) % UART_FIFO_MAX_SIZE)
 		{
 			/* Push rx fifo */
-
 			g_rx_fifo[_index][g_rx_fifo_tail[_index]] = LL_USART_ReceiveData8(g_handle[_index].Instance);
 			g_rx_fifo_tail[_index] = (g_rx_fifo_tail[_index] + 1) % UART_FIFO_MAX_SIZE;
 		}		

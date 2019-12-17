@@ -153,12 +153,22 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>hcan</ItemText>
+          <ItemText>g_rx_fifo_tail</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>SystemCoreClock,0x0A</ItemText>
+          <ItemText>g_rx_fifo_head</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>g_rx_byte</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>huart</ItemText>
         </Ww>
       </WatchWindow1>
       <ScvdPack>
@@ -224,6 +234,10 @@
         <Entry>
           <Name>System Viewer\I2C1</Name>
           <WinId>35902</WinId>
+        </Entry>
+        <Entry>
+          <Name>System Viewer\USART1</Name>
+          <WinId>35900</WinId>
         </Entry>
         <Entry>
           <Name>System Viewer\USART2</Name>

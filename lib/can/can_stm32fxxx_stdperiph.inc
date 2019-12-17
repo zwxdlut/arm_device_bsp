@@ -220,7 +220,7 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 	{
 		CAN_CancelTransmit(g_handle[_index], mailbox);
 		size = 0;
-	}f
+	}
 #if defined USING_OS_FREERTOS
 	xSemaphoreGive( g_tx_mutex[_index] );
 #endif

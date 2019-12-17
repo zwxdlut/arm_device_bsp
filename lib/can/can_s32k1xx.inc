@@ -214,7 +214,7 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 {
 	assert(CAN1_INDEX >= _index && NULL != _buf);
 
-	uint8_t size = _size;
+	uint8_t size = 0;
 
     /* Set information about the data to be sent:
        - 1 byte in length
@@ -241,11 +241,9 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 		status_t status = STATUS_SUCCESS;
 
 		while(STATUS_BUSY == (status = FLEXCAN_DRV_GetTransferStatus(g_handle[_index], g_tx_mailbox[_index]))){}
-		if(STATUS_SUCCESS != status)
-			size = 0;
+		if(STATUS_SUCCESS == status)
+			size = _size;
 	}
-	else
-		size = 0;
 	OSIF_MutexUnlock(&g_tx_mutex[_index]);
 
 	return size;

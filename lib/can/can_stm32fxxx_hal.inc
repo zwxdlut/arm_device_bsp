@@ -235,7 +235,7 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 {
 	assert(CAN1_INDEX >= _index && NULL != _buf);
 
-	uint16_t size = _size;
+	uint16_t size = 0;
 
 #if defined USING_OS_FREERTOS
 	xSemaphoreTake( g_tx_mutex[_index], portMAX_DELAY);
@@ -246,8 +246,8 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 	g_handle[_index].pTxMsg->RTR   = CAN_RTR_DATA;
 	g_handle[_index].pTxMsg->DLC   = _size >= 8 ? 8 : _size;
 	memcpy(g_handle[_index].pTxMsg->Data, _buf, g_handle[_index].pTxMsg->DLC);
-	if(HAL_OK != HAL_CAN_Transmit(&g_handle[_index], 0))
-		size = 0; 
+	if(HAL_OK == HAL_CAN_Transmit(&g_handle[_index], 0))
+		size = _size; 
 #if defined USING_OS_FREERTOS
 	xSemaphoreGive( g_tx_mutex[_index] );
 #endif
