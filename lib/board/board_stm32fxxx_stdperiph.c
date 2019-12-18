@@ -1,3 +1,18 @@
+/*
+ * board_stm32fxxx_stdperiph.c
+ *
+ *  Created on: 2018Äê8ÔÂ21ÈÕ
+ *      Author: Administrator
+ */
+
+#include "board.h"
+
+#if defined USING_OS_FREERTOS
+#include "FreeRTOS.h"
+#include "task.h"
+extern void xPortSysTickHandler(void);
+#endif
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/

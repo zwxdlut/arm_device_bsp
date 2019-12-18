@@ -1,5 +1,5 @@
 /*
- * uart.c
+ * uart.inc
  *
  *  Created on: 2018��10��16��
  *      Author: Administrator
@@ -20,29 +20,8 @@
 static SemaphoreHandle_t g_tx_mutex[UART1_INDEX + 1] = {NULL, NULL}; /* Tx mutex*/
 #endif
 
-/*******************************************************************************
- * Definitions
- ******************************************************************************/
-static uint8_t  g_rx_fifo[UART1_INDEX + 1][UART_FIFO_MAX_SIZE]; /**< Ring fifo */
-static uint16_t g_rx_fifo_head[UART1_INDEX + 1];                /**< Ring fifo head */
-static uint16_t g_rx_fifo_tail[UART1_INDEX + 1];                /**< Ring fifo tail */
-
-/*******************************************************************************
- * Local Function prototypes
- ******************************************************************************/
-#if defined S32K14x
-#include "uart_s32k1xx.inc"
-#elif defined STM32F10X_CL || defined STM32F205xx
-
+#if defined STM32F10X_CL || defined STM32F205xx
 static void uart_irq_handler(const uint8_t _index);
-
-#if defined USE_STDPERIPH_DRIVER
-#include "uart_stm32fxxx_stdperiph.inc"
-#elif defined USE_HAL_DRIVER
-#include "uart_stm32fxxx_hal.inc"
-#else
-#error SDK type not defined!!!
-#endif
 
 /**
  * @defgroup IRQ handlers.
@@ -64,10 +43,18 @@ void UART1_IRQ_HANDLER(void)
 	uart_irq_handler(UART1_INDEX);
 }
 /** @} */ /* End of group IRQ handlers. */
-#else
-#error Mcu type not defined!!!
 #endif
 
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
+static uint8_t  g_rx_fifo[UART1_INDEX + 1][UART_FIFO_MAX_SIZE]; /**< Ring fifo */
+static uint16_t g_rx_fifo_head[UART1_INDEX + 1];                /**< Ring fifo head */
+static uint16_t g_rx_fifo_tail[UART1_INDEX + 1];                /**< Ring fifo tail */
+
+/*******************************************************************************
+ * Local Function prototypes
+ ******************************************************************************/
 /*******************************************************************************
  * Functions
  ******************************************************************************/

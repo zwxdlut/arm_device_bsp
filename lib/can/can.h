@@ -17,7 +17,6 @@
 #include "stm32f10x.h"
 #elif defined STM32F205xx
 #include "stm32f2xx.h"
-#else
 #endif
 #if defined USE_STDPERIPH_DRIVER
 #include "can_stm32fxxx_stdperiph.h"
@@ -26,6 +25,7 @@
 #else
 #error SDK type not defined!!!
 #endif
+#define CAN_SLAVE_START_FILTER_BANK_NUM         21 /**< Slave CAN start filter bank number */
 #else
 #error Mcu type not defined!!!
 #endif
@@ -45,8 +45,6 @@ extern "C" {
 #define CAN1_INDEX                              1
 /** @} */ /* End of group CAN module index. */
 
-#define CAN_FIFO_MAX_SIZE                       10 /**< CAN frame fifo max size */
-
 /**
  * @defgroup CAN power modes.
  * @{
@@ -55,7 +53,7 @@ extern "C" {
 #define CAN_PWR_MODE_RUN                        1
 /** @} */ /* End of group CAN power modes. */
 
-#define CAN_SLAVE_START_FILTER_BANK_NUM         21 /**< Slave CAN start filter bank number */	
+#define CAN_FIFO_MAX_SIZE                       10 /**< CAN frame fifo max size */
 
 /*******************************************************************************
  * Function prototypes

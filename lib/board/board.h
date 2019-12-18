@@ -17,7 +17,6 @@
 #include "stm32f10x.h"
 #elif defined STM32F205xx
 #include "stm32f2xx.h"
-#else
 #endif
 #if defined USE_STDPERIPH_DRIVER
 #include "board_stm32fxxx_stdperiph.h"

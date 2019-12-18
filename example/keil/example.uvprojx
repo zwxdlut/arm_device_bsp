@@ -402,9 +402,9 @@
           <GroupName>board</GroupName>
           <Files>
             <File>
-              <FileName>board.c</FileName>
+              <FileName>board_stm32fxxx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\lib\board\board.c</FilePath>
+              <FilePath>..\..\lib\board\board_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -412,9 +412,9 @@
           <GroupName>uart</GroupName>
           <Files>
             <File>
-              <FileName>uart.c</FileName>
+              <FileName>uart_stm32fxxx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\lib\uart\uart.c</FilePath>
+              <FilePath>..\..\lib\uart\uart_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -422,9 +422,9 @@
           <GroupName>can</GroupName>
           <Files>
             <File>
-              <FileName>can.c</FileName>
+              <FileName>can_stm32fxxx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\lib\can\can.c</FilePath>
+              <FilePath>..\..\lib\can\can_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -432,9 +432,9 @@
           <GroupName>i2c</GroupName>
           <Files>
             <File>
-              <FileName>i2c.c</FileName>
+              <FileName>i2c_stm32fxxx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\lib\i2c\i2c.c</FilePath>
+              <FilePath>..\..\lib\i2c\i2c_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -442,9 +442,9 @@
           <GroupName>timer</GroupName>
           <Files>
             <File>
-              <FileName>timer.c</FileName>
+              <FileName>timer_stm32fxxx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\lib\timer\timer.c</FilePath>
+              <FilePath>..\..\lib\timer\timer_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -452,9 +452,9 @@
           <GroupName>flash_ctrl</GroupName>
           <Files>
             <File>
-              <FileName>flash_ctrl.c</FileName>
+              <FileName>flash_ctrl_stm32fxxx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\lib\flash_ctrl\flash_ctrl.c</FilePath>
+              <FilePath>..\..\lib\flash_ctrl\flash_ctrl_stm32fxxx.c</FilePath>
             </File>
           </Files>
         </Group>

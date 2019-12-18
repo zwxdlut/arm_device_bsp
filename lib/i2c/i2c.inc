@@ -1,5 +1,5 @@
 /*
- * i2c.c
+ * i2c.inc
  *
  *  Created on: 2019Äê1ÔÂ9ÈÕ
  *      Author: Administrator
@@ -23,19 +23,6 @@ static SemaphoreHandle_t g_mutex[I2C0_INDEX + 1] = {NULL};
  * Local Function prototypes
  ******************************************************************************/
 static int32_t i2c_master_read(const uint16_t _dev_addr, const uint8_t _mem__addr, uint8_t *const _buf, const uint16_t _size);
-
-#if defined S32K14x
-#include "i2c_s32k1xx.inc"
-#elif defined STM32F10X_CL || defined STM32F205xx
-#if defined USE_STDPERIPH_DRIVER
-#elif defined USE_HAL_DRIVER
-#include "i2c_stm32fxxx_hal.inc"
-#else
-#error SDK type not defined!!!
-#endif
-#else
-#error Mcu type not defined!!!
-#endif
 
 /******************************************************************************
  * Functions

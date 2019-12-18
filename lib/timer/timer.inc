@@ -1,5 +1,5 @@
 /*
- * timer.c
+ * timer.inc
  *
  *  Created on: 2018Äê10ÔÂ23ÈÕ
  *      Author: Administrator
@@ -9,15 +9,7 @@
 
 #include "timer.h"
 
-/******************************************************************************
- * Definitions
- ******************************************************************************/
-/******************************************************************************
- * Local Function prototypes
- ******************************************************************************/
-#if defined S32K14x
-#include "timer_s32k1xx.inc"
-#elif defined STM32F10X_CL || defined STM32F205xx
+#if defined STM32F10X_CL || defined STM32F205xx
 typedef struct
 { 
 	uint16_t  clk_;
@@ -34,14 +26,6 @@ static timer_confg_t g_timer_config[TIMER0_INDEX + 1] =
 
 void timer_irq_handler(const uint8_t _index);
 
-#if defined USE_STDPERIPH_DRIVER
-#include "timer_stm32fxxx_stdperiph.inc"
-#elif defined USE_HAL_DRIVER
-#include "timer_stm32fxxx_hal.inc"
-#else
-#error SDK type not defined!!!
-#endif
-
 /**
  * @defgroup IRQ handlers.
  * @{
@@ -54,11 +38,14 @@ void TIMER0_IRQ_HANDLER(void)
 	timer_irq_handler(TIMER0_INDEX);
 }
 /** @} */ /* End of group IRQ handlers. */
-
-#else
-#error Mcu type not defined!!!
 #endif
 
+/******************************************************************************
+ * Definitions
+ ******************************************************************************/
+/******************************************************************************
+ * Local Function prototypes
+ ******************************************************************************/
 /******************************************************************************
  * Functions
  ******************************************************************************/

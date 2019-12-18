@@ -13,7 +13,7 @@
  ******************************************************************************/
 #define TEST_LOW_PWR_MODE
 #define RUN_TIME_THRESHOLD                      5000
-#define FLASH_USER_START_ADDR   	            (FLASH_BASE_ADDR + 0x10000)
+#define FLASH_USER_START_ADDR   	            (FLASH_BASE_ADDR + 0x20000)
 #if defined FLASH_SECTOR_SIZE
 #define FLASH_ERASE_SIZE                        FLASH_SECTOR_SIZE
 #else

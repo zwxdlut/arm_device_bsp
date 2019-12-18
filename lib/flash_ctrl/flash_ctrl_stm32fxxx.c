@@ -1,3 +1,14 @@
+/*
+ * flash_ctrl_stm32fxxx.c
+ *
+ *  Created on: 2018Äê10ÔÂ17ÈÕ
+ *      Author: Administrator
+ */
+
+#include <assert.h>
+
+#include "flash_ctrl.h"
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -5,8 +16,10 @@
  * Local Function prototypes
  ******************************************************************************/
 static uint32_t get_sector(uint32_t _addr);
+#if defined USE_STDPERIPH_DRIVER
 static uint32_t get_sector_addr(const uint32_t _sector);
 static uint32_t get_sector_size(const uint32_t _sector);
+#endif
 
 /*******************************************************************************
  * Functions
@@ -50,8 +63,6 @@ int32_t flash_ctrl_erase_sector(const uint32_t _addr, const uint32_t _size)
 	HAL_FLASH_Unlock();
 	ret = HAL_FLASHEx_Erase(&EraseInitStruct, &SECTORError);
 	HAL_FLASH_Lock();
-#else
-#error Please define SDK type(USE_STDPERIPH_DRIVER or USE_HAL_DRIVER)!!!
 #endif
 
     return ret;
@@ -103,8 +114,6 @@ bool flash_ctrl_is_sector_aligned(const uint32_t _addr)
 		return true;
 	else
 		return false;
-#else
-#error Mcu type not defined!!!
 #endif	
 }
 
@@ -156,8 +165,6 @@ int32_t flash_ctrl_program(const uint32_t _addr, const uint32_t _size, const uin
 		}
 	}
 	HAL_FLASH_Lock();
-#else
-#error Please define SDK type(USE_STDPERIPH_DRIVER or USE_HAL_DRIVER)!!!
 #endif
 
     return ret;
@@ -266,13 +273,12 @@ static uint32_t get_sector(const uint32_t _addr)
 	{
 		sector = FLASH_SECTOR_11;
 	}
-#else
-#error Mcu type not defined!!!
 #endif
 	
 	return sector;
 }
 
+#if defined USE_STDPERIPH_DRIVER
 /**
  * @brief  Get the sector address of a given sector.
  *
@@ -329,8 +335,6 @@ static uint32_t get_sector_addr(const uint32_t _sector)
 	default:
 		break;
 	}
-#else
-#error Mcu type not defined!!!
 #endif
 	
 	return addr;
@@ -357,9 +361,8 @@ static uint32_t get_sector_size(const uint32_t _sector)
 		size = 64 * 1024;
 	else /* FLASH_SECTOR_5 <= _sector && FLASH_SECTOR_11 >= _sector */
 		size = 128 * 1024;
-#else
-#error Mcu type not defined!!!
 #endif
 	
 	return size;
 }
+#endif
