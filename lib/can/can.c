@@ -1,23 +1,18 @@
 /*
- * can.inc
+ * can.c
  *
  *  Created on: 2018Äê8ÔÂ21ÈÕ
  *      Author: Administrator
  */
 
-#include <string.h>
-#include <assert.h>
-
 #include "can.h"
 
 #if defined STM32F10X_CL || defined STM32F205xx
 #if defined USING_OS_FREERTOS
-#include "FreeRTOS.h"
-#include "semphr.h"
-static SemaphoreHandle_t g_tx_mutex[CAN1_INDEX + 1] = {NULL, NULL}; /**< Tx mutex */
+SemaphoreHandle_t g_can_tx_mutex[CAN1_INDEX + 1];  /**< Tx mutex */
 #endif
 
-static void can_irq_handler(const uint8_t _index);
+extern void can_irq_handler(const uint8_t _index);
 
 /**
  * @defgroup IRQ handlers.
@@ -44,16 +39,9 @@ void CAN1_RX_IRQ_HANDLER(void)
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-typedef struct
-{
-	uint32_t id_;
-	uint8_t  dlc_;
-	uint8_t  data_[8];
-}can_msg_t;
-
-static can_msg_t g_rx_fifo[CAN1_INDEX + 1][CAN_FIFO_MAX_SIZE]; /**< Rx ring fifo */
-static uint8_t   g_rx_fifo_head[CAN1_INDEX + 1];               /**< Rx fifo head */
-static uint8_t   g_rx_fifo_tail[CAN1_INDEX + 1];               /**< Rx fifo tail */
+can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_RX_QUEUE_MAX_SIZE]; /**< Rx ring queue */
+uint8_t   g_can_rx_queue_head[CAN1_INDEX + 1];                   /**< Rx queue head */
+uint8_t   g_can_rx_queue_tail[CAN1_INDEX + 1];                   /**< Rx queue tail */
 
 /******************************************************************************
  * Local Function prototypes
@@ -67,14 +55,14 @@ uint8_t can_receive(const uint8_t _index, uint32_t *const _id, uint8_t *const _b
 
 	uint8_t size = 0;
 
-	/* Rx fifo is not empty */
-	if(g_rx_fifo_head[_index] != g_rx_fifo_tail[_index])
+	/* Rx queue is not empty */
+	if(g_can_rx_queue_head[_index] != g_can_rx_queue_tail[_index])
 	{
-		/* Pop rx fifo */
-		*_id = g_rx_fifo[_index][g_rx_fifo_head[_index]].id_;
-		size = _size > g_rx_fifo[_index][g_rx_fifo_head[_index]].dlc_ ? g_rx_fifo[_index][g_rx_fifo_head[_index]].dlc_ : _size;
-		memcpy(_buf, g_rx_fifo[_index][g_rx_fifo_head[_index]].data_, size);
-		g_rx_fifo_head[_index] = (g_rx_fifo_head[_index] + 1) % CAN_FIFO_MAX_SIZE;
+		/* Pop rx queue */
+		*_id = g_can_rx_queue[_index][g_can_rx_queue_head[_index]].id_;
+		size = _size > g_can_rx_queue[_index][g_can_rx_queue_head[_index]].dlc_ ? g_can_rx_queue[_index][g_can_rx_queue_head[_index]].dlc_ : _size;
+		memcpy(_buf, g_can_rx_queue[_index][g_can_rx_queue_head[_index]].data_, size);
+		g_can_rx_queue_head[_index] = (g_can_rx_queue_head[_index] + 1) % CAN_RX_QUEUE_MAX_SIZE;
 	}
 
 	return size;

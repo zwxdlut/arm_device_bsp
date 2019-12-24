@@ -9,6 +9,7 @@
 #define __TIMER_H__
 
 #include <stdint.h>
+#include <assert.h>
 
 /******************************************************************************
  * Definitions
@@ -43,6 +44,15 @@
 #else
 #error Please define SDK type(USE_STDPERIPH_DRIVER or USE_HAL_DRIVER)!!!
 #endif
+/**
+ * @brief Timer config.
+ * @{
+ */
+typedef struct
+{ 
+	uint16_t  clk_;
+	IRQn_Type irq_;
+}timer_confg_t;																	  
 #else
 #error Mcu type not defined!!!
 #endif

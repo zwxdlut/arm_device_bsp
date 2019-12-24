@@ -1,22 +1,14 @@
 /*
- * timer.inc
+ * timer.c
  *
  *  Created on: 2018Äê10ÔÂ23ÈÕ
  *      Author: Administrator
  */
 
-#include <assert.h>
-
 #include "timer.h"
 
 #if defined STM32F10X_CL || defined STM32F205xx
-typedef struct
-{ 
-	uint16_t  clk_;
-	IRQn_Type irq_;
-}timer_confg_t;
-
-static timer_confg_t g_timer_config[TIMER0_INDEX + 1] =
+timer_confg_t g_timer_config[TIMER0_INDEX + 1] =
 {
 	{
 		.clk_  = TIMER0_CLK,
@@ -24,7 +16,7 @@ static timer_confg_t g_timer_config[TIMER0_INDEX + 1] =
 	}
 };
 
-void timer_irq_handler(const uint8_t _index);
+extern void timer_irq_handler(const uint8_t _index);
 
 /**
  * @defgroup IRQ handlers.

@@ -5,7 +5,7 @@
  *      Author: Administrator
  */
 
-#include "timer.inc"
+#include "timer.h"
 
 /******************************************************************************
  * Definitions

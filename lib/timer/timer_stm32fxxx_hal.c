@@ -5,11 +5,13 @@
  *      Author: Administrator
  */
 
-#include "timer.inc"
+#include "timer.h"
 
 /******************************************************************************
  * Definitions
  ******************************************************************************/
+extern timer_confg_t g_timer_config[TIMER0_INDEX + 1];
+ 
 static TIM_HandleTypeDef g_handle[TIMER0_INDEX + 1] = 
 {
 	{
@@ -75,9 +77,6 @@ int32_t timer_stop(const uint8_t _index)
 	return 0;
 }
 
-/******************************************************************************
- * Local Functions
- ******************************************************************************/
 /**
  * @brief Timer IRQ handler.
  *
@@ -92,3 +91,7 @@ void timer_irq_handler(const uint8_t _index)
 		timer_irq_callback(_index);	
 	}
 }
+
+/******************************************************************************
+ * Local Functions
+ ******************************************************************************/

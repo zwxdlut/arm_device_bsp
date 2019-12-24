@@ -9,6 +9,11 @@
 #define __UART_H__
 
 #include <stdint.h>
+#include <string.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <assert.h>
 
 #if defined S32K14x
 #include "uart_s32k1xx.h"
@@ -31,6 +36,12 @@
 #error Mcu type not defined!!!
 #endif
 
+#if defined USING_OS_FREERTOS
+#include "FreeRTOS.h"
+#include "semphr.h"
+#include "task.h"
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -46,7 +57,7 @@ extern "C" {
 #define UART1_INDEX       		                1
 /** @} */ /* End of group UART module index. */
 
-#define UART_FIFO_MAX_SIZE                      1000 /**< Ring fifo max size. */
+#define UART_RX_QUEUE_MAX_SIZE                  1000 /**< UART rx queue max size. */
 
 /**
  * @defgroup UART header define.

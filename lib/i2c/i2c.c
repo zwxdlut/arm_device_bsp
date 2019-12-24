@@ -1,26 +1,19 @@
 /*
- * i2c.inc
+ * i2c.c
  *
  *  Created on: 2019Äê1ÔÂ9ÈÕ
  *      Author: Administrator
  */
 
-#include <string.h>
-#include <assert.h>
-#include <stdio.h>
-
 #include "i2c.h"
-#include "board/board.h"
-
-#if defined USING_OS_FREERTOS
-#include "FreeRTOS.h"
-#include "semphr.h"
-static SemaphoreHandle_t g_mutex[I2C0_INDEX + 1] = {NULL};
-#endif
 
 /******************************************************************************
  * Definitions
  ******************************************************************************/
+#if defined USING_OS_FREERTOS
+SemaphoreHandle_t g_i2c_mutex[I2C0_INDEX + 1]; /**< Rx/Tx Mutex */
+#endif
+
 /******************************************************************************
  * Local Function prototypes
  ******************************************************************************/
@@ -29,6 +22,24 @@ static int32_t i2c_master_read(const uint16_t _dev_addr, const uint8_t _mem__add
 /******************************************************************************
  * Functions
  ******************************************************************************/
+int32_t eeprom_read(const uint8_t _addr, uint8_t *const _buf, const uint16_t _size)
+{
+	assert(NULL != _buf);
+
+	int32_t ret = 0;
+
+#if defined USING_OS_FREERTOS
+	xSemaphoreTake( g_i2c_mutex[I2C0_INDEX], portMAX_DELAY);
+#endif
+	/* Sequential read */
+	ret = i2c_master_read(EEPROM_ADDR, _addr, _buf, _size);
+#if defined USING_OS_FREERTOS
+	xSemaphoreGive( g_i2c_mutex[I2C0_INDEX] );
+#endif
+
+	return ret;
+}
+
 int32_t eeprom_write(const uint8_t _addr, const uint8_t *const _buf, const uint16_t _size)
 {
 	assert(NULL != _buf);
@@ -40,7 +51,7 @@ int32_t eeprom_write(const uint8_t _addr, const uint8_t *const _buf, const uint1
 	uint16_t n = 0;
 
 #if defined USING_OS_FREERTOS
-	xSemaphoreTake( g_mutex[I2C0_INDEX], portMAX_DELAY);
+	xSemaphoreTake( g_i2c_mutex[I2C0_INDEX], portMAX_DELAY);
 #endif
 	/* Page write */
 	while(0 == ret && 0 < size)
@@ -54,25 +65,7 @@ int32_t eeprom_write(const uint8_t _addr, const uint8_t *const _buf, const uint1
 		size -= n;
 	}
 #if defined USING_OS_FREERTOS
-	xSemaphoreGive( g_mutex[I2C0_INDEX] );
-#endif
-
-	return ret;
-}
-
-int32_t eeprom_read(const uint8_t _addr, uint8_t *const _buf, const uint16_t _size)
-{
-	assert(NULL != _buf);
-
-	int32_t ret = 0;
-
-#if defined USING_OS_FREERTOS
-	xSemaphoreTake( g_mutex[I2C0_INDEX], portMAX_DELAY);
-#endif
-	/* Sequential read */
-	ret = i2c_master_read(EEPROM_ADDR, _addr, _buf, _size);
-#if defined USING_OS_FREERTOS
-	xSemaphoreGive( g_mutex[I2C0_INDEX] );
+	xSemaphoreGive( g_i2c_mutex[I2C0_INDEX] );
 #endif
 
 	return ret;
@@ -84,7 +77,7 @@ int32_t accr_reset(void)
 	uint8_t buf[2];
 
 #if defined USING_OS_FREERTOS
-	xSemaphoreTake( g_mutex[I2C0_INDEX], portMAX_DELAY);
+	xSemaphoreTake( g_i2c_mutex[I2C0_INDEX], portMAX_DELAY);
 #endif
 	/* Write ACTIVE bit to desired system mode */
 	buf[0] = ACCR_CTRL_REG2_REG;
@@ -94,7 +87,7 @@ int32_t accr_reset(void)
 		ret = i2c_master_transmit(I2C0_INDEX, ACCR_ADDR, buf, 2, true);
 	}
 #if defined USING_OS_FREERTOS
-	xSemaphoreGive( g_mutex[I2C0_INDEX] );
+	xSemaphoreGive( g_i2c_mutex[I2C0_INDEX] );
 #endif
 
 	return ret;
@@ -106,7 +99,7 @@ int32_t accr_init(const uint8_t _int_src)
 	uint8_t buf[2];
 
 #if defined USING_OS_FREERTOS
-	xSemaphoreTake( g_mutex[I2C0_INDEX], portMAX_DELAY);
+	xSemaphoreTake( g_i2c_mutex[I2C0_INDEX], portMAX_DELAY);
 #endif
 	/* Configure XYZ data */
 	buf[0] = ACCR_XYZ_DATA_CFG_REG;
@@ -173,7 +166,7 @@ int32_t accr_init(const uint8_t _int_src)
 	if(0 == ret)
 		ret = i2c_master_transmit(I2C0_INDEX, ACCR_ADDR, buf, 2, true);
 #if defined USING_OS_FREERTOS
-	xSemaphoreGive( g_mutex[I2C0_INDEX] );
+	xSemaphoreGive( g_i2c_mutex[I2C0_INDEX] );
 #endif
 
 	return ret;
@@ -190,7 +183,7 @@ int32_t accr_sys_mode_trans(const uint8_t _mode)
 	uint8_t buf[2];
 
 #if defined USING_OS_FREERTOS
-	xSemaphoreTake( g_mutex[I2C0_INDEX], portMAX_DELAY);
+	xSemaphoreTake( g_i2c_mutex[I2C0_INDEX], portMAX_DELAY);
 #endif
 	/* Write ACTIVE bit to desired system mode */
 	buf[0] = ACCR_CTRL_REG1_REG;
@@ -212,7 +205,7 @@ int32_t accr_sys_mode_trans(const uint8_t _mode)
 	if(0 == ret)
 		ret = i2c_master_transmit(I2C0_INDEX, ACCR_ADDR, buf, 2, true);
 #if defined USING_OS_FREERTOS
-	xSemaphoreGive( g_mutex[I2C0_INDEX] );
+	xSemaphoreGive( g_i2c_mutex[I2C0_INDEX] );
 #endif
 
 	return ret;
@@ -223,12 +216,12 @@ uint8_t accr_get_int_src(void)
 	uint8_t ret = 0;
 
 #if defined USING_OS_FREERTOS
-	xSemaphoreTake( g_mutex[I2C0_INDEX], portMAX_DELAY);
+	xSemaphoreTake( g_i2c_mutex[I2C0_INDEX], portMAX_DELAY);
 #endif
 	/* Read interrupt source register */
 	i2c_master_read(ACCR_ADDR, ACCR_INT_SOURCE_REG, &ret, 1);
 #if defined USING_OS_FREERTOS
-	xSemaphoreGive( g_mutex[I2C0_INDEX] );
+	xSemaphoreGive( g_i2c_mutex[I2C0_INDEX] );
 #endif
 
 	return ret;
@@ -241,12 +234,12 @@ int32_t accr_get_xyz_sample(uint8_t *const _buf, const uint8_t _size)
 	int32_t ret = 0;
 
 #if defined USING_OS_FREERTOS
-	xSemaphoreTake( g_mutex[I2C0_INDEX], portMAX_DELAY);
+	xSemaphoreTake( g_i2c_mutex[I2C0_INDEX], portMAX_DELAY);
 #endif
 	/* Read X, Y, Z-axis sample data */
 	ret = i2c_master_read(ACCR_ADDR, ACCR_OUT_X_MSB_REG, _buf, _size);
 #if defined USING_OS_FREERTOS
-	xSemaphoreGive( g_mutex[I2C0_INDEX] );
+	xSemaphoreGive( g_i2c_mutex[I2C0_INDEX] );
 #endif
 
 	return ret;

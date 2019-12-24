@@ -86,14 +86,14 @@
 			<locationURI>PARENT-2-PROJECT_LOC/lib/board/board_s32k1xx.h</locationURI>
 		</link>
 		<link>
+			<name>src/can/can.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/lib/can/can.c</locationURI>
+		</link>
+		<link>
 			<name>src/can/can.h</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/lib/can/can.h</locationURI>
-		</link>
-		<link>
-			<name>src/can/can.inc</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/lib/can/can.inc</locationURI>
 		</link>
 		<link>
 			<name>src/can/can_s32k1xx.c</name>
@@ -116,14 +116,14 @@
 			<locationURI>PARENT-2-PROJECT_LOC/lib/flash_ctrl/flash_ctrl_s32k1xx.c</locationURI>
 		</link>
 		<link>
+			<name>src/i2c/i2c.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/lib/i2c/i2c.c</locationURI>
+		</link>
+		<link>
 			<name>src/i2c/i2c.h</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/lib/i2c/i2c.h</locationURI>
-		</link>
-		<link>
-			<name>src/i2c/i2c.inc</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/lib/i2c/i2c.inc</locationURI>
 		</link>
 		<link>
 			<name>src/i2c/i2c_s32k1xx.c</name>
@@ -136,14 +136,14 @@
 			<locationURI>PARENT-2-PROJECT_LOC/lib/i2c/i2c_s32k1xx.h</locationURI>
 		</link>
 		<link>
+			<name>src/timer/timer.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/lib/timer/timer.c</locationURI>
+		</link>
+		<link>
 			<name>src/timer/timer.h</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/lib/timer/timer.h</locationURI>
-		</link>
-		<link>
-			<name>src/timer/timer.inc</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/lib/timer/timer.inc</locationURI>
 		</link>
 		<link>
 			<name>src/timer/timer_s32k1xx.c</name>
@@ -156,14 +156,14 @@
 			<locationURI>PARENT-2-PROJECT_LOC/lib/uart/printf.c</locationURI>
 		</link>
 		<link>
+			<name>src/uart/uart.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/lib/uart/uart.c</locationURI>
+		</link>
+		<link>
 			<name>src/uart/uart.h</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/lib/uart/uart.h</locationURI>
-		</link>
-		<link>
-			<name>src/uart/uart.inc</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/lib/uart/uart.inc</locationURI>
 		</link>
 		<link>
 			<name>src/uart/uart_console_io.c</name>

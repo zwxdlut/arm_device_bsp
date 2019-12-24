@@ -5,11 +5,19 @@
  *      Author: Administrator
  */
 
-#include "uart.inc"
+#include "uart.h"
 
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+#if defined USING_OS_FREERTOS
+extern SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1];
+#endif
+
+extern uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_RX_QUEUE_MAX_SIZE];
+extern uint16_t g_uart_rx_queue_head[UART1_INDEX + 1];
+extern uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1];
+
 typedef struct
 {
 	PORT_Type    *port_;
@@ -96,10 +104,10 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 	lpuart_user_config_t config;
 
 	/* Initialize ring fifo */
-	g_rx_fifo_head[_index] = 0;
-	g_rx_fifo_tail[_index] = 0;
+	g_uart_rx_queue_head[_index] = 0;
+	g_uart_rx_queue_tail[_index] = 0;
 #if defined USING_OS_FREERTOS
-	g_tx_mutex[_index] = xSemaphoreCreateRecursiveMutex();
+	g_uart_tx_mutex[_index] = xSemaphoreCreateRecursiveMutex();
 #endif
 
 	/* GPIO initialization */
@@ -133,7 +141,7 @@ int32_t uart_deinit(const uint8_t _index)
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].rx_pin_, PORT_PIN_DISABLED);
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].tx_pin_, PORT_PIN_DISABLED);
 #if defined USING_OS_FREERTOS
-	vSemaphoreDelete(g_tx_mutex[_index]);
+	vSemaphoreDelete(g_uart_tx_mutex[_index]);
 #endif
 
 	return 0;
@@ -146,7 +154,7 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 	uint16_t size = 0;
 
 #if defined USING_OS_FREERTOS
-	xSemaphoreTakeRecursive( g_tx_mutex[_index], portMAX_DELAY);
+	xSemaphoreTakeRecursive( g_uart_tx_mutex[_index], portMAX_DELAY);
 #endif
 	if(STATUS_SUCCESS == LPUART_DRV_SendData(g_handle[_index], _buf, _size))
 	{
@@ -158,7 +166,7 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 			size = _size - bytes;
 	}
 #if defined USING_OS_FREERTOS
-	xSemaphoreGiveRecursive( g_tx_mutex[_index] );
+	xSemaphoreGiveRecursive( g_uart_tx_mutex[_index] );
 #endif
 
 	return size;
@@ -182,12 +190,12 @@ static void uart_irq_handler(void *_state, uart_event_t _event, void *_user_data
 
     if (UART_EVENT_RX_FULL == _event)
     {
-		/* Rx fifo is not full */
-		if(g_rx_fifo_head[index] != (g_rx_fifo_tail[index] + 1) % UART_FIFO_MAX_SIZE)
+		/* Rx queue is not full */
+		if(g_uart_rx_queue_head[index] != (g_uart_rx_queue_tail[index] + 1) % UART_RX_QUEUE_MAX_SIZE)
 		{
-			/* Push rx fifo */
-			g_rx_fifo[index][g_rx_fifo_tail[index]] = g_rx_byte[index];
-			g_rx_fifo_tail[index] = (g_rx_fifo_tail[index] + 1) % UART_FIFO_MAX_SIZE;
+			/* Push rx queue */
+			g_uart_rx_queue[index][g_uart_rx_queue_tail[index]] = g_rx_byte[index];
+			g_uart_rx_queue_tail[index] = (g_uart_rx_queue_tail[index] + 1) % UART_RX_QUEUE_MAX_SIZE;
 		}
 
 		/* Update rx buffer and trigger next receive */

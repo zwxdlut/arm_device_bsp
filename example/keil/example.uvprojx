@@ -416,6 +416,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\lib\uart\uart_stm32fxxx_hal.c</FilePath>
             </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\uart\uart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -425,6 +430,11 @@
               <FileName>can_stm32fxxx_hal.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\lib\can\can_stm32fxxx_hal.c</FilePath>
+            </File>
+            <File>
+              <FileName>can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\can\can.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -436,6 +446,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\lib\i2c\i2c_stm32fxxx_hal.c</FilePath>
             </File>
+            <File>
+              <FileName>i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\i2c\i2c.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -445,6 +460,11 @@
               <FileName>timer_stm32fxxx_hal.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\lib\timer\timer_stm32fxxx_hal.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\timer\timer.c</FilePath>
             </File>
           </Files>
         </Group>

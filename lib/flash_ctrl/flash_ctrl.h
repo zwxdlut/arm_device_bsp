@@ -10,6 +10,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <assert.h>
 
 /*******************************************************************************
  * Definitions
@@ -80,7 +81,7 @@ int32_t flash_ctrl_deinit(void);
 int32_t flash_ctrl_erase_sector(const uint32_t _addr, const uint32_t _size);
 
 /**
- * @brief  Erase continuous sectors.
+ * @brief  Verify continuous sectors.
  *
  * @param  [in] _addr Sector start address.
  * @param  [in] _size Erase size aligned to sector.

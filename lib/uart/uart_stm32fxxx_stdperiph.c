@@ -5,11 +5,19 @@
  *      Author: Administrator
  */
 
-#include "uart.inc"
+#include "uart.h"
 
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+ #if defined USING_OS_FREERTOS
+extern SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1];
+#endif
+
+extern uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_RX_QUEUE_MAX_SIZE];
+extern uint16_t g_uart_rx_queue_head[UART1_INDEX + 1];
+extern uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1];
+
 typedef struct
 {
 	GPIO_TypeDef *gpio_;
@@ -51,10 +59,10 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 	NVIC_InitTypeDef  NVIC_InitStructure;
 
 	/* Initialize ring fifo */
-	g_rx_fifo_head[_index] = 0;
-	g_rx_fifo_tail[_index] = 0;
+	g_uart_rx_queue_head[_index] = 0;
+	g_uart_rx_queue_tail[_index] = 0;
 #if defined USING_OS_FREERTOS
-	g_tx_mutex[_index] = xSemaphoreCreateRecursiveMutex();
+	g_uart_tx_mutex[_index] = xSemaphoreCreateRecursiveMutex();
 #endif
 	/* GPIO initialization */
 	UART_GPIO_CLK_ENABLE(_index);
@@ -116,7 +124,7 @@ int32_t uart_deinit(const uint8_t _index)
 	UART_FORCE_RESET(_index);
 	UART_RELEASE_RESET(_index);
 #if defined USING_OS_FREERTOS
-	vSemaphoreDelete(g_tx_mutex[_index]);
+	vSemaphoreDelete(g_uart_tx_mutex[_index]);
 #endif
 
 	return 0;
@@ -127,7 +135,7 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 	assert(UART1_INDEX >= _index && NULL != _buf);
 	
 #if defined USING_OS_FREERTOS
-	xSemaphoreTakeRecursive( g_tx_mutex[_index], portMAX_DELAY);
+	xSemaphoreTakeRecursive( g_uart_tx_mutex[_index], portMAX_DELAY);
 #endif
 	while(USART_GetFlagStatus(g_handle[_index], USART_FLAG_TC) == RESET){}
     for(uint16_t i = 0; i < _size; i++)        
@@ -136,32 +144,33 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 		while(USART_GetFlagStatus(g_handle[_index], USART_FLAG_TC) == RESET){}
     }
 #if defined USING_OS_FREERTOS
-	xSemaphoreGiveRecursive( g_tx_mutex[_index] );
+	xSemaphoreGiveRecursive( g_uart_tx_mutex[_index] );
 #endif
 
 	return _size;
 }
 
-/*******************************************************************************
- * Local Functions
- ******************************************************************************/
 /**
  * @brief UART IRQ handler.
  *
  * @param [in] _index UART index.
  */
-static void uart_irq_handler(const uint8_t _index)
+void uart_irq_handler(const uint8_t _index)
 {
 	/* RXNE */
 	if(RESET != USART_GetITStatus(g_handle[_index], USART_IT_RXNE))
 	{		
 		USART_ClearITPendingBit(g_handle[_index], USART_IT_RXNE);
-		/* Rx fifo is not full */
-		if(g_rx_fifo_head[_index] != (g_rx_fifo_tail[_index] + 1) % UART_FIFO_MAX_SIZE)
+		/* Rx queue is not full */
+		if(g_uart_rx_queue_head[_index] != (g_uart_rx_queue_tail[_index] + 1) % UART_RX_QUEUE_MAX_SIZE)
 		{
-			/* Push rx fifo */
-			g_rx_fifo[_index][g_rx_fifo_tail[_index]] = USART_ReceiveData(g_handle[_index]);
-			g_rx_fifo_tail[_index] = (g_rx_fifo_tail[_index] + 1) % UART_FIFO_MAX_SIZE;
+			/* Push rx queue */
+			g_uart_rx_queue[_index][g_uart_rx_queue_tail[_index]] = USART_ReceiveData(g_handle[_index]);
+			g_uart_rx_queue_tail[_index] = (g_uart_rx_queue_tail[_index] + 1) % UART_RX_QUEUE_MAX_SIZE;
 		}		
     }
 }
+
+/*******************************************************************************
+ * Local Functions
+ ******************************************************************************/

@@ -5,11 +5,15 @@
  *      Author: Administrator
  */
 
-#include "i2c.inc"
+#include "i2c.h"
 
 /******************************************************************************
  * Definitions
  ******************************************************************************/
+#if defined USING_OS_FREERTOS
+extern SemaphoreHandle_t g_i2c_mutex[I2C0_INDEX + 1];
+#endif
+
 typedef struct
 {
 	GPIO_TypeDef *gpio_;
@@ -58,7 +62,7 @@ int32_t i2c_master_init(const uint8_t _index)
 	GPIO_InitTypeDef  GPIO_InitStructure;
 	
 #if defined USING_OS_FREERTOS
-	g_mutex[I2C0_INDEX] = xSemaphoreCreateMutex();
+	g_i2c_mutex[_index] = xSemaphoreCreateMutex();
 #endif
 	/* GPIO initialization */
 	I2C_GPIO_CLK_ENABLE(_index);
@@ -98,8 +102,19 @@ int32_t i2c_master_deinit(const uint8_t _index)
 	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].scl_pin_);
 	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].sda_pin_);
 #if defined USING_OS_FREERTOS
-	vSemaphoreDelete(g_mutex[I2C0_INDEX]);
+	vSemaphoreDelete(g_i2c_mutex[_index]);
 #endif
+
+	return 0;
+}
+
+int32_t i2c_master_receive(const uint8_t _index, const uint16_t _addr, uint8_t *const _buf, const uint16_t _size, const bool _stop)
+{
+	assert(I2C0_INDEX >= _index && NULL != _buf);
+
+	if(HAL_OK != HAL_I2C_Master_Receive_IT(&g_handle[_index], _addr << 1, (uint8_t*)_buf, _size))
+		return -1;
+	while(HAL_I2C_STATE_READY != HAL_I2C_GetState(&g_handle[_index])){}
 
 	return 0;
 }
@@ -113,17 +128,6 @@ int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _addr, const ui
 	while(HAL_I2C_STATE_READY != HAL_I2C_GetState(&g_handle[_index])){}
 	HAL_Delay(10);
 	
-	return 0;
-}
-
-int32_t i2c_master_receive(const uint8_t _index, const uint16_t _addr, uint8_t *const _buf, const uint16_t _size, const bool _stop)
-{
-	assert(I2C0_INDEX >= _index && NULL != _buf);
-
-	if(HAL_OK != HAL_I2C_Master_Receive_IT(&g_handle[_index], _addr << 1, (uint8_t*)_buf, _size))
-		return -1;
-	while(HAL_I2C_STATE_READY != HAL_I2C_GetState(&g_handle[_index])){}
-
 	return 0;
 }
 

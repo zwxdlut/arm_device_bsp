@@ -5,11 +5,19 @@
  *      Author: Administrator
  */
 
-#include "uart.inc"
+#include "uart.h"
 
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
+ #if defined USING_OS_FREERTOS
+extern SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1];
+#endif
+
+extern uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_RX_QUEUE_MAX_SIZE];
+extern uint16_t g_uart_rx_queue_head[UART1_INDEX + 1];
+extern uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1];
+
 typedef struct
 {
 	GPIO_TypeDef *gpio_;
@@ -74,10 +82,10 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 	GPIO_InitTypeDef  GPIO_InitStructure;
 
 	/* Initialize ring fifo */
-	g_rx_fifo_head[_index] = 0;
-	g_rx_fifo_tail[_index] = 0;
+	g_uart_rx_queue_head[_index] = 0;
+	g_uart_rx_queue_tail[_index] = 0;
 #if defined USING_OS_FREERTOS
-	g_tx_mutex[_index] = xSemaphoreCreateRecursiveMutex();
+	g_uart_tx_mutex[_index] = xSemaphoreCreateRecursiveMutex();
 #endif
 	/* GPIO initialization */
 	UART_GPIO_CLK_ENABLE(_index);
@@ -124,7 +132,7 @@ int32_t uart_deinit(const uint8_t _index)
 	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].rx_pin_);
 	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].tx_pin_);
 #if defined USING_OS_FREERTOS
-	vSemaphoreDelete(g_tx_mutex[_index]);
+	vSemaphoreDelete(g_uart_tx_mutex[_index]);
 #endif
 
 	return 0;
@@ -137,37 +145,38 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 	uint16_t size = 0;
 	
 #if defined USING_OS_FREERTOS
-	xSemaphoreTakeRecursive( g_tx_mutex[_index], portMAX_DELAY);
+	xSemaphoreTakeRecursive( g_uart_tx_mutex[_index], portMAX_DELAY);
 #endif
 	if(HAL_OK == HAL_UART_Transmit(&g_handle[_index], (uint8_t*)_buf, _size, 1000))
 		size = _size;
 #if defined USING_OS_FREERTOS
-	xSemaphoreGiveRecursive( g_tx_mutex[_index] );
+	xSemaphoreGiveRecursive( g_uart_tx_mutex[_index] );
 #endif
 
 	return size;
 }
 
-/*******************************************************************************
- * Local Functions
- ******************************************************************************/
 /**
  * @brief UART IRQ handler.
  *
  * @param [in] _index UART index.
  */
-static void uart_irq_handler(const uint8_t _index)
+void uart_irq_handler(const uint8_t _index)
 {
 	/* RXNE */
 	if(0 != LL_USART_IsActiveFlag_RXNE(g_handle[_index].Instance) && 0 != LL_USART_IsEnabledIT_RXNE(g_handle[_index].Instance))
 	{
 		LL_USART_ClearFlag_RXNE(g_handle[_index].Instance);
-		/* Rx fifo is not full */
-		if(g_rx_fifo_head[_index] != (g_rx_fifo_tail[_index] + 1) % UART_FIFO_MAX_SIZE)
+		/* Rx queue is not full */
+		if(g_uart_rx_queue_head[_index] != (g_uart_rx_queue_tail[_index] + 1) % UART_RX_QUEUE_MAX_SIZE)
 		{
-			/* Push rx fifo */
-			g_rx_fifo[_index][g_rx_fifo_tail[_index]] = LL_USART_ReceiveData8(g_handle[_index].Instance);
-			g_rx_fifo_tail[_index] = (g_rx_fifo_tail[_index] + 1) % UART_FIFO_MAX_SIZE;
+			/* Push rx queue */
+			g_uart_rx_queue[_index][g_uart_rx_queue_tail[_index]] = LL_USART_ReceiveData8(g_handle[_index].Instance);
+			g_uart_rx_queue_tail[_index] = (g_uart_rx_queue_tail[_index] + 1) % UART_RX_QUEUE_MAX_SIZE;
 		}		
     }
 }
+
+/*******************************************************************************
+ * Local Functions
+ ******************************************************************************/

@@ -1,27 +1,14 @@
 /*
- * uart.inc
+ * uart.c
  *
  *  Created on: 2018��10��16��
  *      Author: Administrator
  */
 
-#include <string.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <assert.h>
-
 #include "uart.h"
 
-#if defined USING_OS_FREERTOS
-#include "FreeRTOS.h"
-#include "semphr.h"
-#include "task.h"
-static SemaphoreHandle_t g_tx_mutex[UART1_INDEX + 1] = {NULL, NULL}; /* Tx mutex*/
-#endif
-
 #if defined STM32F10X_CL || defined STM32F205xx
-static void uart_irq_handler(const uint8_t _index);
+extern void uart_irq_handler(const uint8_t _index);
 
 /**
  * @defgroup IRQ handlers.
@@ -48,9 +35,13 @@ void UART1_IRQ_HANDLER(void)
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-static uint8_t  g_rx_fifo[UART1_INDEX + 1][UART_FIFO_MAX_SIZE]; /**< Ring fifo */
-static uint16_t g_rx_fifo_head[UART1_INDEX + 1];                /**< Ring fifo head */
-static uint16_t g_rx_fifo_tail[UART1_INDEX + 1];                /**< Ring fifo tail */
+#if defined USING_OS_FREERTOS
+SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1]; /* Tx mutex*/
+#endif
+
+uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_RX_QUEUE_MAX_SIZE]; /**< Ring queue */
+uint16_t g_uart_rx_queue_head[UART1_INDEX + 1];                /**< Ring queue head */
+uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1];                /**< Ring queue tail */
 
 /*******************************************************************************
  * Local Function prototypes
@@ -64,12 +55,12 @@ uint16_t uart_receive(const uint8_t _index, uint8_t *const _buf, const uint16_t 
 
 	uint16_t i = 0;
 
-	/* Rx fifo is not empty */
-	while(g_rx_fifo_head[_index] != g_rx_fifo_tail[_index] && i < _size)
+	/* Rx queue is not empty */
+	while(g_uart_rx_queue_head[_index] != g_uart_rx_queue_tail[_index] && i < _size)
 	{
-		/* Pop rx fifo */
-		_buf[i++] = g_rx_fifo[_index][g_rx_fifo_head[_index]];
-		g_rx_fifo_head[_index] = (g_rx_fifo_head[_index] + 1) % UART_FIFO_MAX_SIZE;
+		/* Pop rx queue */
+		_buf[i++] = g_uart_rx_queue[_index][g_uart_rx_queue_head[_index]];
+		g_uart_rx_queue_head[_index] = (g_uart_rx_queue_head[_index] + 1) % UART_RX_QUEUE_MAX_SIZE;
 	}
 
 	return i;
@@ -133,7 +124,7 @@ uint16_t uart_transmit_with_header(const uint8_t _index, const uint8_t *const _b
 	uint16_t size = 0;
 
 #if defined USING_OS_FREERTOS
-	xSemaphoreTakeRecursive( g_tx_mutex[_index], portMAX_DELAY);
+	xSemaphoreTakeRecursive( g_uart_tx_mutex[_index], portMAX_DELAY);
 #endif
 #if defined (HEADER_FLAG) && defined (HEADER_SIZE)
 	uint8_t	header[HEADER_SIZE];
@@ -145,7 +136,7 @@ uint16_t uart_transmit_with_header(const uint8_t _index, const uint8_t *const _b
 #endif
 	size += uart_transmit(_index, _buf, _size);
 #if defined USING_OS_FREERTOS
-	xSemaphoreGiveRecursive( g_tx_mutex[_index] );
+	xSemaphoreGiveRecursive( g_uart_tx_mutex[_index] );
 #endif
 
 	return size;

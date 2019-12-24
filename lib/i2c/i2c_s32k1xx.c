@@ -5,11 +5,15 @@
  *      Author: Administrator
  */
 
-#include "i2c.inc"
+#include "i2c.h"
 
 /******************************************************************************
  * Definitions
  ******************************************************************************/
+#if defined USING_OS_FREERTOS
+extern SemaphoreHandle_t g_i2c_mutex[I2C0_INDEX + 1];
+#endif
+
 typedef struct
 {
 	PORT_Type    *port_;
@@ -61,7 +65,7 @@ int32_t i2c_master_init(const uint8_t _index)
 	assert(I2C0_INDEX >= _index);
 
 #if defined USING_OS_FREERTOS
-	g_mutex[I2C0_INDEX] = xSemaphoreCreateMutex();
+	g_i2c_mutex[_index] = xSemaphoreCreateMutex();
 #endif
 	/* GPIO initialization*/
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].scl_pin_, g_comm_config[_index].gpio_af_);
@@ -92,8 +96,26 @@ int32_t i2c_master_deinit(const uint8_t _index)
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].scl_pin_, PORT_PIN_DISABLED);
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].sda_pin_, PORT_PIN_DISABLED);
 #if defined USING_OS_FREERTOS
-	vSemaphoreDelete(g_mutex[I2C0_INDEX]);
+	vSemaphoreDelete(g_i2c_mutex[_index]);
 #endif
+
+	return 0;
+}
+
+int32_t i2c_master_receive(const uint8_t _index, const uint16_t _addr, uint8_t *const _buf, const uint16_t _size, const bool _stop)
+{
+	assert(I2C0_INDEX >= _index && NULL != _buf);
+
+	LPI2C_DRV_MasterSetSlaveAddr(g_handle[_index], _addr, g_config[_index]->is10bitAddr);
+	if(STATUS_SUCCESS != LPI2C_DRV_MasterReceiveData(g_handle[_index], _buf, _size > 256 ? 256 : _size, _stop))
+		return -1;
+
+	uint32_t bytes = 0;
+	status_t status;
+
+	while(STATUS_BUSY == (status = LPI2C_DRV_MasterGetTransferStatus(g_handle[_index], &bytes))){}
+	if(STATUS_SUCCESS != status)
+		return -1;
 
 	return 0;
 }
@@ -114,24 +136,6 @@ int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _addr, const ui
 		return -1;
 
 	OSIF_TimeDelay(10);
-
-	return 0;
-}
-
-int32_t i2c_master_receive(const uint8_t _index, const uint16_t _addr, uint8_t *const _buf, const uint16_t _size, const bool _stop)
-{
-	assert(I2C0_INDEX >= _index && NULL != _buf);
-
-	LPI2C_DRV_MasterSetSlaveAddr(g_handle[_index], _addr, g_config[_index]->is10bitAddr);
-	if(STATUS_SUCCESS != LPI2C_DRV_MasterReceiveData(g_handle[_index], _buf, _size > 256 ? 256 : _size, _stop))
-		return -1;
-
-	uint32_t bytes = 0;
-	status_t status;
-
-	while(STATUS_BUSY == (status = LPI2C_DRV_MasterGetTransferStatus(g_handle[_index], &bytes))){}
-	if(STATUS_SUCCESS != status)
-		return -1;
 
 	return 0;
 }

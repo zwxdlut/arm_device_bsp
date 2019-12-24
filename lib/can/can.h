@@ -9,6 +9,8 @@
 #define __CAN_H__
 
 #include <stdint.h>
+#include <string.h>
+#include <assert.h>
 
 #if defined S32K14x
 #include "can_s32k1xx.h"
@@ -24,6 +26,10 @@
 #include "can_stm32fxxx_hal.h"
 #else
 #error SDK type not defined!!!
+#endif
+#if defined USING_OS_FREERTOS
+#include "FreeRTOS.h"
+#include "semphr.h"
 #endif
 #define CAN_SLAVE_START_FILTER_BANK_NUM         21 /**< Slave CAN start filter bank number */
 #else
@@ -53,7 +59,17 @@ extern "C" {
 #define CAN_PWR_MODE_RUN                        1
 /** @} */ /* End of group CAN power modes. */
 
-#define CAN_FIFO_MAX_SIZE                       10 /**< CAN frame fifo max size */
+#define CAN_RX_QUEUE_MAX_SIZE                   10 /**< CAN rx queue max size */
+
+/**
+ * @brief  CAN message.
+ */
+typedef struct
+{
+	uint32_t id_;
+	uint8_t  dlc_;
+	uint8_t  data_[8];
+}can_msg_t;
 
 /*******************************************************************************
  * Function prototypes

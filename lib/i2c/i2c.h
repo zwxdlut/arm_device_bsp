@@ -10,6 +10,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
+#include <assert.h>
 
 #if defined S32K14x
 #include "i2c_s32k1xx.h"
@@ -27,6 +29,11 @@
 #endif
 #else
 #error Mcu type not defined!!!
+#endif
+
+#if defined USING_OS_FREERTOS
+#include "FreeRTOS.h"
+#include "semphr.h"
 #endif
 
 #ifdef __cplusplus
@@ -172,18 +179,6 @@ int32_t i2c_master_init(const uint8_t _index);
 int32_t i2c_master_deinit(const uint8_t _index);
 
 /**
- * @brief  Transmit data to specified slave device.
- *
- * @param  [in] _index I2C index.
- * @param  [in] _addr  Slave device address(7 bit without R/W bit).
- * @param  [in] _buf   Transmit buffer.
- * @param  [in] _size  Transmit size.
- * @param  [in] _stop  Specify whether generate stop condition after sending.
- * @return Success(0) or failure(other values).
- */
-int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _addr, const uint8_t *const _buf, const uint16_t _size, const bool _stop);
-
-/**
  * @brief  Receive data from specified slave device.
  *
  * @param  [in]  _index I2C index.
@@ -196,14 +191,16 @@ int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _addr, const ui
 int32_t i2c_master_receive(const uint8_t _index, const uint16_t _addr, uint8_t *const _buf, const uint16_t _size, const bool _stop);
 
 /**
- * @brief  Write data to EEPROM.
+ * @brief  Transmit data to specified slave device.
  *
- * @param  [in] _addr EEPROM memory address.
- * @param  [in] _buf  Write buffer.
- * @param  [in] _size Write size.
+ * @param  [in] _index I2C index.
+ * @param  [in] _addr  Slave device address(7 bit without R/W bit).
+ * @param  [in] _buf   Transmit buffer.
+ * @param  [in] _size  Transmit size.
+ * @param  [in] _stop  Specify whether generate stop condition after sending.
  * @return Success(0) or failure(other values).
  */
-int32_t eeprom_write(const uint8_t _addr, const uint8_t *const _buf, const uint16_t _size);
+int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _addr, const uint8_t *const _buf, const uint16_t _size, const bool _stop);
 
 /**
  * @brief  Read data from EEPROM.
@@ -214,6 +211,16 @@ int32_t eeprom_write(const uint8_t _addr, const uint8_t *const _buf, const uint1
  * @return Success(0) or failure(other values).
  */
 int32_t eeprom_read(const uint8_t _addr, uint8_t *const _buf, const uint16_t _size);
+
+/**
+ * @brief  Write data to EEPROM.
+ *
+ * @param  [in] _addr EEPROM memory address.
+ * @param  [in] _buf  Write buffer.
+ * @param  [in] _size Write size.
+ * @return Success(0) or failure(other values).
+ */
+int32_t eeprom_write(const uint8_t _addr, const uint8_t *const _buf, const uint16_t _size);
 
 /**
  * @brief  Reset accelerometer.

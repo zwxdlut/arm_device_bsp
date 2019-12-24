@@ -5,8 +5,6 @@
  *      Author: Administrator
  */
 
-#include <assert.h>
-
 #include "flash_ctrl.h"
 
 /*******************************************************************************
