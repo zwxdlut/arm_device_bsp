@@ -174,7 +174,7 @@ void print_buf(const char *_prefix, const uint32_t _id, const uint8_t *_buf, con
 	}
 	xSemaphoreTake( g_debug_mutex, portMAX_DELAY);
 #endif
-	printf("%s(0x%X, %d): ", _prefix, (unsigned int)_id, _size);
+	printf("%s(0x%X,%d): ", _prefix, (unsigned int)_id, _size);
 	for (uint16_t i = 0; i < _size; i++)
 		printf("%02X ", _buf[i]);
 	printf("\n");

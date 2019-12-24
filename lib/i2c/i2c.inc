@@ -7,8 +7,10 @@
 
 #include <string.h>
 #include <assert.h>
+#include <stdio.h>
 
 #include "i2c.h"
+#include "board/board.h"
 
 #if defined USING_OS_FREERTOS
 #include "FreeRTOS.h"
@@ -27,12 +29,12 @@ static int32_t i2c_master_read(const uint16_t _dev_addr, const uint8_t _mem__add
 /******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t eeprom_write(const uint8_t _mem__addr, const uint8_t *const _buf, const uint16_t _size)
+int32_t eeprom_write(const uint8_t _addr, const uint8_t *const _buf, const uint16_t _size)
 {
 	assert(NULL != _buf);
 
 	int32_t  ret = 0;
-	uint8_t  addr = _mem__addr;
+	uint8_t  addr = _addr;
 	uint8_t  buf[EEPROM_PAGE_SIZE + 1];
 	uint16_t size = _size;
 	uint16_t n = 0;
@@ -58,7 +60,7 @@ int32_t eeprom_write(const uint8_t _mem__addr, const uint8_t *const _buf, const 
 	return ret;
 }
 
-int32_t eeprom_read(const uint8_t _mem__addr, uint8_t *const _buf, const uint16_t _size)
+int32_t eeprom_read(const uint8_t _addr, uint8_t *const _buf, const uint16_t _size)
 {
 	assert(NULL != _buf);
 
@@ -68,7 +70,7 @@ int32_t eeprom_read(const uint8_t _mem__addr, uint8_t *const _buf, const uint16_
 	xSemaphoreTake( g_mutex[I2C0_INDEX], portMAX_DELAY);
 #endif
 	/* Sequential read */
-	ret = i2c_master_read(EEPROM_ADDR, _mem__addr, _buf, _size);
+	ret = i2c_master_read(EEPROM_ADDR, _addr, _buf, _size);
 #if defined USING_OS_FREERTOS
 	xSemaphoreGive( g_mutex[I2C0_INDEX] );
 #endif

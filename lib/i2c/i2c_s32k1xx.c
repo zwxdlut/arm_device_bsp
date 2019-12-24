@@ -98,18 +98,42 @@ int32_t i2c_master_deinit(const uint8_t _index)
 	return 0;
 }
 
-int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _dev_addr, const uint8_t *const _buf, const uint16_t _size, const bool _stop)
+int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _addr, const uint8_t *const _buf, const uint16_t _size, const bool _stop)
 {
 	assert(I2C0_INDEX >= _index && NULL != _buf);
-	LPI2C_DRV_MasterSetSlaveAddr(g_handle[_index], _dev_addr, g_config[_index]->is10bitAddr);
-	return LPI2C_DRV_MasterSendDataBlocking(g_handle[_index], _buf, _size, _stop, OSIF_WAIT_FOREVER);
+
+	LPI2C_DRV_MasterSetSlaveAddr(g_handle[_index], _addr, g_config[_index]->is10bitAddr);
+	if(STATUS_SUCCESS != LPI2C_DRV_MasterSendData(g_handle[_index], _buf, _size, _stop))
+		return -1;
+
+	uint32_t bytes = 0;
+	status_t status;
+
+	while(STATUS_BUSY == (status = LPI2C_DRV_MasterGetTransferStatus(g_handle[_index], &bytes))){}
+	if(STATUS_SUCCESS != status)
+		return -1;
+
+	OSIF_TimeDelay(10);
+
+	return 0;
 }
 
-int32_t i2c_master_receive(const uint8_t _index, const uint16_t _dev_addr, uint8_t *const _buf, const uint16_t _size, const bool _stop)
+int32_t i2c_master_receive(const uint8_t _index, const uint16_t _addr, uint8_t *const _buf, const uint16_t _size, const bool _stop)
 {
 	assert(I2C0_INDEX >= _index && NULL != _buf);
-	LPI2C_DRV_MasterSetSlaveAddr(g_handle[_index], _dev_addr, g_config[_index]->is10bitAddr);
-	return LPI2C_DRV_MasterReceiveDataBlocking(g_handle[_index], _buf, _size > 256 ? 256 : _size, _stop, OSIF_WAIT_FOREVER);
+
+	LPI2C_DRV_MasterSetSlaveAddr(g_handle[_index], _addr, g_config[_index]->is10bitAddr);
+	if(STATUS_SUCCESS != LPI2C_DRV_MasterReceiveData(g_handle[_index], _buf, _size > 256 ? 256 : _size, _stop))
+		return -1;
+
+	uint32_t bytes = 0;
+	status_t status;
+
+	while(STATUS_BUSY == (status = LPI2C_DRV_MasterGetTransferStatus(g_handle[_index], &bytes))){}
+	if(STATUS_SUCCESS != status)
+		return -1;
+
+	return 0;
 }
 
 /******************************************************************************

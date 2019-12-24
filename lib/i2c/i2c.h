@@ -49,10 +49,32 @@ extern "C" {
  * @{
  */
 #define EEPROM_ADDR              			     0x50 /**< Device address, 7bit without R/W bit. */
-#define EEPROM_SIZE                              256  /**< Total size in bytes. */
 #define EEPROM_PAGE_SIZE                         8    /**< Page size in bytes. */
-#define EEPROM_RESET_TYPE_ADDR                   0x00
-#define EEPROM_RESET_TYPE_SIZE                   1
+#define EEPROM_TOTAL_SIZE                        256  /**< Total size in bytes. */
+#define EEPROM_ADDR_RESET_TYPE                   0x00
+#define EEPROM_SIZE_RESET_TYPE                   1
+#define EEPROM_ADDR_SSECUHWVN                    (EEPROM_ADDR_RESET_TYPE + EEPROM_SIZE_RESET_TYPE)
+#define EEPROM_SIZE_SSECUHWVN                    16
+#define EEPROM_ADDR_VIN                          (EEPROM_ADDR_SSECUHWVN + EEPROM_SIZE_SSECUHWVN)
+#define EEPROM_SIZE_VIN                          17
+#define EEPROM_ADDR_ECUMD                        (EEPROM_ADDR_VIN + EEPROM_SIZE_VIN)
+#define EEPROM_SIZE_ECUMD                        4
+#define EEPROM_ADDR_TBTN                         (EEPROM_ADDR_ECUMD + EEPROM_SIZE_ECUMD)
+#define EEPROM_SIZE_TBTN                         15
+#define EEPROM_ADDR_IMEI                         (EEPROM_ADDR_TBTN + EEPROM_SIZE_TBTN)
+#define EEPROM_SIZE_IMEI                         15
+#define EEPROM_ADDR_ICCID                        (EEPROM_ADDR_IMEI + EEPROM_SIZE_IMEI)
+#define EEPROM_SIZE_ICCID                        20
+#define EEPROM_ADDR_PK                           (EEPROM_ADDR_ICCID + EEPROM_SIZE_ICCID)
+#define EEPROM_SIZE_PK                           16
+#define EEPROM_ADDR_FP1                          (EEPROM_ADDR_PK + EEPROM_SIZE_PK)
+#define EEPROM_SIZE_FP1                          9
+#define EEPROM_ADDR_FP2                          (EEPROM_ADDR_FP1 + EEPROM_SIZE_FP1)
+#define EEPROM_SIZE_FP2                          20
+#define EEPROM_ADDR_EOL                          (EEPROM_ADDR_FP2 + EEPROM_SIZE_FP2)
+#define EEPROM_SIZE_EOL                          56
+#define EEPROM_ADDR_INIT                         EEPROM_TOTAL_SIZE - 1
+#define EEPROM_SIZE_INIT                         1
 /** @} */ /* End of EEPROM configuration. */
 
 /** 
@@ -159,7 +181,7 @@ int32_t i2c_master_deinit(const uint8_t _index);
  * @param  [in] _stop  Specify whether generate stop condition after sending.
  * @return Success(0) or failure(other values).
  */
-int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _dev_addr, const uint8_t *const _buf, const uint16_t _size, const bool _stop);
+int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _addr, const uint8_t *const _buf, const uint16_t _size, const bool _stop);
 
 /**
  * @brief  Receive data from specified slave device.
@@ -171,7 +193,7 @@ int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _dev_addr, cons
  * @param  [in]  _stop  Specify whether generate stop condition after sending.
  * @return Success(0) or failure(other values).
  */
-int32_t i2c_master_receive(const uint8_t _index, const uint16_t _dev_addr, uint8_t *const _buf, const uint16_t _size, const bool _stop);
+int32_t i2c_master_receive(const uint8_t _index, const uint16_t _addr, uint8_t *const _buf, const uint16_t _size, const bool _stop);
 
 /**
  * @brief  Write data to EEPROM.
@@ -181,7 +203,7 @@ int32_t i2c_master_receive(const uint8_t _index, const uint16_t _dev_addr, uint8
  * @param  [in] _size Write size.
  * @return Success(0) or failure(other values).
  */
-int32_t eeprom_write(const uint8_t _mem__addr, const uint8_t *const _buf, const uint16_t _size);
+int32_t eeprom_write(const uint8_t _addr, const uint8_t *const _buf, const uint16_t _size);
 
 /**
  * @brief  Read data from EEPROM.
@@ -191,7 +213,7 @@ int32_t eeprom_write(const uint8_t _mem__addr, const uint8_t *const _buf, const 
  * @param  [in]  _size Read size.
  * @return Success(0) or failure(other values).
  */
-int32_t eeprom_read(const uint8_t _mem__addr, uint8_t *const _buf, const uint16_t _size);
+int32_t eeprom_read(const uint8_t _addr, uint8_t *const _buf, const uint16_t _size);
 
 /**
  * @brief  Reset accelerometer.
