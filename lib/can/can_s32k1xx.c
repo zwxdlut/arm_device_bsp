@@ -138,6 +138,9 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 {
 	assert(CAN1_INDEX >= _index);
 
+	/* Rx ring queue initialization */
+	g_can_rx_queue_head[_index] = 0;
+	g_can_rx_queue_tail[_index] = 0;
 	OSIF_MutexCreate(&g_tx_mutex[_index]);
 
 	/* CAN initialization */

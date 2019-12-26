@@ -36,12 +36,12 @@ void UART1_IRQ_HANDLER(void)
  * Definitions
  ******************************************************************************/
 #if defined USING_OS_FREERTOS
-SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1]; /* Tx mutex*/
+SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1] = {NULL, NULL}; /* Tx mutex*/
 #endif
 
 uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_RX_QUEUE_MAX_SIZE]; /**< Ring queue */
-uint16_t g_uart_rx_queue_head[UART1_INDEX + 1];                /**< Ring queue head */
-uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1];                /**< Ring queue tail */
+uint16_t g_uart_rx_queue_head[UART1_INDEX + 1] = {0, 0};           /**< Ring queue head */
+uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1] = {0, 0};           /**< Ring queue tail */
 
 /*******************************************************************************
  * Local Function prototypes

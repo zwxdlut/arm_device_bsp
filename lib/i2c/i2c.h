@@ -80,6 +80,8 @@ extern "C" {
 #define EEPROM_SIZE_FP2                          20
 #define EEPROM_ADDR_EOL                          (EEPROM_ADDR_FP2 + EEPROM_SIZE_FP2)
 #define EEPROM_SIZE_EOL                          56
+#define EEPROM_ADDR_DTC                          (EEPROM_ADDR_EOL + EEPROM_SIZE_EOL)
+#define EEPROM_SIZE_DTC                          21
 #define EEPROM_ADDR_INIT                         EEPROM_TOTAL_SIZE - 1
 #define EEPROM_SIZE_INIT                         1
 /** @} */ /* End of EEPROM configuration. */

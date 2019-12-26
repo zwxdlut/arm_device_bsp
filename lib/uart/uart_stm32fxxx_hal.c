@@ -81,7 +81,7 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 	
 	GPIO_InitTypeDef  GPIO_InitStructure;
 
-	/* Initialize ring fifo */
+	/* Rx ring queue initialization */
 	g_uart_rx_queue_head[_index] = 0;
 	g_uart_rx_queue_tail[_index] = 0;
 #if defined USING_OS_FREERTOS

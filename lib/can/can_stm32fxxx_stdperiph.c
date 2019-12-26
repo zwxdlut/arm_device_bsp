@@ -93,6 +93,9 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 	CAN_FilterInitTypeDef CAN_FilterInitStructure;	
 	NVIC_InitTypeDef      NVIC_InitStructure;
 
+	/* Rx ring queue initialization */
+	g_can_rx_queue_head[_index] = 0;
+	g_can_rx_queue_tail[_index] = 0;
 #if defined USING_OS_FREERTOS
 	g_can_tx_mutex[_index] = xSemaphoreCreateMutex();
 #endif

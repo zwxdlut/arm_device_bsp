@@ -9,7 +9,7 @@
 
 #if defined STM32F10X_CL || defined STM32F205xx
 #if defined USING_OS_FREERTOS
-SemaphoreHandle_t g_can_tx_mutex[CAN1_INDEX + 1];  /**< Tx mutex */
+SemaphoreHandle_t g_can_tx_mutex[CAN1_INDEX + 1] = {NULL, NULL};  /**< Tx mutex */
 #endif
 
 extern void can_irq_handler(const uint8_t _index);
@@ -40,8 +40,8 @@ void CAN1_RX_IRQ_HANDLER(void)
  * Definitions
  ******************************************************************************/
 can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_RX_QUEUE_MAX_SIZE]; /**< Rx ring queue */
-uint8_t   g_can_rx_queue_head[CAN1_INDEX + 1];                   /**< Rx queue head */
-uint8_t   g_can_rx_queue_tail[CAN1_INDEX + 1];                   /**< Rx queue tail */
+uint8_t   g_can_rx_queue_head[CAN1_INDEX + 1] = {0, 0};          /**< Rx queue head */
+uint8_t   g_can_rx_queue_tail[CAN1_INDEX + 1] = {0, 0};          /**< Rx queue tail */
 
 /******************************************************************************
  * Local Function prototypes
