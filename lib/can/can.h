@@ -62,7 +62,7 @@ extern "C" {
 #define CAN_RX_QUEUE_MAX_SIZE                   10 /**< CAN rx queue max size */
 
 /**
- * @brief  CAN message.
+ * @brief CAN message.
  */
 typedef struct
 {

@@ -78,7 +78,7 @@
       <File Name="Generated_Code/pin_mux.c" FileDate="2019-11-13, 17:44:21" FileAge="1573638261051" FileType="45637" CompNumb="2" />
       <File Name="SDK/platform/drivers/src/lpi2c/lpi2c_driver.c" FileDate="2019-11-13, 17:44:20" FileAge="1573638260980" FileType="1048576" CompNumb="14" />
       <File Name="SDK/rtos/FreeRTOS_S32K/Source/include/message_buffer.h" FileDate="1970-01-01, 07:59:59" FileAge="-1" FileType="1048576" />
-      <File Name="src/main.c" FileDate="2019-12-24, 18:34:35" FileAge="1577183675870" FileType="128" />
+      <File Name="src/main.c" FileDate="2019-12-30, 14:05:44" FileAge="1577685944863" FileType="128" />
       <File Name="SDK/rtos/FreeRTOS_S32K/Source/include/task.h" FileDate="1970-01-01, 07:59:59" FileAge="-1" FileType="1048576" />
       <File Name="SDK/platform/drivers/inc/lpi2c_driver.h" FileDate="2019-11-13, 17:44:20" FileAge="1573638260983" FileType="1048576" CompNumb="14" />
       <File Name="SDK/platform/drivers/src/lpuart/lpuart_irq.h" FileDate="2019-11-13, 17:44:20" FileAge="1573638260970" FileType="1048576" CompNumb="0" />
@@ -145,5 +145,5 @@
       <File Name="Generated_Code/extWdog.c" FileDate="2019-11-14, 12:26:22" FileAge="1573705582561" FileType="45637" CompNumb="22" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>26</CodeGenReference>
+  <CodeGenReference>28</CodeGenReference>
 </CodeGenerationInfo>
