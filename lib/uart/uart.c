@@ -39,7 +39,7 @@ void UART1_IRQ_HANDLER(void)
 SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1] = {NULL, NULL}; /* Tx mutex*/
 #endif
 
-uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_RX_QUEUE_MAX_SIZE]; /**< Ring queue */
+uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_BUFFER_SIZE];       /**< Ring queue */
 uint16_t g_uart_rx_queue_head[UART1_INDEX + 1] = {0, 0};           /**< Ring queue head */
 uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1] = {0, 0};           /**< Ring queue tail */
 
@@ -60,7 +60,7 @@ uint16_t uart_receive(const uint8_t _index, uint8_t *const _buf, const uint16_t 
 	{
 		/* Pop rx queue */
 		_buf[i++] = g_uart_rx_queue[_index][g_uart_rx_queue_head[_index]];
-		g_uart_rx_queue_head[_index] = (g_uart_rx_queue_head[_index] + 1) % UART_RX_QUEUE_MAX_SIZE;
+		g_uart_rx_queue_head[_index] = (g_uart_rx_queue_head[_index] + 1) % UART_BUFFER_SIZE;
 	}
 
 	return i;

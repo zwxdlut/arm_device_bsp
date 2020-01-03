@@ -57,7 +57,7 @@ extern "C" {
 #define UART1_INDEX       		                1
 /** @} */ /* End of group UART module index. */
 
-#define UART_RX_QUEUE_MAX_SIZE                  1000 /**< UART rx queue max size. */
+#define UART_BUFFER_SIZE                        1000 /**< UART buffer size. */
 
 /**
  * @defgroup UART header define.

@@ -14,7 +14,7 @@
 extern SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1];
 #endif
 
-extern uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_RX_QUEUE_MAX_SIZE];
+extern uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_BUFFER_SIZE];
 extern uint16_t g_uart_rx_queue_head[UART1_INDEX + 1];
 extern uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1];
 
@@ -162,11 +162,11 @@ void uart_irq_handler(const uint8_t _index)
 	{		
 		USART_ClearITPendingBit(g_handle[_index], USART_IT_RXNE);
 		/* Rx queue is not full */
-		if(g_uart_rx_queue_head[_index] != (g_uart_rx_queue_tail[_index] + 1) % UART_RX_QUEUE_MAX_SIZE)
+		if(g_uart_rx_queue_head[_index] != (g_uart_rx_queue_tail[_index] + 1) % UART_BUFFER_SIZE)
 		{
 			/* Push rx queue */
 			g_uart_rx_queue[_index][g_uart_rx_queue_tail[_index]] = USART_ReceiveData(g_handle[_index]);
-			g_uart_rx_queue_tail[_index] = (g_uart_rx_queue_tail[_index] + 1) % UART_RX_QUEUE_MAX_SIZE;
+			g_uart_rx_queue_tail[_index] = (g_uart_rx_queue_tail[_index] + 1) % UART_BUFFER_SIZE;
 		}		
     }
 }

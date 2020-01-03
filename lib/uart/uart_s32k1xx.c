@@ -14,7 +14,7 @@
 extern SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1];
 #endif
 
-extern uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_RX_QUEUE_MAX_SIZE];
+extern uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_BUFFER_SIZE];
 extern uint16_t g_uart_rx_queue_head[UART1_INDEX + 1];
 extern uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1];
 
@@ -191,11 +191,11 @@ static void uart_irq_handler(void *_state, uart_event_t _event, void *_user_data
     if (UART_EVENT_RX_FULL == _event)
     {
 		/* Rx queue is not full */
-		if(g_uart_rx_queue_head[index] != (g_uart_rx_queue_tail[index] + 1) % UART_RX_QUEUE_MAX_SIZE)
+		if(g_uart_rx_queue_head[index] != (g_uart_rx_queue_tail[index] + 1) % UART_BUFFER_SIZE)
 		{
 			/* Push rx queue */
 			g_uart_rx_queue[index][g_uart_rx_queue_tail[index]] = g_rx_byte[index];
-			g_uart_rx_queue_tail[index] = (g_uart_rx_queue_tail[index] + 1) % UART_RX_QUEUE_MAX_SIZE;
+			g_uart_rx_queue_tail[index] = (g_uart_rx_queue_tail[index] + 1) % UART_BUFFER_SIZE;
 		}
 
 		/* Update rx buffer and trigger next receive */
