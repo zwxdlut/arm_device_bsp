@@ -1,5 +1,5 @@
 /*
- * board_stm32fxxx.h
+ * board_stm32fxxx_hal.h
  *
  *  Created on: 2018Äê8ÔÂ21ÈÕ
  *      Author: Administrator

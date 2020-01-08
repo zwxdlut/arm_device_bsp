@@ -22,6 +22,7 @@
 #include "stm32f2xx.h"
 #endif
 #if defined USE_STDPERIPH_DRIVER
+#include "i2c_stm32fxxx_stdperiph.h"
 #elif defined USE_HAL_DRIVER
 #include "i2c_stm32fxxx_hal.h"
 #else

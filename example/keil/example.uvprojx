@@ -138,7 +138,7 @@
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3>"" ()</Flash3>
+          <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -335,7 +335,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F205xx,USE_HAL_DRIVER,MX_TB</Define>
+              <Define>STM32F205xx,MX_TB,USE_HAL_DRIVER</Define>
               <Undefine></Undefine>
               <IncludePath>..\..\lib</IncludePath>
             </VariousControls>
@@ -412,14 +412,14 @@
           <GroupName>uart</GroupName>
           <Files>
             <File>
-              <FileName>uart_stm32fxxx_hal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\lib\uart\uart_stm32fxxx_hal.c</FilePath>
-            </File>
-            <File>
               <FileName>uart.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\lib\uart\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart_stm32fxxx_hal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\uart\uart_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -427,14 +427,14 @@
           <GroupName>can</GroupName>
           <Files>
             <File>
-              <FileName>can_stm32fxxx_hal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\lib\can\can_stm32fxxx_hal.c</FilePath>
-            </File>
-            <File>
               <FileName>can.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\lib\can\can.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_stm32fxxx_hal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\can\can_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -442,14 +442,14 @@
           <GroupName>i2c</GroupName>
           <Files>
             <File>
-              <FileName>i2c_stm32fxxx_hal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\lib\i2c\i2c_stm32fxxx_hal.c</FilePath>
-            </File>
-            <File>
               <FileName>i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\lib\i2c\i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c_stm32fxxx_hal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\i2c\i2c_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -457,14 +457,14 @@
           <GroupName>timer</GroupName>
           <Files>
             <File>
-              <FileName>timer_stm32fxxx_hal.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\lib\timer\timer_stm32fxxx_hal.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\lib\timer\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer_stm32fxxx_hal.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\lib\timer\timer_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -472,9 +472,9 @@
           <GroupName>flash_ctrl</GroupName>
           <Files>
             <File>
-              <FileName>flash_ctrl_stm32fxxx.c</FileName>
+              <FileName>flash_ctrl_stm32fxxx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\lib\flash_ctrl\flash_ctrl_stm32fxxx.c</FilePath>
+              <FilePath>..\..\lib\flash_ctrl\flash_ctrl_stm32fxxx_hal.c</FilePath>
             </File>
           </Files>
         </Group>

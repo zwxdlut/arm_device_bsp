@@ -1,5 +1,5 @@
 /*
- * i2c_stm32fxxx.h
+ * i2c_stm32fxxx_hal.h
  *
  *  Created on: 2019Äê1ÔÂ9ÈÕ
  *      Author: Administrator

@@ -1,5 +1,5 @@
 /*
- * uart_stm32fxxx.h
+ * uart_stm32fxxx_hal.h
  *
  *  Created on: 2018��10��16��
  *      Author: Administrator

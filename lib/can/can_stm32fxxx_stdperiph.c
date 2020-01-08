@@ -14,7 +14,7 @@
 extern SemaphoreHandle_t g_can_tx_mutex[CAN1_INDEX + 1];  /**< Tx mutex */
 #endif
 
-extern can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_RX_QUEUE_MAX_SIZE];
+extern can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_BUFFER_SIZE];
 extern uint8_t   g_can_rx_queue_head[CAN1_INDEX + 1];
 extern uint8_t   g_can_rx_queue_tail[CAN1_INDEX + 1];
 
@@ -222,7 +222,7 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 {
 	assert(CAN1_INDEX >= _index && NULL != _buf);
 
-	uint16_t size = _size;
+	uint16_t size = 0;
 
 #if defined USING_OS_FREERTOS
 	xSemaphoreTake( g_can_tx_mutex[_index], portMAX_DELAY);
@@ -235,11 +235,12 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 	msg.RTR   = CAN_RTR_DATA;
 	msg.DLC   = _size >= 8 ? 8 : _size;
 	memcpy(msg.Data, _buf, msg.DLC);
-	mailbox = CAN_Transmit(g_handle[_index], &msg);
-	if(CAN_TxStatus_Ok != CAN_TransmitStatus(g_handle[_index], mailbox))
+	if(CAN_TxStatus_NoMailBox != (mailbox = CAN_Transmit(g_handle[_index], &msg)))
 	{
-		CAN_CancelTransmit(g_handle[_index], mailbox);
-		size = 0;
+		if(CAN_TxStatus_Ok == CAN_TransmitStatus(g_handle[_index], mailbox))
+			size = _size;
+		else
+			CAN_CancelTransmit(g_handle[_index], mailbox);
 	}
 #if defined USING_OS_FREERTOS
 	xSemaphoreGive( g_can_tx_mutex[_index] );
@@ -255,7 +256,7 @@ int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode)
 	switch(_mode)
 	{
 	case CAN_PWR_MODE_SLEEP:
-		HAL_CAN_Sleep(&g_handle[_index]);
+		CAN_Sleep(g_handle[_index]);
 #if defined MX_TB
 		GPIO_WriteBit(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, (GPIO_PinState)0);
 #else
@@ -265,7 +266,7 @@ int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode)
 #if defined MX_TB
 		GPIO_WriteBit(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, (GPIO_PinState)1);
 #endif
-		HAL_CAN_WakeUp(&g_handle[_index]);
+		CAN_WakeUp(g_handle[_index]);
 		break;
 	default:
 		break;
@@ -292,13 +293,13 @@ void can_irq_handler(const uint8_t _index)
 		CAN_Receive(g_handle[_index], CAN_FIFO0, &msg);
 	
 		/* Rx queue is not full */
-		if(g_can_rx_queue_head[_index] != (g_can_rx_queue_tail[_index] + 1) % CAN_FIFO_MAX_SIZE)
+		if(g_can_rx_queue_head[_index] != (g_can_rx_queue_tail[_index] + 1) % CAN_BUFFER_SIZE)
 		{
 			/* Push rx queue */
 			g_can_rx_queue[_index][g_can_rx_queue_tail[_index]].id_ = (CAN_ID_STD ==  msg.IDE) ? msg.StdId : msg.ExtId;
 			g_can_rx_queue[_index][g_can_rx_queue_tail[_index]].dlc_ = msg.DLC > 8u ? 8u : msg.DLC;
 			memcpy(g_can_rx_queue[_index][g_can_rx_queue_tail[_index]].data_, msg.Data, g_can_rx_queue[_index][g_can_rx_queue_tail[_index]].dlc_);
-			g_can_rx_queue_tail[_index] = (g_can_rx_queue_tail[_index] + 1u) % CAN_FIFO_MAX_SIZE;
+			g_can_rx_queue_tail[_index] = (g_can_rx_queue_tail[_index] + 1u) % CAN_BUFFER_SIZE;
 		}
 	}
 }

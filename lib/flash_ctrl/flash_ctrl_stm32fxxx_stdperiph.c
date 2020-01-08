@@ -1,5 +1,5 @@
 /*
- * flash_ctrl_stm32fxxx.c
+ * flash_ctrl_stm32fxxx_stdperiph.c
  *
  *  Created on: 2018Äê10ÔÂ17ÈÕ
  *      Author: Administrator
@@ -14,10 +14,8 @@
  * Local Function prototypes
  ******************************************************************************/
 static uint32_t get_sector(uint32_t _addr);
-#if defined USE_STDPERIPH_DRIVER
 static uint32_t get_sector_addr(const uint32_t _sector);
 static uint32_t get_sector_size(const uint32_t _sector);
-#endif
 
 /*******************************************************************************
  * Functions
@@ -37,31 +35,19 @@ int32_t flash_ctrl_erase_sector(const uint32_t _addr, const uint32_t _size)
 	assert(_addr >= FLASH_BASE_ADDR && (_addr + _size <= FLASH_BASE_ADDR + FLASH_TOTAL_SIZE));
 	
 	int32_t  ret = 0;
-	
-#if defined USE_STDPERIPH_DRIVER
 	uint32_t start_sector_addr = get_sector_addr(get_sector(_addr));
 	uint32_t end_sector_addr   = get_sector_addr(get_sector(_addr + _size - 1));
+	
 	ret = FLASH_COMPLETE;
 	FLASH_Unlock();
 	while(FLASH_COMPLETE == ret && start_sector_addr <= end_sector_addr)
 	{
 		ret = FLASH_ErasePage(start_sector_addr);
-		start_sector_addr += get_sctor_size(get_sector(start_sector_addr));
+		start_sector_addr += get_sector_size(get_sector(start_sector_addr));
 	}
 	FLASH_Lock();
 	if(FLASH_COMPLETE == ret)
 		ret = 0;
-#elif defined USE_HAL_DRIVER
-	FLASH_EraseInitTypeDef EraseInitStruct;
-	uint32_t               SECTORError = 0;
-	EraseInitStruct.TypeErase     = TYPEERASE_SECTORS;
-	EraseInitStruct.Sector        = get_sector(_addr);
-	EraseInitStruct.NbSectors     = get_sector(_addr + _size - 1) - EraseInitStruct.Sector + 1;
-	EraseInitStruct.VoltageRange  = FLASH_VOLTAGE_RANGE_3;
-	HAL_FLASH_Unlock();
-	ret = HAL_FLASHEx_Erase(&EraseInitStruct, &SECTORError);
-	HAL_FLASH_Lock();
-#endif
 
     return ret;
 }
@@ -118,12 +104,11 @@ bool flash_ctrl_is_sector_aligned(const uint32_t _addr)
 int32_t flash_ctrl_program(const uint32_t _addr, const uint32_t _size, const uint8_t *const _buf)
 {
 	assert(_addr >= FLASH_BASE_ADDR && (_addr + _size <= FLASH_BASE_ADDR + FLASH_TOTAL_SIZE) && NULL != _buf);
+	assert(0 == _size % 2);
 	
 	int32_t  ret = 0;
 	uint32_t i = 0;
 	
-#if defined USE_STDPERIPH_DRIVER
-	assert(0 != _size % 2);
 	ret = FLASH_COMPLETE;
 	FLASH_Unlock();
 	while(FLASH_COMPLETE == ret && i < _size)
@@ -142,28 +127,6 @@ int32_t flash_ctrl_program(const uint32_t _addr, const uint32_t _size, const uin
 	FLASH_Lock();
 	if(FLASH_COMPLETE == ret)
 		ret = 0;
-#elif defined USE_HAL_DRIVER
-	HAL_FLASH_Unlock();
-	while(HAL_OK == ret && i < _size)
-	{
-		if(_size - i >= 4)
-		{
-			ret = HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, _addr + i, *((uint32_t*)(_buf + i)));
-			i += 4;
-		}
-		else if(_size - i >= 2)
-		{
-			ret = HAL_FLASH_Program(FLASH_TYPEPROGRAM_HALFWORD, _addr + i, *((uint16_t*)(_buf + i)));
-			i += 2;
-		}
-		else
-		{
-			ret = HAL_FLASH_Program(FLASH_TYPEPROGRAM_BYTE, _addr + i, *(_buf + i));
-			i++;
-		}
-	}
-	HAL_FLASH_Lock();
-#endif
 
     return ret;
 }
@@ -276,7 +239,6 @@ static uint32_t get_sector(const uint32_t _addr)
 	return sector;
 }
 
-#if defined USE_STDPERIPH_DRIVER
 /**
  * @brief  Get the sector address of a given sector.
  *
@@ -288,7 +250,7 @@ static uint32_t get_sector_addr(const uint32_t _sector)
 	uint32_t addr = 0;
 
 #if defined STM32F10X_CL
-	assert(0 <= _sector && FLASH_TOTAL_SIZE / FLASH_SECTOR_SIZE -1 >= _sector);
+	assert(FLASH_TOTAL_SIZE / FLASH_SECTOR_SIZE -1 >= _sector);
 	addr = FLASH_BASE_ADDR + _sector * FLASH_SECTOR_SIZE;
 #elif defined STM32F205xx
 	assert(FLASH_SECTOR_11 >= _sector);
@@ -349,7 +311,7 @@ static uint32_t get_sector_size(const uint32_t _sector)
 	uint32_t size = 0;
 
 #if defined STM32F10X_CL
-	assert(0 <= _sector && (FLASH_TOTAL_SIZE / FLASH_SECTOR_SIZE -1) >= _sector);
+	assert((FLASH_TOTAL_SIZE / FLASH_SECTOR_SIZE -1) >= _sector);
 	size = FLASH_SECTOR_SIZE;
 #elif defined STM32F205xx
 	assert(FLASH_SECTOR_11 >= _sector);
@@ -363,4 +325,3 @@ static uint32_t get_sector_size(const uint32_t _sector)
 	
 	return size;
 }
-#endif

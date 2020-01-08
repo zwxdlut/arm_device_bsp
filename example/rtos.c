@@ -119,7 +119,11 @@ static void prv_on_timer( TimerHandle_t xTimer )
 		if(10 < count)
 		{
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_ON);
+			can_pwr_mode_trans(CAN0_INDEX, CAN_PWR_MODE_SLEEP);
+			can_pwr_mode_trans(CAN1_INDEX, CAN_PWR_MODE_SLEEP);
 			pwr_mode_trans(PWR_MODE_DEEPSLEEP);
+			can_pwr_mode_trans(CAN0_INDEX, CAN_PWR_MODE_RUN);
+			can_pwr_mode_trans(CAN1_INDEX, CAN_PWR_MODE_RUN);
 			count = 0;
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_OFF);
 		}

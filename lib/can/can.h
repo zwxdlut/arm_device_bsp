@@ -59,7 +59,7 @@ extern "C" {
 #define CAN_PWR_MODE_RUN                        1
 /** @} */ /* End of group CAN power modes. */
 
-#define CAN_RX_QUEUE_MAX_SIZE                   10 /**< CAN rx queue max size */
+#define CAN_BUFFER_SIZE                         10 /**< CAN rx queue max size */
 
 /**
  * @brief CAN message.

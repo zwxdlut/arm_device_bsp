@@ -14,7 +14,7 @@
 extern SemaphoreHandle_t g_can_tx_mutex[CAN1_INDEX + 1];  /**< Tx mutex */
 #endif
 
-extern can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_RX_QUEUE_MAX_SIZE];
+extern can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_BUFFER_SIZE];
 extern uint8_t   g_can_rx_queue_head[CAN1_INDEX + 1];
 extern uint8_t   g_can_rx_queue_tail[CAN1_INDEX + 1];
 
@@ -342,13 +342,13 @@ void can_irq_handler(const uint8_t _index)
 		__HAL_CAN_FIFO_RELEASE(&g_handle[_index], CAN_FIFO0);
 		
 		/* Rx queue is not full */
-		if(g_can_rx_queue_head[_index] != (g_can_rx_queue_tail[_index] + 1) % CAN_RX_QUEUE_MAX_SIZE)
+		if(g_can_rx_queue_head[_index] != (g_can_rx_queue_tail[_index] + 1) % CAN_BUFFER_SIZE)
 		{
 			/* Push rx queue */
 			g_can_rx_queue[_index][g_can_rx_queue_tail[_index]].id_ = (CAN_ID_STD ==  g_handle[_index].pRxMsg->IDE) ?  g_handle[_index].pRxMsg->StdId :g_handle[_index].pRxMsg->ExtId;
 			g_can_rx_queue[_index][g_can_rx_queue_tail[_index]].dlc_ = g_handle[_index].pRxMsg->DLC > 8u ? 8u : g_handle[_index].pRxMsg->DLC;
 			memcpy(g_can_rx_queue[_index][g_can_rx_queue_tail[_index]].data_, g_handle[_index].pRxMsg->Data, g_can_rx_queue[_index][g_can_rx_queue_tail[_index]].dlc_);
-			g_can_rx_queue_tail[_index] = (g_can_rx_queue_tail[_index] + 1u) % CAN_RX_QUEUE_MAX_SIZE;
+			g_can_rx_queue_tail[_index] = (g_can_rx_queue_tail[_index] + 1u) % CAN_BUFFER_SIZE;
 		}
 	}
 	/* Error warning */

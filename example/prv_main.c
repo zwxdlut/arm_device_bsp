@@ -40,9 +40,7 @@ void prv_main(void)
 	sys_init();
 	gpio_init();
 	test_flash();
-#if defined MX_TB
 	test_i2c();
-#endif
 	uart_init(UART0_INDEX, 115200);
 	uart_init(UART1_INDEX, 115200);
 	can_init(CAN0_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));

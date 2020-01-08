@@ -39,9 +39,9 @@ void CAN1_RX_IRQ_HANDLER(void)
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_RX_QUEUE_MAX_SIZE]; /**< Rx ring queue */
-uint8_t   g_can_rx_queue_head[CAN1_INDEX + 1] = {0, 0};          /**< Rx queue head */
-uint8_t   g_can_rx_queue_tail[CAN1_INDEX + 1] = {0, 0};          /**< Rx queue tail */
+can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_BUFFER_SIZE]; /**< Rx ring queue */
+uint8_t   g_can_rx_queue_head[CAN1_INDEX + 1] = {0, 0};    /**< Rx queue head */
+uint8_t   g_can_rx_queue_tail[CAN1_INDEX + 1] = {0, 0};    /**< Rx queue tail */
 
 /******************************************************************************
  * Local Function prototypes
@@ -62,7 +62,7 @@ uint8_t can_receive(const uint8_t _index, uint32_t *const _id, uint8_t *const _b
 		*_id = g_can_rx_queue[_index][g_can_rx_queue_head[_index]].id_;
 		size = _size > g_can_rx_queue[_index][g_can_rx_queue_head[_index]].dlc_ ? g_can_rx_queue[_index][g_can_rx_queue_head[_index]].dlc_ : _size;
 		memcpy(_buf, g_can_rx_queue[_index][g_can_rx_queue_head[_index]].data_, size);
-		g_can_rx_queue_head[_index] = (g_can_rx_queue_head[_index] + 1) % CAN_RX_QUEUE_MAX_SIZE;
+		g_can_rx_queue_head[_index] = (g_can_rx_queue_head[_index] + 1) % CAN_BUFFER_SIZE;
 	}
 
 	return size;
