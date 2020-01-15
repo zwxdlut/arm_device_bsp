@@ -1,5 +1,5 @@
 # ARM Device BSP
-**This is a bsp for device based on ARM core MCU.**
+**This is bsp for device based on ARM core MCU.**
 
 Current supported MCUs are:
 * S32K144_64，S32K144_100
@@ -22,10 +22,6 @@ Board type:
  * EVB（S32K144_100）
  * FRDM（S32K144_100）
  * CPATAIN_DESIGN（STM32F105RC）
-
-STM32 SDK:
- * USE_STDPERIPH_DRIVER
- * USE_HAL_DRIVER
  
 OS type:
  * USING_OS_FREERTOS
