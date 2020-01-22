@@ -40,7 +40,7 @@ extern "C" {
  * @{
  */
 #define I2C0_INDEX       		                0
-/** @} */ /* I2C module index. */																  
+/** @} */ /* End of group I2C module index. */
 
 /** 
  * @defgroup EEPROM configuration.
@@ -76,7 +76,7 @@ extern "C" {
 #define EEPROM_SIZE_DTC                          21
 #define EEPROM_ADDR_INIT                         EEPROM_TOTAL_SIZE - 1
 #define EEPROM_SIZE_INIT                         1
-/** @} */ /* End of EEPROM configuration. */
+/** @} */ /* End of group EEPROM configuration. */
 
 /** 
  * @defgroup Accelerometer configuration.
@@ -130,7 +130,7 @@ extern "C" {
 #define ACCR_OFF_Y_REG			                0x30
 #define ACCR_OFF_Z_REG			                0x31
 //#define ACCR_RESERVED_REG		                0x40-0x7F
-/** @} */ /* End of Accelerometer configuration. */
+/** @} */ /* End of group Accelerometer configuration. */
 
 /** 
  * @defgroup Accelerometer system modes.
