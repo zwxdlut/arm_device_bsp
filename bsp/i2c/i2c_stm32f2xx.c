@@ -1,7 +1,7 @@
 /*
  * i2c_stm32f2xx.c
  *
- *  Created on: 2019Äê1ÔÂ9ÈÕ
+ *  Created on: 2019ï¿½ï¿½1ï¿½ï¿½9ï¿½ï¿½
  *      Author: Administrator
  */
 
@@ -55,7 +55,7 @@ static I2C_HandleTypeDef g_handle[I2C0_INDEX + 1] =
 /******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t i2c_master_init(const uint8_t _index)
+int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate)
 {
 	assert(I2C0_INDEX >= _index);
 
@@ -77,6 +77,7 @@ int32_t i2c_master_init(const uint8_t _index)
 	
 	/* I2C initialization */
 	I2C_CLK_ENABLE(_index);
+	g_handle[_index].Init.ClockSpeed = _baudrate;
 	HAL_I2C_Init(&g_handle[_index]);
 	
 	/* NVIC initialization */

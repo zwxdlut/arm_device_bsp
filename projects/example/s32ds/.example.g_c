@@ -2,7 +2,7 @@
 <GenerationInfo_G_C>
   <Options>
     <ProjectName>example</ProjectName>
-    <ProjectDirectory>D:\arm_device_bsp\projects\example\s32ds\</ProjectDirectory>
+    <ProjectDirectory>D:\keilworkspce\arm_device_bsp\projects\example\s32ds\</ProjectDirectory>
     <ProjectMainModuleName>main</ProjectMainModuleName>
     <DestEventsDirectory>src\</DestEventsDirectory>
     <DestDriversSubDirectory>..\Generated_Code\</DestDriversSubDirectory>

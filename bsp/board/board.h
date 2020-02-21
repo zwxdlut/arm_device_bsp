@@ -1,7 +1,7 @@
 /*
  * board.h
  *
- *  Created on: 2018Äê8ÔÂ21ÈÕ
+ *  Created on: 2018ï¿½ï¿½8ï¿½ï¿½21ï¿½ï¿½
  *      Author: Administrator
  */
 
@@ -78,7 +78,7 @@ void sys_reset(void);
  * @brief Transfer power mode.
  *
  * @param [in] _mode Power mode:
- *             @arg PWR_MODE_SLEEP Sleep.
+ *             @arg PWR_MODE_SLEEP     Sleep.
  *             @arg PWR_MODE_DEEPSLEEP Deep sleep.
  */
 void pwr_mode_trans(const uint8_t _mode);

@@ -1,7 +1,7 @@
 /*
  * i2c_s32k1xx.c
  *
- *  Created on: 2019Äê1ÔÂ9ÈÕ
+ *  Created on: 2019ï¿½ï¿½1ï¿½ï¿½9ï¿½ï¿½
  *      Author: Administrator
  */
 
@@ -60,9 +60,11 @@ static lpi2c_master_state_t g_state[I2C0_INDEX + 1];
 /******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t i2c_master_init(const uint8_t _index)
+int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate)
 {
 	assert(I2C0_INDEX >= _index);
+
+	lpi2c_master_user_config_t config;
 
 #if defined USING_OS_FREERTOS
 	g_i2c_mutex[_index] = xSemaphoreCreateMutex();
@@ -76,7 +78,9 @@ int32_t i2c_master_init(const uint8_t _index)
        - Slave address 0x50
        - Fast operating mode, 400 KHz SCL frequency
        - See LPI2C components for configuration details */
-	LPI2C_DRV_MasterInit(g_handle[_index], g_config[_index], &g_state[_index]);
+	config = *g_config[_index];
+	config.baudRate = _baudrate;
+	LPI2C_DRV_MasterInit(g_handle[_index], &config, &g_state[_index]);
 
 #if defined USING_OS_FREERTOS
 	/* The interrupt calls an interrupt safe API function - so its priority must

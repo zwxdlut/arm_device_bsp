@@ -1,7 +1,7 @@
 /*
  * i2c.h
  *
- *  Created on: 2019Äê1ÔÂ9ÈÕ
+ *  Created on: 2019ï¿½ï¿½1ï¿½ï¿½9ï¿½ï¿½
  *      Author: Administrator
  */
 
@@ -159,10 +159,11 @@ extern "C" {
 /**
  * @brief  Initialize I2C bus controller as master.
  *
- * @param  [in] _index I2C index.
+ * @param  [in] _index    I2C index.
+ * @param  [in] _baudrate I2C baud rate.
  * @return Success(0) or failure(other values).
  */
-int32_t i2c_master_init(const uint8_t _index);
+int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate);
 
 /**
  * @brief  De-initialize I2C bus controller as master.
@@ -243,7 +244,7 @@ int32_t accr_deinit(void);
  *
  * @param  [in] _mode System mode:
  *                    @arg ACCR_SYSMOD_STANDBY Standby.
- *				      @arg ACCR_SYSMOD_ACTIVE Active.
+ *				      @arg ACCR_SYSMOD_ACTIVE  Active.
  * @return Success(0) or failure(other values).
  */
 int32_t accr_sys_mode_trans(const uint8_t _mode);

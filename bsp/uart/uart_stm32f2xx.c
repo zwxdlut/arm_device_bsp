@@ -75,7 +75,7 @@ static UART_HandleTypeDef g_handle[UART1_INDEX + 1] =
 /*******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _byte_size, const uint32_t _stop_bits, const uint32_t _parity)
 {
 	assert(UART1_INDEX >= _index);
 	
@@ -101,7 +101,10 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 	
 	/* UART initialization */
 	UART_CLK_ENABLE(_index);
-	g_handle[_index].Init.BaudRate = _baudrate;
+	g_handle[_index].Init.BaudRate   = _baudrate;
+	g_handle[_index].Init.WordLength = _byte_size;
+	g_handle[_index].Init.StopBits   = _stop_bits;
+	g_handle[_index].Init.Parity     = _parity;
 	HAL_UART_Init(&g_handle[_index]);
 	LL_USART_EnableIT_RXNE(g_handle[_index].Instance);
 	LL_USART_EnableIT_ERROR(g_handle[_index].Instance);

@@ -184,7 +184,7 @@ void print_buf(const char *_prefix, const uint32_t _id, const uint8_t *_buf, con
 UARTError InitializeUART(UARTBaudRate baudRate)
 {
 #if defined UDEBUG
-	return uart_init(UART1_INDEX, kBaud115200);
+	return uart_init(UART1_INDEX, kBaud115200, UART_BYTE_SIZE_8B, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
 #else
 	return kUARTNoError;
 #endif
@@ -216,7 +216,7 @@ int _write(int iFileHandle, char *pcBuffer, int iLength)
 
 	if(!init)
 	{
-		uart_init(UART1_INDEX, 115200);
+		uart_init(UART1_INDEX, 115200), UART_BYTE_SIZE_8B, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
 		init = true;
 	}
 
@@ -250,7 +250,7 @@ int fputc(int ch, FILE *f)
 
 	if(!init)
 	{
-		uart_init(UART1_INDEX, 115200);
+		uart_init(UART1_INDEX, 115200, UART_BYTE_SIZE_8B, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
 		init = true;
 	}
 

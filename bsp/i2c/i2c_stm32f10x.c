@@ -1,7 +1,7 @@
 /*
  * i2c_stm32f10x.c
  *
- *  Created on: 2019Äê1ÔÂ9ÈÕ
+ *  Created on: 2019ï¿½ï¿½1ï¿½ï¿½9ï¿½ï¿½
  *      Author: Administrator
  */
 
@@ -20,7 +20,7 @@ extern SemaphoreHandle_t g_i2c_mutex[I2C0_INDEX + 1];
 /******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t i2c_master_init(const uint8_t _index)
+int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate)
 {
 	assert(I2C0_INDEX >= _index);
 

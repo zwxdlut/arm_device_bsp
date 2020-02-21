@@ -41,8 +41,8 @@ void prv_main(void)
 	gpio_init();
 	test_flash();
 	test_i2c();
-	uart_init(UART0_INDEX, 115200);
-	uart_init(UART1_INDEX, 115200);
+	uart_init(UART0_INDEX, 115200, UART_BYTE_SIZE_8B, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
+	uart_init(UART1_INDEX, 115200, UART_BYTE_SIZE_8B, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
 	can_init(CAN0_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
 	can_init(CAN1_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
 	timer_init(TIMER0_INDEX, 500);
@@ -136,7 +136,7 @@ static void test_i2c(void)
 	uint8_t temp1 = 0xAA;
 	uint8_t temp2 = 0;
 	
-	assert(0 == i2c_master_init(I2C0_INDEX));
+	assert(0 == i2c_master_init(I2C0_INDEX, 400000));
 	
 	/* Write then read EEPROM and verify */
 	assert(0 == eeprom_write(EEPROM_ADDR_RESET_TYPE, &temp1, EEPROM_SIZE_RESET_TYPE));

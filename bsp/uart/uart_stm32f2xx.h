@@ -19,6 +19,31 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
+ * @defgroup UART byte size.
+ * @{
+ */
+#define UART_BYTE_SIZE_8B                       (uint32_t)UART_WORDLENGTH_8B
+#define UART_BYTE_SIZE_9B                       (uint32_t)UART_WORDLENGTH_9B
+/** @} */ /* End of group UART byte size. */
+
+/**
+ * @defgroup UART stop bits.
+ * @{
+ */
+#define UART_STOP_BITS_1                        (uint32_t)UART_STOPBITS_1
+#define UART_STOP_BITS_2                        (uint32_t)UART_STOPBITS_2
+/** @} */ /* End of group UART stop bits. */
+
+/**
+ * @defgroup UART parity.
+ * @{
+ */
+#define UART_PARITY_MODE_NONE                   (uint32_t)UART_PARITY_NONE
+#define UART_PARITY_MODE_EVEN                   (uint32_t)UART_PARITY_EVEN
+#define UART_PARITY_MODE_ODD                    (uint32_t)UART_PARITY_ODD
+/** @} */ /* End of group UART parity. */
+
+/**
  * @defgroup UART configuration.
  * @{
  */

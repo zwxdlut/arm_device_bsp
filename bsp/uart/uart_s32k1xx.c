@@ -97,7 +97,7 @@ static void uart_irq_handler(void *_state, uart_event_t _event, void *_user_data
 /*******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _byte_size, const uint32_t _stop_bits, const uint32_t _parity)
 {
 	assert(UART1_INDEX >= _index);
 
@@ -117,7 +117,10 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 
 	/* UART initialization */
 	config = *g_config[_index];
-	config.baudRate = _baudrate;
+	config.baudRate        = _baudrate;
+	config.bitCountPerChar = (lpuart_bit_count_per_char_t)_byte_size;
+	config.stopBitCount    = (lpuart_stop_bit_count_t)_stop_bits;
+	config.parityMode      = (lpuart_parity_mode_t)_parity;
 	LPUART_DRV_Init(g_handle[_index], g_state[_index], &config);
 	LPUART_DRV_InstallRxCallback(g_handle[_index], uart_irq_handler, (void *)((uint32_t)_index));
 #if defined USING_OS_FREERTOS

@@ -50,7 +50,7 @@ static USART_TypeDef *g_handle[UART1_INDEX + 1] = {UART0_INST, UART1_INST};
 /*******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _byte_size, const uint32_t _stop_bits, const uint32_t _parity)
 {
 	assert(UART1_INDEX >= _index);
 	
@@ -77,9 +77,9 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate)
 	/* UART initialization */
 	UART_CLK_ENABLE(_index);
 	USART_InitStructure.USART_BaudRate            = _baudrate;
-	USART_InitStructure.USART_WordLength          = USART_WordLength_8b;
-	USART_InitStructure.USART_StopBits            = USART_StopBits_1;
-	USART_InitStructure.USART_Parity              = USART_Parity_No;
+	USART_InitStructure.USART_WordLength          = _byte_size;
+	USART_InitStructure.USART_StopBits            = _stop_bits;
+	USART_InitStructure.USART_Parity              = _parity;
 	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	USART_InitStructure.USART_Mode                = USART_Mode_Rx | USART_Mode_Tx;
 	USART_Init(g_handle[_index], &USART_InitStructure);
