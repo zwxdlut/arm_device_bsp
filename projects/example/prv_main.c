@@ -137,12 +137,12 @@ static void test_i2c(void)
 	uint8_t temp2 = 0;
 	
 	assert(0 == i2c_master_init(I2C0_INDEX, 400000));
-	
+#if defined MX_TB
 	/* Write then read EEPROM and verify */
 	assert(0 == eeprom_write(EEPROM_ADDR_RESET_TYPE, &temp1, EEPROM_SIZE_RESET_TYPE));
 	delay(10);
 	assert(0 == eeprom_read(EEPROM_ADDR_RESET_TYPE, &temp2, EEPROM_SIZE_RESET_TYPE));
 	assert(temp1 == temp2);
-	
+#endif
 	assert(0 == i2c_master_deinit(I2C0_INDEX));
 }
