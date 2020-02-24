@@ -266,7 +266,7 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
 	g_handle[_index].pTxMsg->RTR   = CAN_RTR_DATA;
 	g_handle[_index].pTxMsg->DLC   = _size >= 8 ? 8 : _size;
 	memcpy(g_handle[_index].pTxMsg->Data, _buf, g_handle[_index].pTxMsg->DLC);
-	if(HAL_OK == HAL_CAN_Transmit(&g_handle[_index], 0))
+	if(HAL_OK == HAL_CAN_Transmit(&g_handle[_index], 10))
 		size = _size; 
 #if defined USING_OS_FREERTOS
 	xSemaphoreGive( g_can_tx_mutex[_index] );
