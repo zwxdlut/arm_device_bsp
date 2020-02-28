@@ -41,8 +41,8 @@ void prv_main(void)
 	gpio_init();
 	test_flash();
 	test_i2c();
-	uart_init(UART0_INDEX, 115200, UART_BYTE_SIZE_8B, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
-	uart_init(UART1_INDEX, 115200, UART_BYTE_SIZE_8B, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
+	uart_init(UART0_INDEX, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
+	uart_init(UART1_INDEX, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
 	can_init(CAN0_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
 	can_init(CAN1_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
 	timer_init(TIMER0_INDEX, 500);
@@ -133,16 +133,18 @@ static void test_flash(void)
  */
 static void test_i2c(void)
 {
+#if defined MX_TB
 	uint8_t temp1 = 0xAA;
 	uint8_t temp2 = 0;
 	
-	assert(0 == i2c_master_init(I2C0_INDEX, 400000));
-#if defined MX_TB
+	assert(0 == i2c_master_init(I2C0_INDEX, 400000, false));
+	
 	/* Write then read EEPROM and verify */
 	assert(0 == eeprom_write(EEPROM_ADDR_RESET_TYPE, &temp1, EEPROM_SIZE_RESET_TYPE));
 	delay(10);
 	assert(0 == eeprom_read(EEPROM_ADDR_RESET_TYPE, &temp2, EEPROM_SIZE_RESET_TYPE));
 	assert(temp1 == temp2);
-#endif
+	
 	assert(0 == i2c_master_deinit(I2C0_INDEX));
+#endif
 }

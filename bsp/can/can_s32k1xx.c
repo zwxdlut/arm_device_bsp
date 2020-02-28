@@ -141,6 +141,7 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 	/* Rx ring queue initialization */
 	g_can_rx_queue_head[_index] = 0;
 	g_can_rx_queue_tail[_index] = 0;
+
 	OSIF_MutexCreate(&g_tx_mutex[_index]);
 
 	/* CAN initialization */
@@ -167,6 +168,7 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 			id_filter_table[i].id = _filter_id_list[i];
 		FLEXCAN_DRV_ConfigRxFifo(g_handle[_index], FLEXCAN_RX_FIFO_ID_FORMAT_A, id_filter_table);
 	}
+
 	/* Install callback for can which will be invoked after the frame was
 	   received and read into the specified buffer */
 	FLEXCAN_DRV_InstallEventCallback(g_handle[_index], can_irq_handler, (void *)((uint32_t)_index));

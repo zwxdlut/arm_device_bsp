@@ -1,7 +1,7 @@
 /*
  * board_s32k1xx.c
  *
- *  Created on: 2018Äê8ÔÂ21ÈÕ
+ *  Created on: 2018ï¿½ï¿½8ï¿½ï¿½21ï¿½ï¿½
  *      Author: Administrator
  */
 
@@ -50,13 +50,14 @@ void gpio_init(void)
     PINS_DRV_SetPinIntSel(BTN_PORT, BTN_PIN, PORT_INT_RISING_EDGE);
     INT_SYS_InstallHandler(BTN_IRQ, &pin_irq_handler, NULL);
     INT_SYS_EnableIRQ(BTN_IRQ);
+
 #if defined USING_OS_FREERTOS
     /* The interrupt calls an interrupt safe API function - so its priority must
        be equal to or lower than configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY */
     INT_SYS_SetPriority( BTN_IRQ, configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY );
 #endif
 #if defined MX_TB
-	/* Upper computer(EC20) initialization */
+	/* Upper computer initialization */
 	PINS_DRV_SetMuxModeSel(UC_POWER_PORT, UC_POWER_PIN, PORT_MUX_AS_GPIO);
 	PINS_DRV_SetPinDirection(UC_POWER_GPIO, UC_POWER_PIN, GPIO_OUTPUT_DIRECTION);
 	PINS_DRV_WritePin(UC_POWER_GPIO, UC_POWER_PIN, 0);

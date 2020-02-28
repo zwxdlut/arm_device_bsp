@@ -34,6 +34,8 @@ extern "C" {
 #define LED2_PIN            			        GPIO_PIN_0
 #define LED2_GPIO_CLK_ENABLE()                  __HAL_RCC_GPIOC_CLK_ENABLE()
 #define LED2_GPIO_CLK_DISABLE()                 __HAL_RCC_GPIOC_CLK_DISABLE()
+#define LED_ON          					    GPIO_PIN_SET
+#define LED_OFF         					    GPIO_PIN_RESET
 /** @} */ /* End of group LEDs configuration. */
  
 /** 
@@ -84,16 +86,8 @@ extern "C" {
 #define IGN_IRQ_HANDLER                         EXTI4_IRQHandler
 /** @} */ /* End of group IRQ handlers. */
 #else
-/**
- * @defgroup IRQ handlers.
- * @{
- */
-#define BTN_IRQ_HANDLER                         EXTI15_10_IRQHandler
-/** @} */ /* End of group IRQ handlers. */
+#error Board type not defined!!!
 #endif
-
-#define LED_ON          					    GPIO_PIN_SET
-#define LED_OFF         					    GPIO_PIN_RESET
 
 /**
  * @defgroup Pin operation macros.

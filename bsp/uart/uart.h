@@ -70,12 +70,12 @@ extern "C" {
 /**
  * @brief  Initialize UART.
  *
- * @param  [in] _index     UART index.
- * @param  [in] _baudrate  Baud rate.
- * @param  [in] _byte_size Byte size:
- *              @arg UART_BYTE_SIZE_8B  8 bits per byte.
- *              @arg UART_BYTE_SIZE_9B  9 bits per byte.
- *              @arg UART_BYTE_SIZE_10B 10 bits per byte.
+ * @param  [in] _index    UART index.
+ * @param  [in] _baudrate Baud rate.
+ * @param  [in] _data_bits Data bits:
+ *              @arg UART_DATA_BITS_8  8 bits data.
+ *              @arg UART_DATA_BITS_9  9 bits data.
+ *              @arg UART_DATA_BITS_10 10 bits data.
  * @param  [in] _stop_bits Stop bits:
  *              @arg UART_STOP_BITS_0_5 0.5 stop bit.
  *              @arg UART_STOP_BITS_1   1 stop bit.
@@ -87,7 +87,7 @@ extern "C" {
  *              @arg UART_PARITY_MODE_ODD  Odd parity.
  * @return Success(0) or failure(other values).
  */
-int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _byte_size, const uint32_t _stop_bits, const uint32_t _parity);
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _data_bits, const uint32_t _stop_bits, const uint32_t _parity);
 
 /**
  * @brief  De-initialize UART.

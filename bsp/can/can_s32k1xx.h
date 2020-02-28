@@ -58,7 +58,7 @@ extern "C" {
 #define CAN1_TRANS_INH_GPIO    			        PTB
 #define CAN1_TRANS_INH_PIN					    2
 #define CAN1_TRANS_INH_IRQ  		            PORTB_IRQn
-#else
+#elif defined EVB || defined FRDM
 #define CAN0_PORT                               PORTE
 #define CAN0_RX_PIN                             4
 #define CAN0_TX_PIN                             5
@@ -75,6 +75,8 @@ extern "C" {
 #define CAN1_ORED_IRQ                           CAN1_ORed_IRQn
 #define CAN1_ERROR_IRQ                          CAN1_Error_IRQn
 #define CAN1_ORED_0_15_IRQ                      CAN1_ORed_0_15_MB_IRQn
+#else
+#error Board type not defined!!!
 #endif
 /** @} */ /* End of group CAN configuration. */
 

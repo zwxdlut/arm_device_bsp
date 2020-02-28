@@ -3525,14 +3525,14 @@ Removing Unused input sections from the image.
     Removing uart_stm32f2xx.o(.rev16_text), (4 bytes).
     Removing uart_stm32f2xx.o(.revsh_text), (4 bytes).
     Removing uart_stm32f2xx.o(.rrx_text), (6 bytes).
-    Removing uart_stm32f2xx.o(i.uart_deinit), (348 bytes).
+    Removing uart_stm32f2xx.o(i.uart_deinit), (344 bytes).
     Removing can.o(.rev16_text), (4 bytes).
     Removing can.o(.revsh_text), (4 bytes).
     Removing can.o(.rrx_text), (6 bytes).
     Removing can_stm32f2xx.o(.rev16_text), (4 bytes).
     Removing can_stm32f2xx.o(.revsh_text), (4 bytes).
     Removing can_stm32f2xx.o(.rrx_text), (6 bytes).
-    Removing can_stm32f2xx.o(i.can_deinit), (428 bytes).
+    Removing can_stm32f2xx.o(i.can_deinit), (420 bytes).
     Removing i2c.o(.rev16_text), (4 bytes).
     Removing i2c.o(.revsh_text), (4 bytes).
     Removing i2c.o(.rrx_text), (6 bytes).
@@ -3574,7 +3574,7 @@ Removing Unused input sections from the image.
     Removing rtos.o(i.vMainConfigureTimerForRunTimeStats), (2 bytes).
     Removing rtos.o(.data), (4 bytes).
 
-1430 unused section(s) (total 154238 bytes) removed from the image.
+1430 unused section(s) (total 154226 bytes) removed from the image.
 
 ==============================================================================
 
@@ -4014,57 +4014,57 @@ Image Symbol Table
     i.__NVIC_SetPriority                     0x08003a4c   Section        0  stm32f2xx_hal_cortex.o(i.__NVIC_SetPriority)
     __NVIC_SetPriority                       0x08003a4d   Thumb Code    32  stm32f2xx_hal_cortex.o(i.__NVIC_SetPriority)
     i.can_init                               0x08003a74   Section        0  can_stm32f2xx.o(i.can_init)
-    i.can_irq_handler                        0x08003ea8   Section        0  can_stm32f2xx.o(i.can_irq_handler)
-    i.can_pwr_mode_trans                     0x08004234   Section        0  can_stm32f2xx.o(i.can_pwr_mode_trans)
-    i.can_receive                            0x080042f8   Section        0  can.o(i.can_receive)
-    i.can_transmit                           0x080043fc   Section        0  can_stm32f2xx.o(i.can_transmit)
-    i.delay                                  0x080044fc   Section        0  board_stm32f2xx.o(i.delay)
-    i.eeprom_read                            0x08004508   Section        0  i2c.o(i.eeprom_read)
-    i.eeprom_write                           0x08004560   Section        0  i2c.o(i.eeprom_write)
-    i.flash_ctrl_deinit                      0x08004610   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_deinit)
-    i.flash_ctrl_erase_sector                0x08004614   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_erase_sector)
-    i.flash_ctrl_init                        0x080046ac   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_init)
-    i.flash_ctrl_program                     0x080046b0   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_program)
-    i.flash_ctrl_program_verify              0x0800477c   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_program_verify)
-    i.flash_ctrl_verify_sector               0x08004828   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_verify_sector)
-    i.flash_ctrl_write_e2                    0x080048c8   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_write_e2)
-    i.get_sector                             0x080048d0   Section        0  flash_ctrl_stm32f2xx.o(i.get_sector)
-    get_sector                               0x080048d1   Thumb Code   210  flash_ctrl_stm32f2xx.o(i.get_sector)
-    i.gpio_init                              0x08004a04   Section        0  board_stm32f2xx.o(i.gpio_init)
-    i.i2c_master_deinit                      0x08004bfc   Section        0  i2c_stm32f2xx.o(i.i2c_master_deinit)
-    i.i2c_master_init                        0x08004d2c   Section        0  i2c_stm32f2xx.o(i.i2c_master_init)
-    i.i2c_master_read                        0x08004ed0   Section        0  i2c.o(i.i2c_master_read)
-    i2c_master_read                          0x08004ed1   Thumb Code    68  i2c.o(i.i2c_master_read)
-    i.i2c_master_receive                     0x08004f3c   Section        0  i2c_stm32f2xx.o(i.i2c_master_receive)
-    i.i2c_master_transmit                    0x08004ff4   Section        0  i2c_stm32f2xx.o(i.i2c_master_transmit)
-    i.main                                   0x080050b0   Section        0  main.o(i.main)
-    i.prv_main                               0x080050d0   Section        0  prv_main.o(i.prv_main)
-    i.pwr_mode_trans                         0x08005214   Section        0  board_stm32f2xx.o(i.pwr_mode_trans)
-    i.sys_clk_config                         0x08005278   Section        0  board_stm32f2xx.o(i.sys_clk_config)
-    sys_clk_config                           0x08005279   Thumb Code    78  board_stm32f2xx.o(i.sys_clk_config)
-    i.sys_init                               0x080052c6   Section        0  board_stm32f2xx.o(i.sys_init)
-    i.sys_reset                              0x080052d4   Section        0  board_stm32f2xx.o(i.sys_reset)
-    i.sys_time                               0x08005320   Section        0  board_stm32f2xx.o(i.sys_time)
-    i.test_flash                             0x08005328   Section        0  prv_main.o(i.test_flash)
-    test_flash                               0x08005329   Thumb Code   184  prv_main.o(i.test_flash)
-    i.test_i2c                               0x0800545c   Section        0  prv_main.o(i.test_i2c)
-    test_i2c                                 0x0800545d   Thumb Code   130  prv_main.o(i.test_i2c)
-    i.timer_init                             0x0800555c   Section        0  timer_stm32f2xx.o(i.timer_init)
-    i.timer_irq_callback                     0x08005668   Section        0  prv_main.o(i.timer_irq_callback)
-    i.timer_irq_handler                      0x0800567c   Section        0  timer_stm32f2xx.o(i.timer_irq_handler)
-    i.timer_start                            0x080056bc   Section        0  timer_stm32f2xx.o(i.timer_start)
-    i.timer_stop                             0x08005724   Section        0  timer_stm32f2xx.o(i.timer_stop)
-    i.uart_init                              0x0800578c   Section        0  uart_stm32f2xx.o(i.uart_init)
-    i.uart_irq_handler                       0x08005984   Section        0  uart_stm32f2xx.o(i.uart_irq_handler)
-    i.uart_receive                           0x08005a20   Section        0  uart.o(i.uart_receive)
-    i.uart_transmit                          0x08005ae4   Section        0  uart_stm32f2xx.o(i.uart_transmit)
-    i.vTaskSwitchContext                     0x08005b70   Section        0  tasks.o(i.vTaskSwitchContext)
-    i.wdog_enable                            0x08005bfc   Section        0  board_stm32f2xx.o(i.wdog_enable)
-    i.wdog_refresh                           0x08005c5c   Section        0  board_stm32f2xx.o(i.wdog_refresh)
-    .constdata                               0x08005c6c   Section       24  system_stm32f2xx.o(.constdata)
-    .constdata                               0x08005c84   Section       12  prv_main.o(.constdata)
-    .conststring                             0x08005c90   Section      254  flash_ctrl_stm32f2xx.o(.conststring)
-    .conststring                             0x08005d90   Section      436  prv_main.o(.conststring)
+    i.can_irq_handler                        0x08003e98   Section        0  can_stm32f2xx.o(i.can_irq_handler)
+    i.can_pwr_mode_trans                     0x08004224   Section        0  can_stm32f2xx.o(i.can_pwr_mode_trans)
+    i.can_receive                            0x080042e8   Section        0  can.o(i.can_receive)
+    i.can_transmit                           0x080043ec   Section        0  can_stm32f2xx.o(i.can_transmit)
+    i.delay                                  0x080044ec   Section        0  board_stm32f2xx.o(i.delay)
+    i.eeprom_read                            0x080044f8   Section        0  i2c.o(i.eeprom_read)
+    i.eeprom_write                           0x08004550   Section        0  i2c.o(i.eeprom_write)
+    i.flash_ctrl_deinit                      0x08004600   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_deinit)
+    i.flash_ctrl_erase_sector                0x08004604   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_erase_sector)
+    i.flash_ctrl_init                        0x0800469c   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_init)
+    i.flash_ctrl_program                     0x080046a0   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_program)
+    i.flash_ctrl_program_verify              0x0800476c   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_program_verify)
+    i.flash_ctrl_verify_sector               0x08004818   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_verify_sector)
+    i.flash_ctrl_write_e2                    0x080048b8   Section        0  flash_ctrl_stm32f2xx.o(i.flash_ctrl_write_e2)
+    i.get_sector                             0x080048c0   Section        0  flash_ctrl_stm32f2xx.o(i.get_sector)
+    get_sector                               0x080048c1   Thumb Code   210  flash_ctrl_stm32f2xx.o(i.get_sector)
+    i.gpio_init                              0x080049f4   Section        0  board_stm32f2xx.o(i.gpio_init)
+    i.i2c_master_deinit                      0x08004be8   Section        0  i2c_stm32f2xx.o(i.i2c_master_deinit)
+    i.i2c_master_init                        0x08004d14   Section        0  i2c_stm32f2xx.o(i.i2c_master_init)
+    i.i2c_master_read                        0x08004ec4   Section        0  i2c.o(i.i2c_master_read)
+    i2c_master_read                          0x08004ec5   Thumb Code    68  i2c.o(i.i2c_master_read)
+    i.i2c_master_receive                     0x08004f30   Section        0  i2c_stm32f2xx.o(i.i2c_master_receive)
+    i.i2c_master_transmit                    0x08004fe8   Section        0  i2c_stm32f2xx.o(i.i2c_master_transmit)
+    i.main                                   0x080050a4   Section        0  main.o(i.main)
+    i.prv_main                               0x080050c4   Section        0  prv_main.o(i.prv_main)
+    i.pwr_mode_trans                         0x08005208   Section        0  board_stm32f2xx.o(i.pwr_mode_trans)
+    i.sys_clk_config                         0x0800526c   Section        0  board_stm32f2xx.o(i.sys_clk_config)
+    sys_clk_config                           0x0800526d   Thumb Code    78  board_stm32f2xx.o(i.sys_clk_config)
+    i.sys_init                               0x080052ba   Section        0  board_stm32f2xx.o(i.sys_init)
+    i.sys_reset                              0x080052c8   Section        0  board_stm32f2xx.o(i.sys_reset)
+    i.sys_time                               0x08005314   Section        0  board_stm32f2xx.o(i.sys_time)
+    i.test_flash                             0x0800531c   Section        0  prv_main.o(i.test_flash)
+    test_flash                               0x0800531d   Thumb Code   184  prv_main.o(i.test_flash)
+    i.test_i2c                               0x08005450   Section        0  prv_main.o(i.test_i2c)
+    test_i2c                                 0x08005451   Thumb Code   134  prv_main.o(i.test_i2c)
+    i.timer_init                             0x08005558   Section        0  timer_stm32f2xx.o(i.timer_init)
+    i.timer_irq_callback                     0x08005664   Section        0  prv_main.o(i.timer_irq_callback)
+    i.timer_irq_handler                      0x08005678   Section        0  timer_stm32f2xx.o(i.timer_irq_handler)
+    i.timer_start                            0x080056b8   Section        0  timer_stm32f2xx.o(i.timer_start)
+    i.timer_stop                             0x08005720   Section        0  timer_stm32f2xx.o(i.timer_stop)
+    i.uart_init                              0x08005788   Section        0  uart_stm32f2xx.o(i.uart_init)
+    i.uart_irq_handler                       0x08005980   Section        0  uart_stm32f2xx.o(i.uart_irq_handler)
+    i.uart_receive                           0x08005a1c   Section        0  uart.o(i.uart_receive)
+    i.uart_transmit                          0x08005ae0   Section        0  uart_stm32f2xx.o(i.uart_transmit)
+    i.vTaskSwitchContext                     0x08005b6c   Section        0  tasks.o(i.vTaskSwitchContext)
+    i.wdog_enable                            0x08005bf8   Section        0  board_stm32f2xx.o(i.wdog_enable)
+    i.wdog_refresh                           0x08005c58   Section        0  board_stm32f2xx.o(i.wdog_refresh)
+    .constdata                               0x08005c68   Section       24  system_stm32f2xx.o(.constdata)
+    .constdata                               0x08005c80   Section       12  prv_main.o(.constdata)
+    .conststring                             0x08005c8c   Section      254  flash_ctrl_stm32f2xx.o(.conststring)
+    .conststring                             0x08005d8c   Section      436  prv_main.o(.conststring)
     .data                                    0x20000000   Section        4  system_stm32f2xx.o(.data)
     .data                                    0x20000004   Section        9  stm32f2xx_hal.o(.data)
     .data                                    0x20000010   Section       60  tasks.o(.data)
@@ -4406,48 +4406,48 @@ Image Symbol Table
     USART1_IRQHandler                        0x080039f9   Thumb Code    10  uart.o(i.USART1_IRQHandler)
     USART2_IRQHandler                        0x08003a03   Thumb Code    10  uart.o(i.USART2_IRQHandler)
     WWDG_IRQHandler                          0x08003a0d   Thumb Code    42  board_stm32f2xx.o(i.WWDG_IRQHandler)
-    can_init                                 0x08003a75   Thumb Code  1076  can_stm32f2xx.o(i.can_init)
-    can_irq_handler                          0x08003ea9   Thumb Code   830  can_stm32f2xx.o(i.can_irq_handler)
-    can_pwr_mode_trans                       0x08004235   Thumb Code   128  can_stm32f2xx.o(i.can_pwr_mode_trans)
-    can_receive                              0x080042f9   Thumb Code   172  can.o(i.can_receive)
-    can_transmit                             0x080043fd   Thumb Code   176  can_stm32f2xx.o(i.can_transmit)
-    delay                                    0x080044fd   Thumb Code    12  board_stm32f2xx.o(i.delay)
-    eeprom_read                              0x08004509   Thumb Code    46  i2c.o(i.eeprom_read)
-    eeprom_write                             0x08004561   Thumb Code   134  i2c.o(i.eeprom_write)
-    flash_ctrl_deinit                        0x08004611   Thumb Code     4  flash_ctrl_stm32f2xx.o(i.flash_ctrl_deinit)
-    flash_ctrl_erase_sector                  0x08004615   Thumb Code    94  flash_ctrl_stm32f2xx.o(i.flash_ctrl_erase_sector)
-    flash_ctrl_init                          0x080046ad   Thumb Code     4  flash_ctrl_stm32f2xx.o(i.flash_ctrl_init)
-    flash_ctrl_program                       0x080046b1   Thumb Code   146  flash_ctrl_stm32f2xx.o(i.flash_ctrl_program)
-    flash_ctrl_program_verify                0x0800477d   Thumb Code   114  flash_ctrl_stm32f2xx.o(i.flash_ctrl_program_verify)
-    flash_ctrl_verify_sector                 0x08004829   Thumb Code   102  flash_ctrl_stm32f2xx.o(i.flash_ctrl_verify_sector)
-    flash_ctrl_write_e2                      0x080048c9   Thumb Code     6  flash_ctrl_stm32f2xx.o(i.flash_ctrl_write_e2)
-    gpio_init                                0x08004a05   Thumb Code   484  board_stm32f2xx.o(i.gpio_init)
-    i2c_master_deinit                        0x08004bfd   Thumb Code   232  i2c_stm32f2xx.o(i.i2c_master_deinit)
-    i2c_master_init                          0x08004d2d   Thumb Code   348  i2c_stm32f2xx.o(i.i2c_master_init)
-    i2c_master_receive                       0x08004f3d   Thumb Code   102  i2c_stm32f2xx.o(i.i2c_master_receive)
-    i2c_master_transmit                      0x08004ff5   Thumb Code   108  i2c_stm32f2xx.o(i.i2c_master_transmit)
-    main                                     0x080050b1   Thumb Code    26  main.o(i.main)
-    prv_main                                 0x080050d1   Thumb Code   316  prv_main.o(i.prv_main)
-    pwr_mode_trans                           0x08005215   Thumb Code    94  board_stm32f2xx.o(i.pwr_mode_trans)
-    sys_init                                 0x080052c7   Thumb Code    14  board_stm32f2xx.o(i.sys_init)
-    sys_reset                                0x080052d5   Thumb Code    68  board_stm32f2xx.o(i.sys_reset)
-    sys_time                                 0x08005321   Thumb Code     8  board_stm32f2xx.o(i.sys_time)
-    timer_init                               0x0800555d   Thumb Code   190  timer_stm32f2xx.o(i.timer_init)
-    timer_irq_callback                       0x08005669   Thumb Code    14  prv_main.o(i.timer_irq_callback)
-    timer_irq_handler                        0x0800567d   Thumb Code    58  timer_stm32f2xx.o(i.timer_irq_handler)
-    timer_start                              0x080056bd   Thumb Code    34  timer_stm32f2xx.o(i.timer_start)
-    timer_stop                               0x08005725   Thumb Code    34  timer_stm32f2xx.o(i.timer_stop)
-    uart_init                                0x0800578d   Thumb Code   424  uart_stm32f2xx.o(i.uart_init)
-    uart_irq_handler                         0x08005985   Thumb Code   140  uart_stm32f2xx.o(i.uart_irq_handler)
-    uart_receive                             0x08005a21   Thumb Code   114  uart.o(i.uart_receive)
-    uart_transmit                            0x08005ae5   Thumb Code    58  uart_stm32f2xx.o(i.uart_transmit)
-    vTaskSwitchContext                       0x08005b71   Thumb Code   118  tasks.o(i.vTaskSwitchContext)
-    wdog_enable                              0x08005bfd   Thumb Code    84  board_stm32f2xx.o(i.wdog_enable)
-    wdog_refresh                             0x08005c5d   Thumb Code    12  board_stm32f2xx.o(i.wdog_refresh)
-    AHBPrescTable                            0x08005c6c   Data          16  system_stm32f2xx.o(.constdata)
-    APBPrescTable                            0x08005c7c   Data           8  system_stm32f2xx.o(.constdata)
-    Region$$Table$$Base                      0x08005f44   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08005f64   Number         0  anon$$obj.o(Region$$Table)
+    can_init                                 0x08003a75   Thumb Code  1060  can_stm32f2xx.o(i.can_init)
+    can_irq_handler                          0x08003e99   Thumb Code   830  can_stm32f2xx.o(i.can_irq_handler)
+    can_pwr_mode_trans                       0x08004225   Thumb Code   128  can_stm32f2xx.o(i.can_pwr_mode_trans)
+    can_receive                              0x080042e9   Thumb Code   172  can.o(i.can_receive)
+    can_transmit                             0x080043ed   Thumb Code   174  can_stm32f2xx.o(i.can_transmit)
+    delay                                    0x080044ed   Thumb Code    12  board_stm32f2xx.o(i.delay)
+    eeprom_read                              0x080044f9   Thumb Code    46  i2c.o(i.eeprom_read)
+    eeprom_write                             0x08004551   Thumb Code   134  i2c.o(i.eeprom_write)
+    flash_ctrl_deinit                        0x08004601   Thumb Code     4  flash_ctrl_stm32f2xx.o(i.flash_ctrl_deinit)
+    flash_ctrl_erase_sector                  0x08004605   Thumb Code    94  flash_ctrl_stm32f2xx.o(i.flash_ctrl_erase_sector)
+    flash_ctrl_init                          0x0800469d   Thumb Code     4  flash_ctrl_stm32f2xx.o(i.flash_ctrl_init)
+    flash_ctrl_program                       0x080046a1   Thumb Code   146  flash_ctrl_stm32f2xx.o(i.flash_ctrl_program)
+    flash_ctrl_program_verify                0x0800476d   Thumb Code   114  flash_ctrl_stm32f2xx.o(i.flash_ctrl_program_verify)
+    flash_ctrl_verify_sector                 0x08004819   Thumb Code   102  flash_ctrl_stm32f2xx.o(i.flash_ctrl_verify_sector)
+    flash_ctrl_write_e2                      0x080048b9   Thumb Code     6  flash_ctrl_stm32f2xx.o(i.flash_ctrl_write_e2)
+    gpio_init                                0x080049f5   Thumb Code   484  board_stm32f2xx.o(i.gpio_init)
+    i2c_master_deinit                        0x08004be9   Thumb Code   226  i2c_stm32f2xx.o(i.i2c_master_deinit)
+    i2c_master_init                          0x08004d15   Thumb Code   360  i2c_stm32f2xx.o(i.i2c_master_init)
+    i2c_master_receive                       0x08004f31   Thumb Code   102  i2c_stm32f2xx.o(i.i2c_master_receive)
+    i2c_master_transmit                      0x08004fe9   Thumb Code   108  i2c_stm32f2xx.o(i.i2c_master_transmit)
+    main                                     0x080050a5   Thumb Code    26  main.o(i.main)
+    prv_main                                 0x080050c5   Thumb Code   316  prv_main.o(i.prv_main)
+    pwr_mode_trans                           0x08005209   Thumb Code    94  board_stm32f2xx.o(i.pwr_mode_trans)
+    sys_init                                 0x080052bb   Thumb Code    14  board_stm32f2xx.o(i.sys_init)
+    sys_reset                                0x080052c9   Thumb Code    68  board_stm32f2xx.o(i.sys_reset)
+    sys_time                                 0x08005315   Thumb Code     8  board_stm32f2xx.o(i.sys_time)
+    timer_init                               0x08005559   Thumb Code   190  timer_stm32f2xx.o(i.timer_init)
+    timer_irq_callback                       0x08005665   Thumb Code    14  prv_main.o(i.timer_irq_callback)
+    timer_irq_handler                        0x08005679   Thumb Code    58  timer_stm32f2xx.o(i.timer_irq_handler)
+    timer_start                              0x080056b9   Thumb Code    34  timer_stm32f2xx.o(i.timer_start)
+    timer_stop                               0x08005721   Thumb Code    34  timer_stm32f2xx.o(i.timer_stop)
+    uart_init                                0x08005789   Thumb Code   424  uart_stm32f2xx.o(i.uart_init)
+    uart_irq_handler                         0x08005981   Thumb Code   140  uart_stm32f2xx.o(i.uart_irq_handler)
+    uart_receive                             0x08005a1d   Thumb Code   114  uart.o(i.uart_receive)
+    uart_transmit                            0x08005ae1   Thumb Code    58  uart_stm32f2xx.o(i.uart_transmit)
+    vTaskSwitchContext                       0x08005b6d   Thumb Code   118  tasks.o(i.vTaskSwitchContext)
+    wdog_enable                              0x08005bf9   Thumb Code    84  board_stm32f2xx.o(i.wdog_enable)
+    wdog_refresh                             0x08005c59   Thumb Code    12  board_stm32f2xx.o(i.wdog_refresh)
+    AHBPrescTable                            0x08005c68   Data          16  system_stm32f2xx.o(.constdata)
+    APBPrescTable                            0x08005c78   Data           8  system_stm32f2xx.o(.constdata)
+    Region$$Table$$Base                      0x08005f40   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08005f60   Number         0  anon$$obj.o(Region$$Table)
     SystemCoreClock                          0x20000000   Data           4  system_stm32f2xx.o(.data)
     uwTick                                   0x20000004   Data           4  stm32f2xx_hal.o(.data)
     uwTickPrio                               0x20000008   Data           4  stm32f2xx_hal.o(.data)
@@ -4473,9 +4473,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000185
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000061cc, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x00005ff4])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000061c8, Max: 0x00080000, ABSOLUTE, COMPRESSED[0x00005ff0])
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00005f64, Max: 0x00080000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00005f60, Max: 0x00080000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -4676,59 +4676,59 @@ Memory Map of the image
     0x08003a0c   0x08003a0c   0x00000030   Code   RO         8987    i.WWDG_IRQHandler   board_stm32f2xx.o
     0x08003a3c   0x08003a3c   0x00000010   Code   RO          846    i.__NVIC_GetPriorityGrouping  stm32f2xx_hal_cortex.o
     0x08003a4c   0x08003a4c   0x00000028   Code   RO          847    i.__NVIC_SetPriority  stm32f2xx_hal_cortex.o
-    0x08003a74   0x08003a74   0x00000434   Code   RO         9294    i.can_init          can_stm32f2xx.o
-    0x08003ea8   0x08003ea8   0x0000038c   Code   RO         9295    i.can_irq_handler   can_stm32f2xx.o
-    0x08004234   0x08004234   0x000000c4   Code   RO         9296    i.can_pwr_mode_trans  can_stm32f2xx.o
-    0x080042f8   0x080042f8   0x00000104   Code   RO         9247    i.can_receive       can.o
-    0x080043fc   0x080043fc   0x00000100   Code   RO         9297    i.can_transmit      can_stm32f2xx.o
-    0x080044fc   0x080044fc   0x0000000c   Code   RO         8988    i.delay             board_stm32f2xx.o
-    0x08004508   0x08004508   0x00000058   Code   RO         9361    i.eeprom_read       i2c.o
-    0x08004560   0x08004560   0x000000b0   Code   RO         9362    i.eeprom_write      i2c.o
-    0x08004610   0x08004610   0x00000004   Code   RO         9575    i.flash_ctrl_deinit  flash_ctrl_stm32f2xx.o
-    0x08004614   0x08004614   0x00000098   Code   RO         9576    i.flash_ctrl_erase_sector  flash_ctrl_stm32f2xx.o
-    0x080046ac   0x080046ac   0x00000004   Code   RO         9577    i.flash_ctrl_init   flash_ctrl_stm32f2xx.o
-    0x080046b0   0x080046b0   0x000000cc   Code   RO         9579    i.flash_ctrl_program  flash_ctrl_stm32f2xx.o
-    0x0800477c   0x0800477c   0x000000ac   Code   RO         9580    i.flash_ctrl_program_verify  flash_ctrl_stm32f2xx.o
-    0x08004828   0x08004828   0x000000a0   Code   RO         9581    i.flash_ctrl_verify_sector  flash_ctrl_stm32f2xx.o
-    0x080048c8   0x080048c8   0x00000006   Code   RO         9582    i.flash_ctrl_write_e2  flash_ctrl_stm32f2xx.o
-    0x080048ce   0x080048ce   0x00000002   PAD
-    0x080048d0   0x080048d0   0x00000134   Code   RO         9583    i.get_sector        flash_ctrl_stm32f2xx.o
-    0x08004a04   0x08004a04   0x000001f8   Code   RO         8990    i.gpio_init         board_stm32f2xx.o
-    0x08004bfc   0x08004bfc   0x00000130   Code   RO         9434    i.i2c_master_deinit  i2c_stm32f2xx.o
-    0x08004d2c   0x08004d2c   0x000001a4   Code   RO         9435    i.i2c_master_init   i2c_stm32f2xx.o
-    0x08004ed0   0x08004ed0   0x0000006c   Code   RO         9363    i.i2c_master_read   i2c.o
-    0x08004f3c   0x08004f3c   0x000000b8   Code   RO         9436    i.i2c_master_receive  i2c_stm32f2xx.o
-    0x08004ff4   0x08004ff4   0x000000bc   Code   RO         9437    i.i2c_master_transmit  i2c_stm32f2xx.o
-    0x080050b0   0x080050b0   0x00000020   Code   RO         9647    i.main              main.o
-    0x080050d0   0x080050d0   0x00000144   Code   RO         9664    i.prv_main          prv_main.o
-    0x08005214   0x08005214   0x00000064   Code   RO         8991    i.pwr_mode_trans    board_stm32f2xx.o
-    0x08005278   0x08005278   0x0000004e   Code   RO         8992    i.sys_clk_config    board_stm32f2xx.o
-    0x080052c6   0x080052c6   0x0000000e   Code   RO         8993    i.sys_init          board_stm32f2xx.o
-    0x080052d4   0x080052d4   0x0000004c   Code   RO         8994    i.sys_reset         board_stm32f2xx.o
-    0x08005320   0x08005320   0x00000008   Code   RO         8995    i.sys_time          board_stm32f2xx.o
-    0x08005328   0x08005328   0x00000134   Code   RO         9665    i.test_flash        prv_main.o
-    0x0800545c   0x0800545c   0x00000100   Code   RO         9666    i.test_i2c          prv_main.o
-    0x0800555c   0x0800555c   0x0000010c   Code   RO         9525    i.timer_init        timer_stm32f2xx.o
-    0x08005668   0x08005668   0x00000014   Code   RO         9667    i.timer_irq_callback  prv_main.o
-    0x0800567c   0x0800567c   0x00000040   Code   RO         9526    i.timer_irq_handler  timer_stm32f2xx.o
-    0x080056bc   0x080056bc   0x00000068   Code   RO         9527    i.timer_start       timer_stm32f2xx.o
-    0x08005724   0x08005724   0x00000068   Code   RO         9528    i.timer_stop        timer_stm32f2xx.o
-    0x0800578c   0x0800578c   0x000001f8   Code   RO         9194    i.uart_init         uart_stm32f2xx.o
-    0x08005984   0x08005984   0x0000009c   Code   RO         9195    i.uart_irq_handler  uart_stm32f2xx.o
-    0x08005a20   0x08005a20   0x000000c4   Code   RO         9110    i.uart_receive      uart.o
-    0x08005ae4   0x08005ae4   0x0000008c   Code   RO         9196    i.uart_transmit     uart_stm32f2xx.o
-    0x08005b70   0x08005b70   0x0000008c   Code   RO         8414    i.vTaskSwitchContext  tasks.o
-    0x08005bfc   0x08005bfc   0x00000060   Code   RO         8997    i.wdog_enable       board_stm32f2xx.o
-    0x08005c5c   0x08005c5c   0x00000010   Code   RO         8998    i.wdog_refresh      board_stm32f2xx.o
-    0x08005c6c   0x08005c6c   0x00000018   Data   RO           15    .constdata          system_stm32f2xx.o
-    0x08005c84   0x08005c84   0x0000000c   Data   RO         9668    .constdata          prv_main.o
-    0x08005c90   0x08005c90   0x000000fe   Data   RO         9584    .conststring        flash_ctrl_stm32f2xx.o
-    0x08005d8e   0x08005d8e   0x00000002   PAD
-    0x08005d90   0x08005d90   0x000001b4   Data   RO         9669    .conststring        prv_main.o
-    0x08005f44   0x08005f44   0x00000020   Data   RO        10011    Region$$Table       anon$$obj.o
+    0x08003a74   0x08003a74   0x00000424   Code   RO         9294    i.can_init          can_stm32f2xx.o
+    0x08003e98   0x08003e98   0x0000038c   Code   RO         9295    i.can_irq_handler   can_stm32f2xx.o
+    0x08004224   0x08004224   0x000000c4   Code   RO         9296    i.can_pwr_mode_trans  can_stm32f2xx.o
+    0x080042e8   0x080042e8   0x00000104   Code   RO         9247    i.can_receive       can.o
+    0x080043ec   0x080043ec   0x00000100   Code   RO         9297    i.can_transmit      can_stm32f2xx.o
+    0x080044ec   0x080044ec   0x0000000c   Code   RO         8988    i.delay             board_stm32f2xx.o
+    0x080044f8   0x080044f8   0x00000058   Code   RO         9361    i.eeprom_read       i2c.o
+    0x08004550   0x08004550   0x000000b0   Code   RO         9362    i.eeprom_write      i2c.o
+    0x08004600   0x08004600   0x00000004   Code   RO         9575    i.flash_ctrl_deinit  flash_ctrl_stm32f2xx.o
+    0x08004604   0x08004604   0x00000098   Code   RO         9576    i.flash_ctrl_erase_sector  flash_ctrl_stm32f2xx.o
+    0x0800469c   0x0800469c   0x00000004   Code   RO         9577    i.flash_ctrl_init   flash_ctrl_stm32f2xx.o
+    0x080046a0   0x080046a0   0x000000cc   Code   RO         9579    i.flash_ctrl_program  flash_ctrl_stm32f2xx.o
+    0x0800476c   0x0800476c   0x000000ac   Code   RO         9580    i.flash_ctrl_program_verify  flash_ctrl_stm32f2xx.o
+    0x08004818   0x08004818   0x000000a0   Code   RO         9581    i.flash_ctrl_verify_sector  flash_ctrl_stm32f2xx.o
+    0x080048b8   0x080048b8   0x00000006   Code   RO         9582    i.flash_ctrl_write_e2  flash_ctrl_stm32f2xx.o
+    0x080048be   0x080048be   0x00000002   PAD
+    0x080048c0   0x080048c0   0x00000134   Code   RO         9583    i.get_sector        flash_ctrl_stm32f2xx.o
+    0x080049f4   0x080049f4   0x000001f4   Code   RO         8990    i.gpio_init         board_stm32f2xx.o
+    0x08004be8   0x08004be8   0x0000012c   Code   RO         9434    i.i2c_master_deinit  i2c_stm32f2xx.o
+    0x08004d14   0x08004d14   0x000001b0   Code   RO         9435    i.i2c_master_init   i2c_stm32f2xx.o
+    0x08004ec4   0x08004ec4   0x0000006c   Code   RO         9363    i.i2c_master_read   i2c.o
+    0x08004f30   0x08004f30   0x000000b8   Code   RO         9436    i.i2c_master_receive  i2c_stm32f2xx.o
+    0x08004fe8   0x08004fe8   0x000000bc   Code   RO         9437    i.i2c_master_transmit  i2c_stm32f2xx.o
+    0x080050a4   0x080050a4   0x00000020   Code   RO         9647    i.main              main.o
+    0x080050c4   0x080050c4   0x00000144   Code   RO         9664    i.prv_main          prv_main.o
+    0x08005208   0x08005208   0x00000064   Code   RO         8991    i.pwr_mode_trans    board_stm32f2xx.o
+    0x0800526c   0x0800526c   0x0000004e   Code   RO         8992    i.sys_clk_config    board_stm32f2xx.o
+    0x080052ba   0x080052ba   0x0000000e   Code   RO         8993    i.sys_init          board_stm32f2xx.o
+    0x080052c8   0x080052c8   0x0000004c   Code   RO         8994    i.sys_reset         board_stm32f2xx.o
+    0x08005314   0x08005314   0x00000008   Code   RO         8995    i.sys_time          board_stm32f2xx.o
+    0x0800531c   0x0800531c   0x00000134   Code   RO         9665    i.test_flash        prv_main.o
+    0x08005450   0x08005450   0x00000108   Code   RO         9666    i.test_i2c          prv_main.o
+    0x08005558   0x08005558   0x0000010c   Code   RO         9525    i.timer_init        timer_stm32f2xx.o
+    0x08005664   0x08005664   0x00000014   Code   RO         9667    i.timer_irq_callback  prv_main.o
+    0x08005678   0x08005678   0x00000040   Code   RO         9526    i.timer_irq_handler  timer_stm32f2xx.o
+    0x080056b8   0x080056b8   0x00000068   Code   RO         9527    i.timer_start       timer_stm32f2xx.o
+    0x08005720   0x08005720   0x00000068   Code   RO         9528    i.timer_stop        timer_stm32f2xx.o
+    0x08005788   0x08005788   0x000001f8   Code   RO         9194    i.uart_init         uart_stm32f2xx.o
+    0x08005980   0x08005980   0x0000009c   Code   RO         9195    i.uart_irq_handler  uart_stm32f2xx.o
+    0x08005a1c   0x08005a1c   0x000000c4   Code   RO         9110    i.uart_receive      uart.o
+    0x08005ae0   0x08005ae0   0x0000008c   Code   RO         9196    i.uart_transmit     uart_stm32f2xx.o
+    0x08005b6c   0x08005b6c   0x0000008c   Code   RO         8414    i.vTaskSwitchContext  tasks.o
+    0x08005bf8   0x08005bf8   0x00000060   Code   RO         8997    i.wdog_enable       board_stm32f2xx.o
+    0x08005c58   0x08005c58   0x00000010   Code   RO         8998    i.wdog_refresh      board_stm32f2xx.o
+    0x08005c68   0x08005c68   0x00000018   Data   RO           15    .constdata          system_stm32f2xx.o
+    0x08005c80   0x08005c80   0x0000000c   Data   RO         9668    .constdata          prv_main.o
+    0x08005c8c   0x08005c8c   0x000000fe   Data   RO         9584    .conststring        flash_ctrl_stm32f2xx.o
+    0x08005d8a   0x08005d8a   0x00000002   PAD
+    0x08005d8c   0x08005d8c   0x000001b4   Data   RO         9669    .conststring        prv_main.o
+    0x08005f40   0x08005f40   0x00000020   Data   RO        10011    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08005f64, Size: 0x00001380, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x00000090])
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08005f60, Size: 0x00001380, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x00000090])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -4763,17 +4763,17 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       980         56          0          0         20      38613   board_stm32f2xx.o
+       976         52          0          0         20      38613   board_stm32f2xx.o
        280         88          0          4        320       2987   can.o
-      2460        310          0        208        128       5834   can_stm32f2xx.o
+      2444        314          0        208        128       5846   can_stm32f2xx.o
          0          0          0          0          0       2288   croutine.o
          0          0          0          0          0       8296   event_groups.o
-      1010        330        254          0          0       5946   flash_ctrl_stm32f2xx.o
+      1010        330        254          0          0       5942   flash_ctrl_stm32f2xx.o
        372        124          0          0          0       2529   i2c.o
-      1128        318          0         96          0       4963   i2c_stm32f2xx.o
+      1136        320          0         96          0       5035   i2c_stm32f2xx.o
         32          6          0          4          0        659   main.o
        150         12          0          0          0        728   port.o
-       908        264        448          0          0       2872   prv_main.o
+       916        268        448          0          0       2872   prv_main.o
         64         26        388          0       1536        812   startup_stm32f205xx.o
        250         38          0          9          0      11266   stm32f2xx_hal.o
       1730         18          0          0          0       5848   stm32f2xx_hal_can.o
@@ -4796,7 +4796,7 @@ Image component sizes
        808        178          0        152          0      16139   uart_stm32f2xx.o
 
     ----------------------------------------------------------------------
-     21982       2534       1148        616       4276     854309   Object Totals
+     21978       2540       1148        616       4276     854389   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         20          0          2          3          0          0   (incl. Padding)
 
@@ -4859,15 +4859,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     23272       2626       1148        616       4376     847081   Grand Totals
-     23272       2626       1148        144       4376     847081   ELF Image Totals (compressed)
-     23272       2626       1148        144          0          0   ROM Totals
+     23268       2632       1148        616       4376     847161   Grand Totals
+     23268       2632       1148        144       4376     847161   ELF Image Totals (compressed)
+     23268       2632       1148        144          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                24420 (  23.85kB)
+    Total RO  Size (Code + RO Data)                24416 (  23.84kB)
     Total RW  Size (RW Data + ZI Data)              4992 (   4.88kB)
-    Total ROM Size (Code + RO Data + RW Data)      24564 (  23.99kB)
+    Total ROM Size (Code + RO Data + RW Data)      24560 (  23.98kB)
 
 ==============================================================================
 

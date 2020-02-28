@@ -21,10 +21,7 @@ extern "C" {
  * @defgroup CAN configuration.
  * @{
  */
-#if defined MX_TB
-#define CAN0_TRANS_INH_IRQ_HANDLER              EXTI9_5_IRQHandler
-#define CAN1_TRANS_INH_IRQ_HANDLER              EXTI15_10_IRQHandler
-#else
+#if defined CPATAIN_DESIGN
 #define CAN0_GPIO                               GPIOB
 #define CAN0_RX_PIN                             GPIO_Pin_8
 #define CAN0_TX_PIN                             GPIO_Pin_9
@@ -49,6 +46,8 @@ extern "C" {
                                                                       {RCC_APB1PeriphResetCmd(RCC_APB1Periph_CAN2, DISABLE);}} while(0)
 #define CAN0_RX_IRQ_HANDLER                     CAN1_RX0_IRQHandler
 #define CAN1_RX_IRQ_HANDLER                     CAN2_RX0_IRQHandler
+#else
+#error Board type not defined!!!
 #endif
 /** @} */ /* End of group CAN configuration. */
 

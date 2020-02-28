@@ -55,7 +55,7 @@ static I2C_HandleTypeDef g_handle[I2C0_INDEX + 1] =
 /******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate)
+int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate, const bool _is_10bit_addr)
 {
 	assert(I2C0_INDEX >= _index);
 
@@ -64,20 +64,20 @@ int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate)
 #if defined USING_OS_FREERTOS
 	g_i2c_mutex[_index] = xSemaphoreCreateMutex();
 #endif
+	
 	/* GPIO initialization */
 	I2C_GPIO_CLK_ENABLE(_index);
-	GPIO_InitStructure.Pin       = g_comm_config[_index].scl_pin_;
+	GPIO_InitStructure.Pin       = g_comm_config[_index].scl_pin_ | g_comm_config[_index].sda_pin_;
 	GPIO_InitStructure.Mode      = GPIO_MODE_AF_OD;
 	GPIO_InitStructure.Pull      = GPIO_PULLUP;
 	GPIO_InitStructure.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
 	GPIO_InitStructure.Alternate = g_comm_config[_index].gpio_af_;
 	HAL_GPIO_Init(g_comm_config[_index].gpio_, &GPIO_InitStructure);
-	GPIO_InitStructure.Pin       = g_comm_config[_index].sda_pin_;
-	HAL_GPIO_Init(g_comm_config[_index].gpio_, &GPIO_InitStructure);
 	
 	/* I2C initialization */
 	I2C_CLK_ENABLE(_index);
-	g_handle[_index].Init.ClockSpeed = _baudrate;
+	g_handle[_index].Init.ClockSpeed     = _baudrate;
+	g_handle[_index].Init.AddressingMode = _is_10bit_addr ? I2C_ADDRESSINGMODE_10BIT : I2C_ADDRESSINGMODE_7BIT;
 	HAL_I2C_Init(&g_handle[_index]);
 	
 	/* NVIC initialization */
@@ -100,8 +100,7 @@ int32_t i2c_master_deinit(const uint8_t _index)
 	I2C_CLK_DISABLE(_index);
 	I2C_FORCE_RESET(_index);
 	I2C_RELEASE_RESET(_index);
-	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].scl_pin_);
-	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].sda_pin_);
+	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].scl_pin_ | g_comm_config[_index].sda_pin_);
 #if defined USING_OS_FREERTOS
 	vSemaphoreDelete(g_i2c_mutex[_index]);
 #endif

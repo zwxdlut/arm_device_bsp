@@ -20,7 +20,7 @@ extern SemaphoreHandle_t g_i2c_mutex[I2C0_INDEX + 1];
 /******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate)
+int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate, const bool _is_10bit_addr)
 {
 	assert(I2C0_INDEX >= _index);
 

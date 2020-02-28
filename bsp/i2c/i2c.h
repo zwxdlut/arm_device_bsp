@@ -159,11 +159,12 @@ extern "C" {
 /**
  * @brief  Initialize I2C bus controller as master.
  *
- * @param  [in] _index    I2C index.
- * @param  [in] _baudrate I2C baud rate.
+ * @param  [in] _index         I2C index.
+ * @param  [in] _baudrate      Baud rate.
+ * @param  [in] _is_10bit_addr Selects 7-bit or 10-bit slave address.
  * @return Success(0) or failure(other values).
  */
-int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate);
+int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate, const bool _is_10bit_addr);
 
 /**
  * @brief  De-initialize I2C bus controller as master.
@@ -177,7 +178,7 @@ int32_t i2c_master_deinit(const uint8_t _index);
  * @brief  Receive data from specified slave device.
  *
  * @param  [in]  _index I2C index.
- * @param  [in]  _addr  Slave device address(7 bit without R/W bit).
+ * @param  [in]  _addr  Slave address(7 bit without R/W bit).
  * @param  [out] _buf   Receive buffer.
  * @param  [in]  _size  Receive size.
  * @param  [in]  _stop  Specify whether generate stop condition after sending.
@@ -189,7 +190,7 @@ int32_t i2c_master_receive(const uint8_t _index, const uint16_t _addr, uint8_t *
  * @brief  Transmit data to specified slave device.
  *
  * @param  [in] _index I2C index.
- * @param  [in] _addr  Slave device address(7 bit without R/W bit).
+ * @param  [in] _addr  Slave address(7 bit without R/W bit).
  * @param  [in] _buf   Transmit buffer.
  * @param  [in] _size  Transmit size.
  * @param  [in] _stop  Specify whether generate stop condition after sending.

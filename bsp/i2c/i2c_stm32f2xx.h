@@ -21,6 +21,7 @@ extern "C" {
  * @defgroup I2C configuration.
  * @{
  */
+ #if defined MX_TB
 #define I2C0_GPIO                               GPIOB
 #define I2C0_SCL_PIN                            GPIO_PIN_6
 #define I2C0_SDA_PIN                            GPIO_PIN_7
@@ -42,8 +43,11 @@ extern "C" {
                                                                       {__HAL_RCC_I2C1_RELEASE_RESET();}} while(0)
 #define I2C0_EV_IRQ_HANDLER                     I2C1_EV_IRQHandler
 #define I2C0_ER_IRQ_HANDLER                     I2C1_ER_IRQHandler
+#else
+#error Board type not defined!!!
+#endif
 /** @} */ /* End of I2C configuration. */
-
+																	  
 #ifdef __cplusplus
 }
 #endif

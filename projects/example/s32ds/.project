@@ -76,6 +76,11 @@
 			<locationURI>PARENT-3-PROJECT_LOC/bsp/i2c/i2c_s32k1xx.c</locationURI>
 		</link>
 		<link>
+			<name>src/bsp/printf.c</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/bsp/uart/printf.c</locationURI>
+		</link>
+		<link>
 			<name>src/bsp/timer.c</name>
 			<type>1</type>
 			<locationURI>PARENT-3-PROJECT_LOC/bsp/timer/timer.c</locationURI>
@@ -89,6 +94,11 @@
 			<name>src/bsp/uart.c</name>
 			<type>1</type>
 			<locationURI>PARENT-3-PROJECT_LOC/bsp/uart/uart.c</locationURI>
+		</link>
+		<link>
+			<name>src/bsp/uart_console_io.c</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/bsp/uart/uart_console_io.c</locationURI>
 		</link>
 		<link>
 			<name>src/bsp/uart_s32k1xx.c</name>

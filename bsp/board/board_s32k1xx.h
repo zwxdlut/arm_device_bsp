@@ -96,7 +96,7 @@ extern "C" {
 #define BTN_PIN         					    13
 #define BTN_IRQ                                 PORTC_IRQn
 /** @} */ /* End of group Button configuration. */
-#else
+#elif defined FRDM
 /**
  * @defgroup LEDs configuration.
  * @{
@@ -123,6 +123,8 @@ extern "C" {
 #define BTN_PIN         					    15
 #define BTN_IRQ                                 PORTD_IRQn
 /** @} */ /* End of group Button configuration. */
+#else
+#error Board type not defined!!!
 #endif                                          
 
 /**

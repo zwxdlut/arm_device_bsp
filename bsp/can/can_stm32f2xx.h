@@ -77,6 +77,7 @@ extern "C" {
 #define CAN0_RX_IRQ_HANDLER                     CAN1_RX0_IRQHandler
 #define CAN1_RX_IRQ_HANDLER                     CAN2_RX0_IRQHandler																	  
 #else
+#error Board type not defined!!!
 #endif																  
 /** @} */ /* End of group CAN configuration. */
 

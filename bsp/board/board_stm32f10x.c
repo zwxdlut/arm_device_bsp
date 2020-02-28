@@ -1,7 +1,7 @@
 /*
  * board_stm32f10x.c
  *
- *  Created on: 2018Äê8ÔÂ21ÈÕ
+ *  Created on: 2018Ã„Ãª8Ã”Ã‚21ÃˆÃ•
  *      Author: Administrator
  */
 
@@ -36,31 +36,31 @@ int32_t sys_init(void)
 void gpio_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
+	EXTI_InitTypeDef EXTI_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
 	
 	/* LEDs initialization */
 	LED0_GPIO_CLK_ENABLE();
-	EXTI_InitTypeDef EXTI_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;
-	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Pin   = LED0_PIN;
-	GPIO_INIT(LED0_GPIO, &GPIO_InitStructure);
-	GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_OFF);
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
+	GPIO_Init(LED0_GPIO, &GPIO_InitStructure);
+	GPIO_WriteBit(LED0_GPIO, LED0_PIN, LED_OFF);
 	LED1_GPIO_CLK_ENABLE();	
 	GPIO_InitStructure.GPIO_Pin = LED1_PIN; 
-	GPIO_INIT(LED1_GPIO, &GPIO_InitStructure);
-	GPIO_WRITE_PIN(LED1_GPIO, LED1_PIN, LED_OFF);
+	GPIO_Init(LED1_GPIO, &GPIO_InitStructure);
+	GPIO_WriteBit(LED1_GPIO, LED1_PIN, LED_OFF);
 	LED2_GPIO_CLK_ENABLE();
 	GPIO_InitStructure.GPIO_Pin = LED2_PIN;
-	GPIO_INIT(LED2_GPIO, &GPIO_InitStructure);
-	GPIO_WRITE_PIN(LED2_GPIO, LED2_PIN, LED_OFF);
+	GPIO_Init(LED2_GPIO, &GPIO_InitStructure);
+	GPIO_WriteBit(LED2_GPIO, LED2_PIN, LED_OFF);
 	
 	/* Button initialization */
 	BTN_GPIO_CLK_ENABLE();
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
 	GPIO_InitStructure.GPIO_Pin  = BTN_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-	GPIO_INIT(BTN_GPIO, &GPIO_InitStructure);
+	GPIO_Init(BTN_GPIO, &GPIO_InitStructure);
 	GPIO_EXTILineConfig(BTN_PORT_SRC, BTN_PIN_SRC);
   	EXTI_InitStructure.EXTI_Line    = BTN_EXTI_LINE;
   	EXTI_InitStructure.EXTI_Mode    = EXTI_Mode_Interrupt;	
@@ -72,34 +72,12 @@ void gpio_init(void)
   	NVIC_InitStructure.NVIC_IRQChannelSubPriority        = 0;
   	NVIC_InitStructure.NVIC_IRQChannelCmd                = ENABLE;
   	NVIC_Init(&NVIC_InitStructure);
-#if defined MX_TB
-	/* Upper computer(EC20) initialization */
-	/* Ignition initialization */
-#else
-#endif
 }
 
 void gpio_deinit(void)
 {
 	NVIC_InitTypeDef NVIC_InitStructure;
 	
-#if defined MX_TB
-	NVIC_InitStructure.NVIC_IRQChannel                   = IGN_IRQ;
-  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; 
-  	NVIC_InitStructure.NVIC_IRQChannelSubPriority        = 0;
-  	NVIC_InitStructure.NVIC_IRQChannelCmd                = DISABLE;
-  	NVIC_Init(&NVIC_InitStructure);
-	EXTI_ClearITPendingBit(IGN_EXTI_LINE);
-	GPIO_DEINIT(UC_POWER_GPIO, UC_POWER_PIN);
-	GPIO_DEINIT(UC_WAKEUP_GPIO, UC_WAKEUP_PIN);
-	GPIO_DEINIT(UC_RESET_GPIO, UC_RESET_PIN);
-	GPIO_DEINIT(IGN_GPIO, IGN_PIN);
-	UC_POWER_GPIO_CLK_DISABLE();
-	UC_WAKEUP_GPIO_CLK_DISABLE();
-	UC_RESET_GPIO_CLK_DISABLE();
-	IGN_GPIO_CLK_DISABLE();
-#else
-#endif
 	NVIC_InitStructure.NVIC_IRQChannel                   = BTN_IRQ;
   	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0; 
   	NVIC_InitStructure.NVIC_IRQChannelSubPriority        = 0;
@@ -108,10 +86,10 @@ void gpio_deinit(void)
 	EXTI_ClearITPendingBit(BTN_EXTI_LINE);
 	EXTI_DeInit();
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, DISABLE);
-	GPIO_DEINIT(LED0_GPIO, LED0_PIN);
-	GPIO_DEINIT(LED1_GPIO, LED1_PIN);
-	GPIO_DEINIT(LED2_GPIO, LED2_PIN);
-	GPIO_DEINIT(BTN_GPIO, BTN_PIN);
+	GPIO_DeInit(LED0_GPIO);
+	GPIO_DeInit(LED1_GPIO);
+	GPIO_DeInit(LED2_GPIO);
+	GPIO_DeInit(BTN_GPIO);
 	LED0_GPIO_CLK_DISABLE();
 	LED1_GPIO_CLK_DISABLE();
 	LED2_GPIO_CLK_DISABLE();
@@ -231,18 +209,6 @@ void BTN_IRQ_HANDLER(void)
 	if(RESET != EXTI_GetITStatus(BTN_EXTI_LINE))
 		EXTI_ClearITPendingBit(BTN_EXTI_LINE);
 }
-
-#if defined MX_TB
-/**
- * @brief Ignition IRQ handler.
- */
-void IGN_IRQ_HANDLER(void)
-{
-	if(RESET != EXTI_GetITStatus(IGN_EXTI_LINE))
-		EXTI_ClearITPendingBit(IGN_EXTI_LINE);
-}
-#else
-#endif
 
 /**
  * @brief Window watch dog IRQ handler.

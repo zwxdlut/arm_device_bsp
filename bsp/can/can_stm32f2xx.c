@@ -26,7 +26,6 @@ typedef struct
 	uint8_t      gpio_af_;
 	IRQn_Type    irqs_[1];
 	uint8_t      start_filter_num_;
-#if defined MX_TB
 	GPIO_TypeDef *trans_stb_n_gpio_;
 	uint16_t     trans_stb_n_pin_;
 	GPIO_TypeDef *trans_en_gpio_;
@@ -34,8 +33,6 @@ typedef struct
 	GPIO_TypeDef *trans_inh_gpio_;
 	uint16_t     trans_inh_pin_;
 	IRQn_Type    trans_inh_irq_;
-#else
-#endif
 }comm_config_t;
 
 static comm_config_t g_comm_config[CAN1_INDEX + 1] =
@@ -47,7 +44,6 @@ static comm_config_t g_comm_config[CAN1_INDEX + 1] =
 		.gpio_af_          = CAN0_GPIO_AF,
 		.irqs_             = {CAN0_RX_IRQ},
 		.start_filter_num_ = 0,
-#if defined MX_TB
 		.trans_stb_n_gpio_ = CAN0_TRANS_STB_N_GPIO,
 		.trans_stb_n_pin_  = CAN0_TRANS_STB_N_PIN,
 		.trans_en_gpio_    = CAN0_TRANS_EN_GPIO,
@@ -55,8 +51,6 @@ static comm_config_t g_comm_config[CAN1_INDEX + 1] =
 		.trans_inh_gpio_   = CAN0_TRANS_INH_GPIO,
 		.trans_inh_pin_    = CAN0_TRANS_INH_PIN,
 		.trans_inh_irq_    = CAN0_TRANS_INH_IRQ
-#else
-#endif
 	},
 	{
 		.gpio_             = CAN1_GPIO,
@@ -65,7 +59,6 @@ static comm_config_t g_comm_config[CAN1_INDEX + 1] =
 		.gpio_af_          = CAN1_GPIO_AF,
 		.irqs_             = {CAN1_RX_IRQ},
 		.start_filter_num_ = CAN_SLAVE_START_FILTER_BANK_NUM,
-#if defined MX_TB
 		.trans_stb_n_gpio_ = CAN1_TRANS_STB_N_GPIO,
 		.trans_stb_n_pin_  = CAN1_TRANS_STB_N_PIN,
 		.trans_en_gpio_    = CAN1_TRANS_EN_GPIO,
@@ -73,8 +66,6 @@ static comm_config_t g_comm_config[CAN1_INDEX + 1] =
 		.trans_inh_gpio_   = CAN1_TRANS_INH_GPIO,
 		.trans_inh_pin_    = CAN1_TRANS_INH_PIN,
 		.trans_inh_irq_    = CAN1_TRANS_INH_IRQ
-#else
-#endif
 	}
 };
 
@@ -133,21 +124,22 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 	/* Rx ring queue initialization */
 	g_can_rx_queue_head[_index] = 0;
 	g_can_rx_queue_tail[_index] = 0;
+	
 #if defined USING_OS_FREERTOS
 	g_can_tx_mutex[_index] = xSemaphoreCreateMutex();
 #endif
-#if defined MX_TB
+
 	/* CAN Transceiver initialization */
 	CAN_TRANS_STB_N_GPIO_CLK_ENABLE(_index);
 	GPIO_InitStructure.Pin       = g_comm_config[_index].trans_stb_n_pin_;
 	GPIO_InitStructure.Mode      = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStructure.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
 	HAL_GPIO_Init(g_comm_config[_index].trans_stb_n_gpio_, &GPIO_InitStructure);
-	HAL_GPIO_WritePin(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, (GPIO_PinState)1);
+	HAL_GPIO_WritePin(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, GPIO_PIN_SET);
 	CAN_TRANS_EN_GPIO_CLK_ENABLE(_index);
 	GPIO_InitStructure.Pin       = g_comm_config[_index].trans_en_pin_;
 	HAL_GPIO_Init(g_comm_config[_index].trans_en_gpio_, &GPIO_InitStructure);
-	HAL_GPIO_WritePin(g_comm_config[_index].trans_en_gpio_, g_comm_config[_index].trans_en_pin_, (GPIO_PinState)1);
+	HAL_GPIO_WritePin(g_comm_config[_index].trans_en_gpio_, g_comm_config[_index].trans_en_pin_, GPIO_PIN_SET);
 	CAN_TRANS_INH_GPIO_CLK_ENABLE(_index);
 	GPIO_InitStructure.Pin       = g_comm_config[_index].trans_inh_pin_;
 	GPIO_InitStructure.Mode      = GPIO_MODE_IT_RISING;
@@ -155,16 +147,13 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 	HAL_GPIO_Init(g_comm_config[_index].trans_inh_gpio_, &GPIO_InitStructure);
 	HAL_NVIC_SetPriority(g_comm_config[_index].trans_inh_irq_, 0, 0);
     HAL_NVIC_EnableIRQ(g_comm_config[_index].trans_inh_irq_);
-#else
-#endif
+
 	/* GPIO initialization */
 	CAN_GPIO_CLK_ENABLE(_index);
-	GPIO_InitStructure.Pin       = g_comm_config[_index].rx_pin_;
+	GPIO_InitStructure.Pin       = g_comm_config[_index].rx_pin_ | g_comm_config[_index].tx_pin_;
 	GPIO_InitStructure.Mode      = GPIO_MODE_AF_PP;
 	GPIO_InitStructure.Pull      = GPIO_NOPULL;
 	GPIO_InitStructure.Alternate = g_comm_config[_index].gpio_af_;
-	HAL_GPIO_Init(g_comm_config[_index].gpio_, &GPIO_InitStructure);
-	GPIO_InitStructure.Pin       = g_comm_config[_index].tx_pin_;
 	HAL_GPIO_Init(g_comm_config[_index].gpio_, &GPIO_InitStructure);
 	
 	/* CAN initialization */
@@ -235,15 +224,11 @@ int32_t can_deinit(const uint8_t _index)
 	CAN_CLK_DISABLE(_index);
 	CAN_FORCE_RESET(_index);
 	CAN_RELEASE_RESET(_index);
-	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].rx_pin_);
-	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].tx_pin_);
-#if defined MX_TB
+	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].rx_pin_ | g_comm_config[_index].tx_pin_);
 	__HAL_GPIO_EXTI_CLEAR_IT(g_comm_config[_index].trans_inh_pin_);
 	HAL_GPIO_DeInit(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_);
 	HAL_GPIO_DeInit(g_comm_config[_index].trans_en_gpio_, g_comm_config[_index].trans_en_pin_);
 	HAL_GPIO_DeInit(g_comm_config[_index].trans_inh_gpio_, g_comm_config[_index].trans_inh_pin_);
-#else
-#endif
 #if defined USING_OS_FREERTOS
 	vSemaphoreDelete(g_can_tx_mutex[_index]);
 #endif
@@ -283,16 +268,10 @@ int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode)
 	{
 	case CAN_PWR_MODE_SLEEP:
 		HAL_CAN_Sleep(&g_handle[_index]);
-#if defined MX_TB
-		HAL_GPIO_WritePin(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, (GPIO_PinState)0);
-#else
-#endif
+		HAL_GPIO_WritePin(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, GPIO_PIN_RESET);
 		break;
 	case CAN_PWR_MODE_RUN:	
-#if defined MX_TB
-		HAL_GPIO_WritePin(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, (GPIO_PinState)1);
-#else
-#endif
+		HAL_GPIO_WritePin(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, GPIO_PIN_SET);
 		HAL_CAN_WakeUp(&g_handle[_index]);
 		break;
 	default:
@@ -359,7 +338,6 @@ void can_irq_handler(const uint8_t _index)
 	if(0 != __HAL_CAN_GET_FLAG(&g_handle[_index], CAN_FLAG_BOF) && RESET !=  __HAL_CAN_GET_IT_SOURCE(&g_handle[_index], CAN_IT_BOF)){}
 }
 
-#if defined MX_TB
 /**
  * @defgroup IRQ handlers.
  * @{
@@ -380,8 +358,6 @@ void CAN1_TRANS_INH_IRQ_HANDLER(void)
 	HAL_GPIO_EXTI_IRQHandler(CAN1_TRANS_INH_PIN);
 }
 /** @} */ /* End of group IRQ handlers. */
-#else
-#endif
 
 /*******************************************************************************
  * Local Functions

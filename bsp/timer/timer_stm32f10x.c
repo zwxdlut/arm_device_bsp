@@ -27,10 +27,9 @@ int32_t timer_init(const uint8_t _index, const uint32_t _period)
 	RCC_ClocksTypeDef        clks;
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	NVIC_InitTypeDef         NVIC_InitStructure;
-	
-	TIMER_CLK_ENABLE(_index);
 
  	/* Timer initialization */
+	TIMER_CLK_ENABLE(_index);
 	RCC_GetClocksFreq(&clks);
 	TIM_TimeBaseStructure.TIM_Prescaler     = 2 * clks.PCLK1_Frequency / g_timer_config[_index].clk_ - 1;
 	TIM_TimeBaseStructure.TIM_CounterMode   = TIM_CounterMode_Up; 

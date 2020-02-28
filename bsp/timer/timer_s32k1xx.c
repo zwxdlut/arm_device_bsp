@@ -52,6 +52,7 @@ int32_t timer_init(const uint8_t _index, const uint32_t _period)
 	/* NVIC initialization*/
 	/* Install IRQ handler for LPTMR interrupt */
 	INT_SYS_InstallHandler(g_timer_irq[_index], timer_irq_handler, (isr_t *)0);
+
 	/* Enable IRQ for LPTMR */
 	INT_SYS_EnableIRQ(g_timer_irq[_index]);
 

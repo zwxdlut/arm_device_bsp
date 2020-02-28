@@ -21,12 +21,16 @@ extern "C" {
  * @defgroup I2C configuration.
  * @{
  */
+#if defined MX_TB || defined EVB || defined FRDM
 #define I2C0_PORT                               PORTA
 #define I2C0_SCL_PIN                            3
 #define I2C0_SDA_PIN                            2
 #define I2C0_GPIO_AF                            PORT_MUX_ALT3
 #define I2C0_IRQ                                LPI2C0_Master_IRQn
 /** @} */ /* End of I2C configuration. */
+#else
+#error Board type not defined!!!
+#endif
 
 #ifdef __cplusplus
 }

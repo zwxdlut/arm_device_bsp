@@ -1,7 +1,7 @@
 /*
  * board_stm32f10x.h
  *
- *  Created on: 2018Äê8ÔÂ21ÈÕ
+ *  Created on: 2018Ã„Ãª8Ã”Ã‚21ÃˆÃ•
  *      Author: Administrator
  */
 
@@ -17,15 +17,7 @@ extern "C" {
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-#if defined MX_TB
-/**
- * @defgroup IRQ handlers.
- * @{
- */
-#define BTN_IRQ_HANDLER                         EXTI3_IRQHandler
-#define IGN_IRQ_HANDLER                         EXTI4_IRQHandler
-/** @} */ /* End of group IRQ handlers. */
-#else
+#if defined CPATAIN_DESIGN
 /**
  * @defgroup LEDs configuration.
  * @{
@@ -66,10 +58,9 @@ extern "C" {
  */
 #define BTN_IRQ_HANDLER                         EXTI15_10_IRQHandler
 /** @} */ /* End of group IRQ handlers. */
+#else
+#error Board type not defined!!!
 #endif
-
-#define LED_ON          					    Bit_RESET
-#define LED_OFF         					    Bit_SET
 
 /**
  * @defgroup Pin operation macros.

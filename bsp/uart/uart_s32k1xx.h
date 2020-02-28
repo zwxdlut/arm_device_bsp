@@ -18,13 +18,13 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
- * @defgroup UART byte size.
+ * @defgroup UART data bits.
  * @{
  */
-#define UART_BYTE_SIZE_8B                       (uint32_t)LPUART_8_BITS_PER_CHAR
-#define UART_BYTE_SIZE_9B                       (uint32_t)LPUART_9_BITS_PER_CHAR
-#define UART_BYTE_SIZE_10B                      (uint32_t)LPUART_10_BITS_PER_CHAR
-/** @} */ /* End of group UART byte size. */
+#define UART_DATA_BITS_8                        (uint32_t)LPUART_8_BITS_PER_CHAR
+#define UART_DATA_BITS_9                        (uint32_t)LPUART_9_BITS_PER_CHAR
+#define UART_DATA_BITS_10                       (uint32_t)LPUART_10_BITS_PER_CHAR
+/** @} */ /* End of group UART data bits. */
 
 /**
  * @defgroup UART stop bits.
@@ -58,7 +58,7 @@ extern "C" {
 #define UART1_TX_PIN                            7
 #define UART1_GPIO_AF                           PORT_MUX_ALT2
 #define UART1_IRQ                               LPUART2_RxTx_IRQn
-#else
+#elif defined EVB || defined FRDM
 #define UART0_PORT                              PORTB
 #define UART0_RX_PIN                            0
 #define UART0_TX_PIN                            1
@@ -69,6 +69,8 @@ extern "C" {
 #define UART1_TX_PIN                            7
 #define UART1_GPIO_AF                           PORT_MUX_ALT2
 #define UART1_IRQ                               LPUART1_RxTx_IRQn
+#else
+#error Board type not defined!!!
 #endif
 /** @} */ /* End of group UART configuration. */
 

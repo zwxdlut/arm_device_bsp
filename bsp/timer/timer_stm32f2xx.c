@@ -1,7 +1,7 @@
 /*
  * timer_stm32f2xx.c
  *
- *  Created on: 2018Äê10ÔÂ23ÈÕ
+ *  Created on: 2018ï¿½ï¿½10ï¿½ï¿½23ï¿½ï¿½
  *      Author: Administrator
  */
 
@@ -11,7 +11,7 @@
  * Definitions
  ******************************************************************************/
 extern timer_confg_t g_timer_config[TIMER0_INDEX + 1];
- 
+
 static TIM_HandleTypeDef g_handle[TIMER0_INDEX + 1] = 
 {
 	{
@@ -32,9 +32,8 @@ int32_t timer_init(const uint8_t _index, const uint32_t _period)
 {
 	assert(TIMER0_INDEX >= _index);
 
-	TIMER_CLK_ENABLE(_index);
-
 	/* Timer initialization */
+	TIMER_CLK_ENABLE(_index);
 	g_handle[_index].Init.Prescaler = 2 * HAL_RCC_GetPCLK1Freq() / g_timer_config[_index].clk_ - 1;
 	g_handle[_index].Init.Period    = _period * g_timer_config[_index].clk_ / 1000 - 1;
 	HAL_TIM_Base_Init(&g_handle[_index]);

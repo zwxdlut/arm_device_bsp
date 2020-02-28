@@ -60,7 +60,7 @@ static lpi2c_master_state_t g_state[I2C0_INDEX + 1];
 /******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate)
+int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate, const bool _is_10bit_addr)
 {
 	assert(I2C0_INDEX >= _index);
 
@@ -69,6 +69,7 @@ int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate)
 #if defined USING_OS_FREERTOS
 	g_i2c_mutex[_index] = xSemaphoreCreateMutex();
 #endif
+
 	/* GPIO initialization*/
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].scl_pin_, g_comm_config[_index].gpio_af_);
 	PINS_DRV_SetMuxModeSel(g_comm_config[_index].port_, g_comm_config[_index].sda_pin_, g_comm_config[_index].gpio_af_);
@@ -79,7 +80,8 @@ int32_t i2c_master_init(const uint8_t _index, const uint32_t _baudrate)
        - Fast operating mode, 400 KHz SCL frequency
        - See LPI2C components for configuration details */
 	config = *g_config[_index];
-	config.baudRate = _baudrate;
+	config.baudRate    = _baudrate;
+	config.is10bitAddr = _is_10bit_addr;
 	LPI2C_DRV_MasterInit(g_handle[_index], &config, &g_state[_index]);
 
 #if defined USING_OS_FREERTOS

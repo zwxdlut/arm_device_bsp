@@ -19,12 +19,12 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
- * @defgroup UART byte size.
+ * @defgroup UART data bits.
  * @{
  */
-#define UART_BYTE_SIZE_8B                       (uint32_t)UART_WORDLENGTH_8B
-#define UART_BYTE_SIZE_9B                       (uint32_t)UART_WORDLENGTH_9B
-/** @} */ /* End of group UART byte size. */
+#define UART_DATA_BITS_8                       (uint32_t)UART_WORDLENGTH_8B
+#define UART_DATA_BITS_9                       (uint32_t)UART_WORDLENGTH_9B
+/** @} */ /* End of group UART data bits. */
 
 /**
  * @defgroup UART stop bits.
@@ -75,8 +75,7 @@ extern "C" {
 #define UART0_IRQ_HANDLER                       USART2_IRQHandler
 #define UART1_IRQ_HANDLER                       USART1_IRQHandler
 #else
-#define UART0_IRQ_HANDLER                       USART2_IRQHandler
-#define UART1_IRQ_HANDLER                       USART3_IRQHandler
+#error Board type not defined!!!
 #endif
 /** @} */ /* End of group UART configuration. */
 

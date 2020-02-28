@@ -97,7 +97,7 @@ static void uart_irq_handler(void *_state, uart_event_t _event, void *_user_data
 /*******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _byte_size, const uint32_t _stop_bits, const uint32_t _parity)
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _data_bits, const uint32_t _stop_bits, const uint32_t _parity)
 {
 	assert(UART1_INDEX >= _index);
 
@@ -106,6 +106,7 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t
 	/* Rx ring queue initialization */
 	g_uart_rx_queue_head[_index] = 0;
 	g_uart_rx_queue_tail[_index] = 0;
+
 #if defined USING_OS_FREERTOS
 	g_uart_tx_mutex[_index] = xSemaphoreCreateRecursiveMutex();
 #endif
@@ -118,7 +119,7 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t
 	/* UART initialization */
 	config = *g_config[_index];
 	config.baudRate        = _baudrate;
-	config.bitCountPerChar = (lpuart_bit_count_per_char_t)_byte_size;
+	config.bitCountPerChar = (lpuart_bit_count_per_char_t)_data_bits;
 	config.stopBitCount    = (lpuart_stop_bit_count_t)_stop_bits;
 	config.parityMode      = (lpuart_parity_mode_t)_parity;
 	LPUART_DRV_Init(g_handle[_index], g_state[_index], &config);

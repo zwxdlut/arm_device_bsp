@@ -75,7 +75,7 @@ static UART_HandleTypeDef g_handle[UART1_INDEX + 1] =
 /*******************************************************************************
  * Functions
  ******************************************************************************/
-int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _byte_size, const uint32_t _stop_bits, const uint32_t _parity)
+int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _data_bits, const uint32_t _stop_bits, const uint32_t _parity)
 {
 	assert(UART1_INDEX >= _index);
 	
@@ -84,9 +84,11 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t
 	/* Rx ring queue initialization */
 	g_uart_rx_queue_head[_index] = 0;
 	g_uart_rx_queue_tail[_index] = 0;
+	
 #if defined USING_OS_FREERTOS
 	g_uart_tx_mutex[_index] = xSemaphoreCreateRecursiveMutex();
 #endif
+	
 	/* GPIO initialization */
 	UART_GPIO_CLK_ENABLE(_index);
 	GPIO_InitStructure.Pin       = g_comm_config[_index].rx_pin_;
@@ -102,7 +104,7 @@ int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t
 	/* UART initialization */
 	UART_CLK_ENABLE(_index);
 	g_handle[_index].Init.BaudRate   = _baudrate;
-	g_handle[_index].Init.WordLength = _byte_size;
+	g_handle[_index].Init.WordLength = _data_bits;
 	g_handle[_index].Init.StopBits   = _stop_bits;
 	g_handle[_index].Init.Parity     = _parity;
 	HAL_UART_Init(&g_handle[_index]);
@@ -132,8 +134,7 @@ int32_t uart_deinit(const uint8_t _index)
 	UART_CLK_DISABLE(_index);
 	UART_FORCE_RESET(_index);
 	UART_RELEASE_RESET(_index);
-	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].rx_pin_);
-	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].tx_pin_);
+	HAL_GPIO_DeInit(g_comm_config[_index].gpio_, g_comm_config[_index].rx_pin_ | g_comm_config[_index].tx_pin_);
 #if defined USING_OS_FREERTOS
 	vSemaphoreDelete(g_uart_tx_mutex[_index]);
 #endif

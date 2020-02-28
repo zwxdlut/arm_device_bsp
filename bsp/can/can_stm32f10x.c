@@ -25,16 +25,6 @@ typedef struct
 	uint16_t     tx_pin_;
 	IRQn_Type    irqs_[1];
 	uint8_t      start_filter_num_;
-#if defined MX_TB
-	GPIO_TypeDef *trans_stb_n_gpio_;
-	uint16_t     trans_stb_n_pin_;
-	GPIO_TypeDef *trans_en_gpio_;
-	uint16_t     trans_en_pin_;
-	GPIO_TypeDef *trans_inh_gpio_;
-	uint16_t     trans_inh_pin_;
-	IRQn_Type    trans_inh_irq_;
-#else
-#endif
 }comm_config_t;
 
 static comm_config_t g_comm_config[CAN1_INDEX + 1] =
@@ -45,16 +35,6 @@ static comm_config_t g_comm_config[CAN1_INDEX + 1] =
 		.tx_pin_           = CAN0_TX_PIN,
 		.irqs_             = {CAN0_RX_IRQ},
 		.start_filter_num_ = 0,
-#if defined MX_TB
-		.trans_stb_n_gpio_ = CAN0_TRANS_STB_N_GPIO,
-		.trans_stb_n_pin_  = CAN0_TRANS_STB_N_PIN,
-		.trans_en_gpio_    = CAN0_TRANS_EN_GPIO,
-		.trans_en_pin_     = CAN0_TRANS_EN_PIN,
-		.trans_inh_gpio_   = CAN0_TRANS_INH_GPIO,
-		.trans_inh_pin_    = CAN0_TRANS_INH_PIN,
-		.trans_inh_irq_    = CAN0_TRANS_INH_IRQ
-#else
-#endif
 	},
 	{
 		.gpio_             = CAN1_GPIO,
@@ -62,16 +42,6 @@ static comm_config_t g_comm_config[CAN1_INDEX + 1] =
 		.tx_pin_           = CAN1_TX_PIN,
 		.irqs_             = {CAN1_RX_IRQ},
 		.start_filter_num_ = CAN_SLAVE_START_FILTER_BANK_NUM,
-#if defined MX_TB
-		.trans_stb_n_gpio_ = CAN1_TRANS_STB_N_GPIO,
-		.trans_stb_n_pin_  = CAN1_TRANS_STB_N_PIN,
-		.trans_en_gpio_    = CAN1_TRANS_EN_GPIO,
-		.trans_en_pin_     = CAN1_TRANS_EN_PIN,
-		.trans_inh_gpio_   = CAN1_TRANS_INH_GPIO,
-		.trans_inh_pin_    = CAN1_TRANS_INH_PIN,
-		.trans_inh_irq_    = CAN1_TRANS_INH_IRQ
-#else
-#endif
 	}
 };
 
@@ -96,20 +66,18 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 	/* Rx ring queue initialization */
 	g_can_rx_queue_head[_index] = 0;
 	g_can_rx_queue_tail[_index] = 0;
+	
 #if defined USING_OS_FREERTOS
 	g_can_tx_mutex[_index] = xSemaphoreCreateMutex();
 #endif
-#if defined MX_TB
-	/* CAN Transceiver initialization */
-#else
-#endif
+	
 	/* GPIO initialization */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
 	CAN_GPIO_CLK_ENABLE(_index);
 	if(CAN1 == g_handle[_index])
 		GPIO_PinRemapConfig(GPIO_Remap1_CAN1, ENABLE);
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Pin   = g_comm_config[_index].rx_pin_;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPU;
 	GPIO_Init(g_comm_config[_index].gpio_, &GPIO_InitStructure);
 	GPIO_InitStructure.GPIO_Pin   = g_comm_config[_index].tx_pin_;
@@ -208,9 +176,6 @@ int32_t can_deinit(const uint8_t _index)
 	CAN_CLK_DISABLE(_index);
 	CAN_FORCE_RESET(_index);
 	CAN_RELEASE_RESET(_index);
-#if defined MX_TB
-#else
-#endif
 #if defined USING_OS_FREERTOS
 	vSemaphoreDelete(g_can_tx_mutex[_index]);
 #endif
@@ -257,15 +222,8 @@ int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode)
 	{
 	case CAN_PWR_MODE_SLEEP:
 		CAN_Sleep(g_handle[_index]);
-#if defined MX_TB
-		GPIO_WriteBit(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, (GPIO_PinState)0);
-#else
-#endif
 		break;
 	case CAN_PWR_MODE_RUN:	
-#if defined MX_TB
-		GPIO_WriteBit(g_comm_config[_index].trans_stb_n_gpio_, g_comm_config[_index].trans_stb_n_pin_, (GPIO_PinState)1);
-#endif
 		CAN_WakeUp(g_handle[_index]);
 		break;
 	default:
@@ -303,32 +261,6 @@ void can_irq_handler(const uint8_t _index)
 		}
 	}
 }
-
-#if defined MX_TB
-/**
- * @defgroup IRQ handlers.
- * @{
- */
-/**
- * @brief CAN0 transcevier INH IRQ handler.
- */
-void CAN0_TRANS_INH_IRQ_HANDLER(void)
-{
-	if(RESET != EXTI_GetITStatus(CAN0_TRANS_INH_EXTI_LINE))
-		EXTI_ClearITPendingBit(CAN0_TRANS_INH_EXTI_LINE);
-}
-
-/**
- * @brief CAN1 transcevier INH IRQ handler.
- */
-void CAN1_TRANS_INH_IRQ_HANDLER(void)
-{
-	if(RESET != EXTI_GetITStatus(CAN1_TRANS_INH_EXTI_LINE))
-		EXTI_ClearITPendingBit(CAN1_TRANS_INH_EXTI_LINE);
-}
-/** @} */ /* End of group IRQ handlers. */
-#else
-#endif
 
 /*******************************************************************************
  * Local Functions

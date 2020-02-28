@@ -18,12 +18,12 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
- * @defgroup UART byte size.
+ * @defgroup UART data bits.
  * @{
  */
-#define UART_BYTE_SIZE_8B                       (uint32_t)USART_WordLength_8b
-#define UART_BYTE_SIZE_9B                       (uint32_t)USART_WordLength_9b
-/** @} */ /* End of group UART byte size. */
+#define UART_DATA_BITS_8                        (uint32_t)USART_WordLength_8b
+#define UART_DATA_BITS_9                        (uint32_t)USART_WordLength_9b
+/** @} */ /* End of group UART data bits. */
 
 /**
  * @defgroup UART stop bits.
@@ -48,10 +48,7 @@ extern "C" {
  * @defgroup UART configuration.
  * @{
  */
-#if defined MX_TB
-#define UART0_IRQ_HANDLER                       USART2_IRQHandler
-#define UART1_IRQ_HANDLER                       USART1_IRQHandler
-#else
+#if defined CPATAIN_DESIGN
 #define UART0_GPIO                              GPIOA
 #define UART0_RX_PIN                            GPIO_Pin_3
 #define UART0_TX_PIN                            GPIO_Pin_2
@@ -76,6 +73,8 @@ extern "C" {
                                                                       {RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART3, DISABLE);}} while(0)
 #define UART0_IRQ_HANDLER                       USART2_IRQHandler
 #define UART1_IRQ_HANDLER                       USART3_IRQHandler
+#else
+#error Board type not defined!!!
 #endif
 /** @} */ /* End of group UART configuration. */
 

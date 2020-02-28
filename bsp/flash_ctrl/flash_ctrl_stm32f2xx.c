@@ -32,10 +32,9 @@ int32_t flash_ctrl_erase_sector(const uint32_t _addr, const uint32_t _size)
 {
 	assert(_addr >= FLASH_BASE_ADDR && (_addr + _size <= FLASH_BASE_ADDR + FLASH_TOTAL_SIZE));
 	
-	int32_t  ret = 0;
-	
+	int32_t ret = 0;
 	FLASH_EraseInitTypeDef EraseInitStruct;
-	uint32_t               SECTORError = 0;
+	uint32_t SECTORError = 0;
 	
 	EraseInitStruct.TypeErase     = TYPEERASE_SECTORS;
 	EraseInitStruct.Sector        = get_sector(_addr);

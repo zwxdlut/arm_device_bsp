@@ -36,7 +36,7 @@ int32_t flash_ctrl_erase_sector(const uint32_t _addr, const uint32_t _size)
 	
 	int32_t  ret = 0;
 	uint32_t start_sector_addr = get_sector_addr(get_sector(_addr));
-	uint32_t end_sector_addr   = get_sector_addr(get_sector(_addr + _size - 1));
+	uint32_t end_sector_addr = get_sector_addr(get_sector(_addr + _size - 1));
 	
 	ret = FLASH_COMPLETE;
 	FLASH_Unlock();
