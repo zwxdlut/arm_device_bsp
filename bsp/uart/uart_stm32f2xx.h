@@ -54,12 +54,14 @@ extern "C" {
 #define UART0_GPIO_AF                           GPIO_AF7_USART2
 #define UART0_INST     		                    USART2
 #define UART0_IRQ                               USART2_IRQn
+#define UART0_IRQ_HANDLER                       USART2_IRQHandler
 #define UART1_GPIO                              GPIOA
 #define UART1_RX_PIN                            GPIO_PIN_10
 #define UART1_TX_PIN                            GPIO_PIN_9
 #define UART1_GPIO_AF                           GPIO_AF7_USART1
 #define UART1_INST     		                    USART1
 #define UART1_IRQ                               USART1_IRQn
+#define UART1_IRQ_HANDLER                       USART1_IRQHandler
 #define UART_GPIO_CLK_ENABLE(INDEX)             do { if(0 == (INDEX)) {__HAL_RCC_GPIOA_CLK_ENABLE();} else\
                                                                       {__HAL_RCC_GPIOA_CLK_ENABLE();}} while(0)
 #define UART_GPIO_CLK_DISABLE(INDEX)            do { if(0 == (INDEX)) {__HAL_RCC_GPIOA_CLK_DISABLE();} else\
@@ -72,8 +74,6 @@ extern "C" {
                                                                       {__HAL_RCC_USART1_FORCE_RESET();}} while(0)
 #define UART_RELEASE_RESET(INDEX)               do { if(0 == (INDEX)) {__HAL_RCC_USART2_RELEASE_RESET();} else\
                                                                       {__HAL_RCC_USART1_RELEASE_RESET();}} while(0)
-#define UART0_IRQ_HANDLER                       USART2_IRQHandler
-#define UART1_IRQ_HANDLER                       USART1_IRQHandler
 #else
 #error Board type not defined!!!
 #endif

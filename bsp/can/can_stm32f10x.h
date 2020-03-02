@@ -1,7 +1,7 @@
 /*
  * can_stm32f10x.h
  *
- *  Created on: 2018Äê8ÔÂ21ÈÕ
+ *  Created on: 2018ï¿½ï¿½8ï¿½ï¿½21ï¿½ï¿½
  *      Author: Administrator
  */
 
@@ -27,11 +27,13 @@ extern "C" {
 #define CAN0_TX_PIN                             GPIO_Pin_9
 #define CAN0_INST     		                    CAN1
 #define CAN0_RX_IRQ                             CAN1_RX0_IRQn
+#define CAN0_RX_IRQ_HANDLER                     CAN1_RX0_IRQHandler
 #define CAN1_GPIO                               GPIOB
 #define CAN1_RX_PIN                             GPIO_Pin_12
 #define CAN1_TX_PIN                             GPIO_Pin_13
 #define CAN1_INST     		                    CAN2
 #define CAN1_RX_IRQ                             CAN2_RX0_IRQn
+#define CAN1_RX_IRQ_HANDLER                     CAN2_RX0_IRQHandler
 #define CAN_GPIO_CLK_ENABLE(INDEX)              do { if(0 == (INDEX)) {RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);} else\
                                                                       {RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);}} while(0)
 #define CAN_GPIO_CLK_DISABLE(INDEX)             do { if(0 == (INDEX)) {RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, DISABLE)();} else\
@@ -44,8 +46,6 @@ extern "C" {
                                                                       {RCC_APB1PeriphResetCmd(RCC_APB1Periph_CAN2, ENABLE);}} while(0)
 #define CAN_RELEASE_RESET(INDEX)                do { if(0 == (INDEX)) {RCC_APB1PeriphResetCmd(RCC_APB1Periph_CAN1, DISABLE);} else\
                                                                       {RCC_APB1PeriphResetCmd(RCC_APB1Periph_CAN2, DISABLE);}} while(0)
-#define CAN0_RX_IRQ_HANDLER                     CAN1_RX0_IRQHandler
-#define CAN1_RX_IRQ_HANDLER                     CAN2_RX0_IRQHandler
 #else
 #error Board type not defined!!!
 #endif

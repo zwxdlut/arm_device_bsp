@@ -244,8 +244,8 @@ int32_t accr_deinit(void);
  * @brief  Transfer accelerometer system mode.
  *
  * @param  [in] _mode System mode:
- *                    @arg ACCR_SYSMOD_STANDBY Standby.
- *				      @arg ACCR_SYSMOD_ACTIVE  Active.
+ *         @arg ACCR_SYSMOD_STANDBY Standby.
+ *         @arg ACCR_SYSMOD_ACTIVE  Active.
  * @return Success(0) or failure(other values).
  */
 int32_t accr_sys_mode_trans(const uint8_t _mode);

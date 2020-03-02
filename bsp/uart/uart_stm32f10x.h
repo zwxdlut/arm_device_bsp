@@ -54,11 +54,13 @@ extern "C" {
 #define UART0_TX_PIN                            GPIO_Pin_2
 #define UART0_INST     		                    USART2
 #define UART0_IRQ     		                    USART2_IRQn
+#define UART0_IRQ_HANDLER                       USART2_IRQHandler
 #define UART1_GPIO                              GPIOB
 #define UART1_RX_PIN                            GPIO_Pin_11
 #define UART1_TX_PIN                            GPIO_Pin_10
 #define UART1_INST     		                    USART3
 #define UART1_IRQ     		                    USART3_IRQn
+#define UART1_IRQ_HANDLER                       USART3_IRQHandler
 #define UART_GPIO_CLK_ENABLE(INDEX)             do { if(0 == (INDEX)) {RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);} else\
                                                                       {RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);}} while(0)
 #define UART_GPIO_CLK_DISABLE(INDEX)            do { if(0 == (INDEX)) {RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, DISABLE);} else\
@@ -71,8 +73,6 @@ extern "C" {
                                                                       {RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART3, ENABLE);}} while(0)
 #define UART_RELEASE_RESET(INDEX)               do { if(0 == (INDEX)) {RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART2, DISABLE);} else\
                                                                       {RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART3, DISABLE);}} while(0)
-#define UART0_IRQ_HANDLER                       USART2_IRQHandler
-#define UART1_IRQ_HANDLER                       USART3_IRQHandler
 #else
 #error Board type not defined!!!
 #endif

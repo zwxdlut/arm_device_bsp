@@ -44,20 +44,14 @@ extern "C" {
  */
 #define BTN_GPIO        					    GPIOB
 #define BTN_PIN         					    GPIO_Pin_14
-#define BTN_GPIO_CLK_ENABLE()                   RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE)
-#define BTN_GPIO_CLK_DISABLE()                  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, DISABLE)
 #define BTN_PORT_SRC        				    GPIO_PortSourceGPIOB
 #define BTN_PIN_SRC        				        GPIO_PinSource14
 #define BTN_EXTI_LINE      				        EXTI_Line14
 #define BTN_IRQ         				        EXTI15_10_IRQn
-/** @} */ /* End of group Button configuration. */
-
-/**
- * @defgroup IRQ handlers.
- * @{
- */
 #define BTN_IRQ_HANDLER                         EXTI15_10_IRQHandler
-/** @} */ /* End of group IRQ handlers. */
+#define BTN_GPIO_CLK_ENABLE()                   RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE)
+#define BTN_GPIO_CLK_DISABLE()                  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, DISABLE)
+/** @} */ /* End of group Button configuration. */
 #else
 #error Board type not defined!!!
 #endif

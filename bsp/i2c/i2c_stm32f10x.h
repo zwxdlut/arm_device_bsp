@@ -24,8 +24,8 @@ extern "C" {
 #if defined CPATAIN_DESIGN
 #define I2C0_INST     		                    I2C1
 #define I2C0_EV_IRQ                             I2C1_EV_IRQn
-#define I2C0_ER_IRQ                             I2C1_ER_IRQn
 #define I2C0_EV_IRQ_HANDLER                     I2C1_EV_IRQHandler
+#define I2C0_ER_IRQ                             I2C1_ER_IRQn
 #define I2C0_ER_IRQ_HANDLER                     I2C1_ER_IRQHandler
 #else
 #error Board type not defined!!!

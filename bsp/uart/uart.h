@@ -70,8 +70,8 @@ extern "C" {
 /**
  * @brief  Initialize UART.
  *
- * @param  [in] _index    UART index.
- * @param  [in] _baudrate Baud rate.
+ * @param  [in] _index     UART index.
+ * @param  [in] _baudrate  Baud rate.
  * @param  [in] _data_bits Data bits:
  *              @arg UART_DATA_BITS_8  8 bits data.
  *              @arg UART_DATA_BITS_9  9 bits data.
@@ -81,7 +81,7 @@ extern "C" {
  *              @arg UART_STOP_BITS_1   1 stop bit.
  *              @arg UART_STOP_BITS_1_5 1.5 stop bits.
  *              @arg UART_STOP_BITS_2   2 stop bits.
- * @param  [in] _parity    Partity:
+ * @param  [in] _parity Partity:
                 @arg UART_PARITY_MODE_NONE No parity.
  *              @arg UART_PARITY_MODE_EVEN Even parity.
  *              @arg UART_PARITY_MODE_ODD  Odd parity.

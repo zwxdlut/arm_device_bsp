@@ -44,9 +44,10 @@ extern "C" {
  */                                       
 #define BTN_GPIO        					    GPIOC
 #define BTN_PIN         					    GPIO_PIN_3
+#define BTN_IRQ         				        EXTI3_IRQn
+#define BTN_IRQ_HANDLER                         EXTI3_IRQHandler
 #define BTN_GPIO_CLK_ENABLE()                   __HAL_RCC_GPIOC_CLK_ENABLE()
 #define BTN_GPIO_CLK_DISABLE()                  __HAL_RCC_GPIOC_CLK_DISABLE()
-#define BTN_IRQ         				        EXTI3_IRQn
 /** @} */ /* End of group Button configuration. */
 
 /**
@@ -73,18 +74,11 @@ extern "C" {
  */
 #define IGN_GPIO        					    GPIOC
 #define IGN_PIN         					    GPIO_PIN_4
+#define IGN_IRQ   					            EXTI4_IRQn
+#define IGN_IRQ_HANDLER                         EXTI4_IRQHandler
 #define IGN_GPIO_CLK_ENABLE()                   __HAL_RCC_GPIOC_CLK_ENABLE()
 #define IGN_GPIO_CLK_DISABLE()                  __HAL_RCC_GPIOC_CLK_DISABLE()
-#define IGN_IRQ   					            EXTI4_IRQn
 /** @} */ /* End of group Ignition configuration. */
-
-/**
- * @defgroup IRQ handlers.
- * @{
- */
-#define BTN_IRQ_HANDLER                         EXTI3_IRQHandler
-#define IGN_IRQ_HANDLER                         EXTI4_IRQHandler
-/** @} */ /* End of group IRQ handlers. */
 #else
 #error Board type not defined!!!
 #endif

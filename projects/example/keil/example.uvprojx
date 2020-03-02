@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F205xx,MX_TB</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Drivers\CMSIS\Include;..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include;..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Inc;..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Middlewares\Third_Party\FreeRTOS\Source\include;..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM3;..\..\..\bsp;include</IncludePath>
+              <IncludePath>..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Drivers\CMSIS\Include;..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include;..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Inc;..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Middlewares\Third_Party\FreeRTOS\Source\include;..\..\..\sdk\STM32Cube_FW_F2_V1.8.0\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM3;..\..\..\bsp;inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

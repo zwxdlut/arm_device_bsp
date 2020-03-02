@@ -112,7 +112,7 @@ int32_t i2c_master_receive(const uint8_t _index, const uint16_t _addr, uint8_t *
 {
 	assert(I2C0_INDEX >= _index && NULL != _buf);
 
-	if(HAL_OK != HAL_I2C_Master_Receive_IT(&g_handle[_index], _addr << 1, (uint8_t*)_buf, _size))
+	if(HAL_OK != HAL_I2C_Master_Receive_IT(&g_handle[_index], _addr << 1, _buf, _size))
 		return -1;
 	while(HAL_I2C_STATE_READY != HAL_I2C_GetState(&g_handle[_index])){}
 

@@ -111,8 +111,8 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
  *
  * @param  [in] _index CAN index.
  * @param  [in] _mode  Power mode:
-				       @arg CAN_PWR_MODE_SLEEP Sleep.
-					   @arg CAN_PWR_MODE_RUN   Run.
+				@arg CAN_PWR_MODE_SLEEP Sleep.
+				@arg CAN_PWR_MODE_RUN   Run.
  * @return Success(0) or failure(other values).
  */
 int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode);
