@@ -168,6 +168,20 @@
       <EmptySection_DummyValue />
     </Events>
   </Bean>
+  <Bean name="spi0" type="lpspi">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="spi0" />
+      <Device v="LPSPI1" />
+      <Component_version v="S32K144_SDK01" />
+    </Properties>
+    <Methods>
+      <EmptySection_DummyValue />
+    </Methods>
+    <Events>
+      <EmptySection_DummyValue />
+    </Events>
+  </Bean>
   <Bean name="lpTmr0" type="lptmr">
     <Enabled v="Y" />
     <Properties>

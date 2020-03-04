@@ -807,6 +807,11 @@
               <FilePath>..\..\..\bsp\i2c\i2c_stm32f2xx.c</FilePath>
             </File>
             <File>
+              <FileName>spi_stm32f2xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\bsp\spi\spi_stm32f2xx.c</FilePath>
+            </File>
+            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\bsp\timer\timer.c</FilePath>

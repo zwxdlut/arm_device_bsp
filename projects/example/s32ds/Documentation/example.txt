@@ -272,6 +272,25 @@ Module "lpi2c0"    (component lpi2c)
    - lpi2c0_LPI2C_DRV_SlaveGetDefaultConfig -Gets the default configuration structure for slave
    - lpi2c0_LPI2C_DRV_SlaveIRQHandler -Handle slave operation when I2C interrupt occurs.
 
+Module "spi0"      (component lpspi)
+   - spi0_LPSPI_DRV_MasterGetDefaultConfig -Return default configuration for SPI master.
+   - spi0_LPSPI_DRV_MasterInit -Initializes a LPSPI instance for interrupt driven master mode operation.
+   - spi0_LPSPI_DRV_MasterDeinit -Shuts down a LPSPI instance.
+   - spi0_LPSPI_DRV_MasterSetDelay -Configures the LPSPI master mode bus timing delay options.
+   - spi0_LPSPI_DRV_MasterConfigureBus -Configures the LPSPI port physical parameters to access a device on the bus when the 
+                LSPI instance is configured for interrupt operation.
+   - spi0_LPSPI_DRV_SetPcs -Select the chip to communicate with.
+   - spi0_LPSPI_DRV_MasterTransferBlocking -Performs an interrupt driven blocking SPI master mode transfer.
+   - spi0_LPSPI_DRV_MasterTransfer -Performs an interrupt driven non-blocking SPI master mode transfer.
+   - spi0_LPSPI_DRV_MasterGetTransferStatus -Returns whether the previous interrupt driven transfer is completed.
+   - spi0_LPSPI_DRV_MasterAbortTransfer -Terminates an interrupt driven asynchronous transfer early.
+   - spi0_LPSPI_DRV_SlaveGetDefaultConfig -Return default configuration for SPI master.
+   - spi0_LPSPI_DRV_SlaveDeinit -Shuts down an LPSPI instance interrupt mechanism.
+   - spi0_LPSPI_DRV_SlaveTransferBlocking -Transfers data on LPSPI bus using a blocking call.
+   - spi0_LPSPI_DRV_SlaveTransfer -Starts the transfer data on LPSPI bus using a non-blocking call.
+   - spi0_LPSPI_DRV_SlaveAbortTransfer -Aborts the transfer that started by a non-blocking call transfer function.
+   - spi0_LPSPI_DRV_SlaveGetTransferStatus -Returns whether the previous transfer is finished.
+
 Module "lpTmr0"    (component lptmr)
    - lpTmr0_LPTMR_DRV_InitConfigStruct -Initialize configuration structure.
    - lpTmr0_LPTMR_DRV_Init -Initializes the LPTMR as Timer or Pulse Counter

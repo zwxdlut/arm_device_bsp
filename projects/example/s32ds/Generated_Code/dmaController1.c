@@ -7,7 +7,7 @@
 **     Version     : Component SDK_S32K1xx_15, Driver 01.00, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2020-01-14, 10:50, # CodeGen: 34
+**     Date/Time   : 2020-03-04, 11:04, # CodeGen: 44
 **
 **     Copyright 1997 - 2015 Freescale Semiconductor, Inc. 
 **     Copyright 2016-2017 NXP 
@@ -52,20 +52,32 @@ edma_state_t dmaController1_State;
 
 edma_chn_state_t dmaController1Chn0_State;
 
+edma_chn_state_t dmaController1Chn1_State;
+
 edma_chn_state_t * const edmaChnStateArray[] = {
-    &dmaController1Chn0_State
+    &dmaController1Chn0_State,
+    &dmaController1Chn1_State
 };
 
 edma_channel_config_t dmaController1Chn0_Config = {
     .channelPriority = EDMA_CHN_DEFAULT_PRIORITY,
     .virtChnConfig = EDMA_CHN0_NUMBER,
-    .source = EDMA_REQ_DISABLED,
+    .source = EDMA_REQ_LPSPI1_RX,
+    .callback = NULL,
+    .callbackParam = NULL,
+    .enableTrigger = false
+};
+edma_channel_config_t dmaController1Chn1_Config = {
+    .channelPriority = EDMA_CHN_DEFAULT_PRIORITY,
+    .virtChnConfig = EDMA_CHN1_NUMBER,
+    .source = EDMA_REQ_LPSPI1_TX,
     .callback = NULL,
     .callbackParam = NULL,
     .enableTrigger = false
 };
 const edma_channel_config_t * const edmaChnConfigArray[] = {
-    &dmaController1Chn0_Config
+    &dmaController1Chn0_Config,
+    &dmaController1Chn1_Config
 };
 
 const edma_user_config_t dmaController1_InitConfig0 = {
