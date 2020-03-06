@@ -7,7 +7,7 @@
 **     Version     : Component SDK_S32K1xx_15, Driver 01.00, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2020-01-14, 10:50, # CodeGen: 34
+**     Date/Time   : 2020-03-06, 10:37, # CodeGen: 49
 **
 **     Copyright 1997 - 2015 Freescale Semiconductor, Inc. 
 **     Copyright 2016-2017 NXP 
@@ -53,7 +53,7 @@
 
 flexcan_state_t canCom0_State; 
 
-const flexcan_user_config_t canCom0_InitConfig0 = {
+flexcan_user_config_t canCom0_InitConfig0 = {
     .fd_enable = false,
     .pe_clock = FLEXCAN_CLK_SOURCE_OSC,
     .max_num_mb = 32,

@@ -1,12 +1,12 @@
 #include <string.h>
 #include <assert.h>
 
-#include "board/board.h"
-#include "uart/uart.h"
-#include "can/can.h"
-#include "timer/timer.h"
-#include "flash_ctrl/flash_ctrl.h"
-#include "i2c/i2c.h"
+#include "board.h"
+#include "uart.h"
+#include "can.h"
+#include "timer.h"
+#include "flash_ctrl.h"
+#include "i2c.h"
 
 /*******************************************************************************
  * Definitions

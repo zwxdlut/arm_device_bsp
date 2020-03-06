@@ -7,7 +7,7 @@
 **     Version     : Component SDK_S32K1xx_15, Driver 01.00, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2020-01-14, 10:50, # CodeGen: 34
+**     Date/Time   : 2020-03-06, 10:41, # CodeGen: 52
 **     Contents    :
 **         LPTMR_DRV_InitConfigStruct       - void LPTMR_DRV_InitConfigStruct(lptmr_config_t *const config);
 **         LPTMR_DRV_Init                   - void LPTMR_DRV_Init(const uint32_t instance,const lptmr_config_t *const...
@@ -74,7 +74,7 @@
 
   
 /*! @brief Configuration declaration */
-extern const lptmr_config_t lpTmr0_config0;
+extern lptmr_config_t lpTmr0_config0;
     
 #endif /* ifndef lpTmr0_H */
 /*!

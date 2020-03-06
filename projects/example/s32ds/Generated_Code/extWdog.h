@@ -7,7 +7,7 @@
 **     Version     : Component SDK_S32K1xx_15, Driver 01.00, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2020-01-14, 10:50, # CodeGen: 34
+**     Date/Time   : 2020-03-06, 10:43, # CodeGen: 53
 **     Contents    :
 **         EWM_DRV_Init                   - status_t EWM_DRV_Init(uint32_t instance,const ewm_init_config_t * config);
 **         EWM_DRV_GetDefaultConfig       - void EWM_DRV_GetDefaultConfig(ewm_init_config_t * config);
@@ -59,7 +59,7 @@
 
 
 /*! @brief Declarations of configuration structures */
-extern const ewm_init_config_t extWdog_Config0;
+extern ewm_init_config_t extWdog_Config0;
 
 #endif
 /* ifndef extWdog_H */

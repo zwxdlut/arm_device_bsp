@@ -9,9 +9,9 @@
 #include "queue.h"
 #include "timers.h"
 
-#include "board/board.h"
-#include "uart/uart.h"
-#include "can/can.h"
+#include "board.h"
+#include "uart.h"
+#include "can.h"
 
 /******************************************************************************
  * Definitions

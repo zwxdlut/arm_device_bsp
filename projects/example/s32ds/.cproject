@@ -88,7 +88,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/SDK/platform/devices/S32K144/startup&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/SDK/platform/drivers/inc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/SDK/rtos/osif/&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../bsp&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../bsp/inc&quot;"/>
 								</option>
 								<option id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.compiler.option.target.fpu.abi.1661332362" name="Float ABI" superClass="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.compiler.option.target.fpu.abi" useByScannerDiscovery="true" value="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.compiler.option.target.fpu.abi.hard" valueType="enumerated"/>
 								<option id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.compiler.option.target.fpu.unit.1650182992" name="FPU Type" superClass="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.compiler.option.target.fpu.unit" useByScannerDiscovery="true" value="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.compiler.option.target.fpu.unit.fpv4spd16" valueType="enumerated"/>
@@ -97,7 +97,7 @@
 									<listOptionValue builtIn="false" value="CPU_S32K144HFT0VLLT"/>
 									<listOptionValue builtIn="false" value="DEV_ERROR_DETECT"/>
 									<listOptionValue builtIn="false" value="FLASH_TARGET"/>
-									<listOptionValue builtIn="false" value="S32K14x"/>
+									<listOptionValue builtIn="false" value="S32K144"/>
 									<listOptionValue builtIn="false" value="MX_TB"/>
 								</option>
 								<option id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.compiler.option.target.instructionset.770299633" name="Instruction set" superClass="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.compiler.option.target.instructionset" useByScannerDiscovery="true" value="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.compiler.option.target.instructionset.thumb" valueType="enumerated"/>
@@ -238,7 +238,7 @@
 									<listOptionValue builtIn="false" value="&quot;${S32K144_SDK_3.0.0_PATH}/platform/pal/inc&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${S32K144_SDK_3.0.0_PATH}/platform/devices/S32K116/include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${S32K144_SDK_3.0.0_PATH}/platform/devices/S32K148/include&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../bsp&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/../../../bsp/inc&quot;"/>
 								</option>
 								<option id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.assembler.option.target.fpu.abi.1572230856" name="Float ABI" superClass="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.assembler.option.target.fpu.abi" value="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.assembler.option.target.fpu.abi.hard" valueType="enumerated"/>
 								<option id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.assembler.option.target.fpu.unit.1075099021" name="FPU Type" superClass="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.assembler.option.target.fpu.unit" value="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.assembler.option.target.fpu.unit.fpv4spd16" valueType="enumerated"/>

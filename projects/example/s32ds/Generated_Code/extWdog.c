@@ -7,7 +7,7 @@
 **     Version     : Component SDK_S32K1xx_15, Driver 01.00, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2020-01-14, 10:50, # CodeGen: 34
+**     Date/Time   : 2020-03-06, 10:43, # CodeGen: 53
 **
 **     Copyright 1997 - 2015 Freescale Semiconductor, Inc. 
 **     Copyright 2016-2017 NXP 
@@ -54,7 +54,7 @@
     -   508 ms counter period
     -   508 ms refresh window 
  */
-const ewm_init_config_t extWdog_Config0 = {
+ewm_init_config_t extWdog_Config0 = {
     /* Module interrupt enabled */
     .interruptEnable    =   true,   
     /* Prescaler */

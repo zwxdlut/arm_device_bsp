@@ -7,7 +7,7 @@
 **     Version     : Component SDK_S32K1xx_15, Driver 01.00, CPU db: 3.00.000
 **     Repository  : SDK_S32K1xx_15
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2020-01-14, 10:50, # CodeGen: 34
+**     Date/Time   : 2020-03-06, 10:38, # CodeGen: 50
 **     Abstract    :
 **
 **
@@ -50,7 +50,7 @@
 #include "lpuart1.h"
 
 /*! lpuart1 configuration structure */
-const lpuart_user_config_t lpuart1_InitConfig0 = {
+lpuart_user_config_t lpuart1_InitConfig0 = {
   .transferType = LPUART_USING_INTERRUPTS,
   .baudRate = 115200U,
   .parityMode = LPUART_PARITY_DISABLED,
