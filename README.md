@@ -11,7 +11,7 @@ Current supported borads are:
 * FRDM-S32K144(S32K144_100)
 * Captain Design
 
-## Precompiled macro:
+## Precompiled macro
 MCU type:
  * S32K144
  * STM32F10X_CL
