@@ -132,7 +132,7 @@ int32_t i2c_master_transmit(const uint8_t _index, const uint16_t _addr, const ui
 }
 
 /**
- * @defgroup IRQ handlers.
+ * @name IRQ handlers.
  * @{
  */
 /**
@@ -150,7 +150,7 @@ void I2C0_ER_IRQ_HANDLER(void)
 {
 	HAL_I2C_ER_IRQHandler(&g_handle[I2C0_INDEX]);
 }
-/** @} */ /* End of group IRQ handlers. */
+/** @} */ /* IRQ handlers. */
 
 /******************************************************************************
  * Local Functions

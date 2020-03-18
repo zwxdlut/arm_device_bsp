@@ -201,7 +201,7 @@ int32_t spi_slave_transmit(const uint8_t _index, const uint8_t *const _buf, cons
 }
 
 /**
- * @defgroup IRQ handlers.
+ * @name IRQ handlers.
  * @{
  */
 /**
@@ -227,7 +227,7 @@ void SPI0_TX_DMA_IRQ_HANDLER(void)
 {
 	HAL_DMA_IRQHandler(g_handle[SPI0_INDEX].hdmatx);
 }
-/** @} */ /* End of group IRQ handlers. */
+/** @} */ /* IRQ handlers. */
 
 /*******************************************************************************
  * Local Functions

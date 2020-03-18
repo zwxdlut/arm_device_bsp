@@ -18,12 +18,12 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
- * @defgroup Power modes.
+ * @name Power modes.
  * @{
  */
 #define PWR_MODE_SLEEP                          0
 #define PWR_MODE_DEEPSLEEP                      1
-/** @} */ /* End of group Power modes. */
+/** @} */ /* Power modes. */
 
 /*******************************************************************************
  * Function prototypes
@@ -68,8 +68,8 @@ void sys_reset(void);
  * @brief Transfer power mode.
  *
  * @param [in] _mode Power mode:
- *             @arg PWR_MODE_SLEEP     Sleep.
- *             @arg PWR_MODE_DEEPSLEEP Deep sleep.
+ *  - PWR_MODE_SLEEP:     Sleep.
+ *  - PWR_MODE_DEEPSLEEP: Deep sleep.
  */
 void pwr_mode_trans(const uint8_t _mode);
 

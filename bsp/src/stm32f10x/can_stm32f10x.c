@@ -236,7 +236,7 @@ int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode)
 }
 
 /**
- * @defgroup IRQ handlers.
+ * @name IRQ handlers.
  * @{
  */
 /*
@@ -254,7 +254,7 @@ void CAN1_RX_IRQ_HANDLER(void)
 {	
 	can_irq_handler(CAN1_INDEX);
 }
-/** @} */ /* End of group IRQ handlers. */
+/** @} */ /* IRQ handlers. */
 
 /*******************************************************************************
  * Local Functions

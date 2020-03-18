@@ -24,55 +24,55 @@
 #if defined S32K144
 #include "Cpu.h"
 /**
- * @defgroup Pin operation macros.
+ * @name Pin operation macros.
  * @{
  */
 #define GPIO_WRITE_PIN(GPIO, PIN, LEVEL)        PINS_DRV_WritePin(GPIO, PIN, LEVEL)
 #define GPIO_TOGGLE_PIN(GPIO, PIN)              PINS_DRV_TogglePins(GPIO, (1 << PIN))
 #define GPIO_READ_PIN(GPIO, PIN)                ((1 << PIN) & PINS_DRV_ReadPins(GPIO))
-/** @} */ /* End of group Pin operation macros. */
+/** @} */ /* Pin operation macros. */
 
 /**
- * @defgroup UART data bits.
+ * @name UART data bits.
  * @{
  */
 #define UART_DATA_BITS_8                        (uint32_t)LPUART_8_BITS_PER_CHAR
 #define UART_DATA_BITS_9                        (uint32_t)LPUART_9_BITS_PER_CHAR
 #define UART_DATA_BITS_10                       (uint32_t)LPUART_10_BITS_PER_CHAR
-/** @} */ /* End of group UART data bits. */
+/** @} */ /* UART data bits. */
 
 /**
- * @defgroup UART stop bits.
+ * @name UART stop bits.
  * @{
  */
 #define UART_STOP_BITS_1                        (uint32_t)LPUART_ONE_STOP_BIT
 #define UART_STOP_BITS_2                        (uint32_t)LPUART_TWO_STOP_BIT
-/** @} */ /* End of group UART stop bits. */
+/** @} */ /* UART stop bits. */
 
 /**
- * @defgroup UART parity.
+ * @name UART parity.
  * @{
  */
 #define UART_PARITY_MODE_NONE                   (uint32_t)LPUART_PARITY_DISABLED
 #define UART_PARITY_MODE_EVEN                   (uint32_t)LPUART_PARITY_EVEN
 #define UART_PARITY_MODE_ODD                    (uint32_t)LPUART_PARITY_ODD
-/** @} */ /* End of group UART parity. */
+/** @} */ /* UART parity. */
 
 /**
- * @defgroup Timer configuration.
+ * @name Timer configuration.
  * @{
  */
 #define TIMER0_IRQ                              LPTMR0_IRQn
-/** @} */ /* End of group Timer configuration. */
+/** @} */ /* Timer configuration. */
 
 /**
- * @defgroup Flash configuration.
+ * @name Flash configuration.
  * @{
  */
 #define FLASH_BASE_ADDR 			                                                 0x00000000
 #define FLASH_SECTOR_SIZE                                                            4096        /**< 4k. */
 #define FLASH_TOTAL_SIZE                                                             0x80000     /**< 512k. */
-/** @} */ /* End of group Flash configuration. */
+/** @} */ /* Flash configuration. */
 #if defined MX_TB
 #include "mx_tb/s32k144_mx_tb.h"
 #elif defined S32K144_EVB
@@ -85,7 +85,7 @@
 #elif defined STM32F10X_CL
 #include "stm32f10x.h"
 /**
- * @defgroup Pin operation macros.
+ * @name Pin operation macros.
  * @{
  */
 #define GPIO_INIT(GPIO, INIT)                   GPIO_Init(GPIO, INIT)
@@ -93,10 +93,10 @@
 #define GPIO_WRITE_PIN(GPIO, PIN, LEVEL)        GPIO_WriteBit(GPIO, PIN, (BitAction)LEVEL)
 #define GPIO_TOGGLE_PIN(GPIO, PIN)              GPIO_WriteBit(GPIO, PIN, (Bit_RESET == GPIO_ReadOutputDataBit(GPIO, PIN) ? Bit_SET : Bit_RESET))
 #define GPIO_READ_PIN(GPIO, PIN)                GPIO_ReadInputDataBit(GPIO, PIN)
-/** @} */ /* End of group Pin operation macros. */
+/** @} */ /* Pin operation macros. */
 
 /**
- * @defgroup Independent watch dog.
+ * @name Independent watch dog.
  *
  * @details  Tout = (4*2^prv) / LSI * rlv (ms).
  *           LSI: LSI clock in kHz.
@@ -106,10 +106,10 @@
  */
 #define IWDOG_PRV                               IWDG_Prescaler_8
 #define IWDOG_RLV                               0xFFF
-/** @} */ /* End of group Independent watch dog. */
+/** @} */ /* Independent watch dog. */
 
 /**
- * @defgroup Window watch dog.
+ * @name Window watch dog.
  *
  * @details  Tout = T(PCLK1) * 4096 * 2^WDGTB * (T[5:0]+1) (ms).
  *           T(PCLK1): APB1 clock period in milliseconds.
@@ -119,37 +119,37 @@
 #define WWDOG_PRV                               WWDG_Prescaler_8
 #define WWDOG_WV                                0x7F
 #define WWDOG_RLV                               0x7F
-/** @} */ /* End of group Window watch dog. */
+/** @} */ /* Window watch dog. */
 
 /**
- * @defgroup UART data bits.
+ * @name UART data bits.
  * @{
  */
 #define UART_DATA_BITS_8                        (uint32_t)USART_WordLength_8b
 #define UART_DATA_BITS_9                        (uint32_t)USART_WordLength_9b
-/** @} */ /* End of group UART data bits. */
+/** @} */ /* UART data bits. */
 
 /**
- * @defgroup UART stop bits.
+ * @name UART stop bits.
  * @{
  */
 #define UART_STOP_BITS_0_5                      (uint32_t)USART_StopBits_0_5
 #define UART_STOP_BITS_1                        (uint32_t)USART_StopBits_1
 #define UART_STOP_BITS_1_5                      (uint32_t)USART_StopBits_1_5
 #define UART_STOP_BITS_2                        (uint32_t)USART_StopBits_2
-/** @} */ /* End of group UART stop bits. */
+/** @} */ /* UART stop bits. */
 
 /**
- * @defgroup UART parity.
+ * @name UART parity.
  * @{
  */
 #define UART_PARITY_MODE_NONE                   (uint32_t)USART_Parity_No
 #define UART_PARITY_MODE_EVEN                   (uint32_t)USART_Parity_Even
 #define UART_PARITY_MODE_ODD                    (uint32_t)USART_Parity_Odd
-/** @} */ /* End of group UART parity. */
+/** @} */ /* UART parity. */
 
 /**
- * @defgroup Timer configuration.
+ * @name Timer configuration.
  * @{
  */
 #define TIMER_CLK_ENABLE(INDEX)                 do { if(0 == (INDEX)) {RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);} else\
@@ -170,16 +170,16 @@ typedef struct
 	uint16_t  clk_;
 	IRQn_Type irq_;
 }timer_confg_t;
-/** @} */ /* End of group Timer configuration. */
+/** @} */ /* Timer configuration. */
 
 /**
- * @defgroup Flash configuration.
+ * @name Flash configuration.
  * @{
  */
 #define FLASH_BASE_ADDR 			                                                 0x08000000
 #define FLASH_SECTOR_SIZE                                                            2048       /**< 2k. */
 #define FLASH_TOTAL_SIZE                                                             0x40000    /**< 256k. */
-/** @} */ /* End of group Flash configuration. */
+/** @} */ /* Flash configuration. */
 #if defined CPATAIN_DESIGN
 #include "devb/stm32f10x_captain_design.h"
 #else
@@ -189,7 +189,7 @@ typedef struct
 #include "stm32f2xx.h"
 #include "stm32f2xx_ll_usart.h"
 /**
- * @defgroup Pin operation macros.
+ * @name Pin operation macros.
  * @{
  */
 #define GPIO_INIT(GPIO, INIT)                   HAL_GPIO_Init(GPIO, INIT)
@@ -197,10 +197,10 @@ typedef struct
 #define GPIO_WRITE_PIN(GPIO, PIN, LEVEL)        HAL_GPIO_WritePin(GPIO, PIN, (GPIO_PinState)LEVEL)
 #define GPIO_TOGGLE_PIN(GPIO, PIN)              HAL_GPIO_TogglePin(GPIO, PIN)
 #define GPIO_READ_PIN(GPIO, PIN)                HAL_GPIO_ReadPin(GPIO, PIN)
-/** @} */ /* End of group Pin operation macros. */
+/** @} */ /* Pin operation macros. */
 
 /**
- * @defgroup Independent watch dog.
+ * @name Independent watch dog.
  *
  * @details  Tout = (4*2^prv) / LSI * rlv (ms).
  * 			 LSI: LSI clock in kHz.
@@ -209,10 +209,10 @@ typedef struct
  */
 #define IWDOG_PRV                               IWDG_PRESCALER_8
 #define IWDOG_RLV                               0xFFF
-/** @} */ /* End of group Independent watch dog. */
+/** @} */ /* Independent watch dog. */
 
 /**
- * @defgroup Window watch dog.
+ * @name Window watch dog.
  *
  * @details  Tout = 4096 * 2^WDGTB / PCLK1 * (T[5:0]+1) (ms).
  *           PCLK1:  APB1 clock.
@@ -222,35 +222,35 @@ typedef struct
 #define WWDOG_PRV                               WWDG_PRESCALER_8
 #define WWDOG_WV                                0x7F
 #define WWDOG_RLV                               0x7F
-/** @} */ /* End of group Window watch dog. */
+/** @} */ /* Window watch dog. */
 
 /**
- * @defgroup UART data bits.
+ * @name UART data bits.
  * @{
  */
 #define UART_DATA_BITS_8                       (uint32_t)UART_WORDLENGTH_8B
 #define UART_DATA_BITS_9                       (uint32_t)UART_WORDLENGTH_9B
-/** @} */ /* End of group UART data bits. */
+/** @} */ /* UART data bits. */
 
 /**
- * @defgroup UART stop bits.
+ * @name UART stop bits.
  * @{
  */
 #define UART_STOP_BITS_1                        (uint32_t)UART_STOPBITS_1
 #define UART_STOP_BITS_2                        (uint32_t)UART_STOPBITS_2
-/** @} */ /* End of group UART stop bits. */
+/** @} */ /* UART stop bits. */
 
 /**
- * @defgroup UART parity.
+ * @name UART parity.
  * @{
  */
 #define UART_PARITY_MODE_NONE                   (uint32_t)UART_PARITY_NONE
 #define UART_PARITY_MODE_EVEN                   (uint32_t)UART_PARITY_EVEN
 #define UART_PARITY_MODE_ODD                    (uint32_t)UART_PARITY_ODD
-/** @} */ /* End of group UART parity. */
+/** @} */ /* UART parity. */
 
 /**
- * @defgroup Timer configuration.
+ * @name Timer configuration.
  * @{
  */
 #define TIMER_CLK_ENABLE(INDEX)                 do { if(0 == (INDEX)) {__HAL_RCC_TIM3_CLK_ENABLE();} else\
@@ -272,10 +272,10 @@ typedef struct
 	uint16_t  clk_;
 	IRQn_Type irq_;
 }timer_confg_t;
-/** @} */ /* End of group Timer configuration. */
+/** @} */ /* Timer configuration. */
 
 /**
- * @defgroup Flash configuration.
+ * @name Flash configuration.
  * @{
  */
 #define FLASH_BASE_ADDR 			                                                 0x08000000
@@ -292,7 +292,7 @@ typedef struct
 #define ADDR_FLASH_SECTOR_10                                                         ((uint32_t)0x080C0000) /**< Base @ of Sector 10, 128 Kbytes */
 #define ADDR_FLASH_SECTOR_11                                                         ((uint32_t)0x080E0000) /**< Base @ of Sector 11, 128 Kbytes */
 #define FLASH_TOTAL_SIZE                                                             0x80000    /**< 512k. */
-/** @} */ /* End of group Flash configuration. */
+/** @} */ /* Flash configuration. */
 #if defined MX_TB
 #include "mx_tb/stm32f205_mx_tb.h"
 #else

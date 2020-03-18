@@ -151,7 +151,7 @@ void print_buf(const char *_prefix, const uint32_t _id, const uint8_t *_buf, con
 }
 
 /**
- * @defgroup Retarget printf.
+ * @name Retarget printf.
  * @{
  */
 #if defined __EWL__
@@ -235,7 +235,7 @@ int fputc(int ch, FILE *f)
 }
 #endif
 #endif
-/** @} */ /* End of group Retarget printf. */
+/** @} */ /* Retarget printf. */
 
 /*******************************************************************************
  * Local Functions

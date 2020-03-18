@@ -18,14 +18,14 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
- * @defgroup I2C module index.
+ * @name I2C module index.
  * @{
  */
 #define I2C0_INDEX       		                0
-/** @} */ /* End of group I2C module index. */
+/** @} */ /* I2C module index. */
 
 /** 
- * @defgroup EEPROM configuration.
+ * @name EEPROM configuration.
  * @brief    Two-wire serial EEPROM AT24C02 2K(256 * 8 bit) 32 pages of 8 bytes each
  * @{
  */
@@ -58,10 +58,10 @@ extern "C" {
 #define EEPROM_SIZE_DTC                          21
 #define EEPROM_ADDR_INIT                         EEPROM_TOTAL_SIZE - 1
 #define EEPROM_SIZE_INIT                         1
-/** @} */ /* End of group EEPROM configuration. */
+/** @} */ /* EEPROM configuration. */
 
 /** 
- * @defgroup Accelerometer configuration.
+ * @name Accelerometer configuration.
  * @brief    3-axis, 12-bit/8-bit digital accelerometer MMA8452Q
  * @{
  */
@@ -112,18 +112,18 @@ extern "C" {
 #define ACCR_OFF_Y_REG			                0x30
 #define ACCR_OFF_Z_REG			                0x31
 //#define ACCR_RESERVED_REG		                0x40-0x7F
-/** @} */ /* End of group Accelerometer configuration. */
+/** @} */ /* Accelerometer configuration. */
 
 /** 
- * @defgroup Accelerometer system modes.
+ * @name Accelerometer system modes.
  * @{
  */
 #define ACCR_SYSMOD_STANDBY                     0u
 #define ACCR_SYSMOD_ACTIVE                      1u
-/** @} */ /* End of group Accelerometer system modes. */
+/** @} */ /* Accelerometer system modes. */
 
 /** 
- * @defgroup Accelerometer interrupt source mask.
+ * @name Accelerometer interrupt source mask.
  * @{
  */
 #define ACCR_INT_NONE_MASK                      0x00
@@ -133,7 +133,7 @@ extern "C" {
 #define ACCR_INT_PULSE_MASK                     0x08
 #define ACCR_INT_FF_MT_MASK                     0x04
 #define ACCR_INT_DRDY_MASK                      0x01
-/** @} */ /* End of group Accelerometer interrupt source mask. */
+/** @} */ /* Accelerometer interrupt source mask. */
 
 /******************************************************************************
  * Function prototypes
@@ -226,8 +226,8 @@ int32_t accr_deinit(void);
  * @brief  Transfer accelerometer system mode.
  *
  * @param  [in] _mode System mode:
- *         @arg ACCR_SYSMOD_STANDBY Standby.
- *         @arg ACCR_SYSMOD_ACTIVE  Active.
+ *  - ACCR_SYSMOD_STANDBY: Standby.
+ *  - ACCR_SYSMOD_ACTIVE:  Active.
  * @return Success(0) or failure(other values).
  */
 int32_t accr_sys_mode_trans(const uint8_t _mode);

@@ -90,7 +90,7 @@ __attribute__((weak)) void timer_irq_callback(const uint8_t _index)
 }
 
 /**
- * @defgroup IRQ handlers.
+ * @name IRQ handlers.
  * @{
  */
 /**
@@ -100,7 +100,7 @@ void TIMER0_IRQ_HANDLER(void)
 {
 	timer_irq_handler(TIMER0_INDEX);
 }
-/** @} */ /* End of group IRQ handlers. */
+/** @} */ /* IRQ handlers. */
 
 /******************************************************************************
  * Local Functions

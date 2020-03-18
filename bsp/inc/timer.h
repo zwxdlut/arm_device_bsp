@@ -21,11 +21,11 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
- * @defgroup Timer module index.
+ * @name Timer module index.
  * @{
  */
 #define TIMER0_INDEX                            0
-/** @} */ /* End of group Timer module index. */
+/** @} */ /* Timer module index. */
 																	  
 /******************************************************************************
  * Function prototypes

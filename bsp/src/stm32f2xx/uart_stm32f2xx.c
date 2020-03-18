@@ -163,7 +163,7 @@ uint16_t uart_transmit(const uint8_t _index, const uint8_t *const _buf, const ui
 }
 
 /**
- * @defgroup IRQ handlers.
+ * @name IRQ handlers.
  * @{
  */
 /**
@@ -181,7 +181,7 @@ void UART1_IRQ_HANDLER(void)
 {
 	uart_irq_handler(UART1_INDEX);
 }
-/** @} */ /* End of group IRQ handlers. */
+/** @} */ /* IRQ handlers. */
 
 /*******************************************************************************
  * Local Functions

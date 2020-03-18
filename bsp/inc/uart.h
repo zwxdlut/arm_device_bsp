@@ -18,17 +18,17 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
- * @defgroup UART module index.
+ * @name UART module index.
  * @{
  */
 #define UART0_INDEX       		                0
 #define UART1_INDEX       		                1
-/** @} */ /* End of group UART module index. */
+/** @} */ /* UART module index. */
 
 #define UART_BUFFER_SIZE                        1000 /**< UART buffer size. */
 
 /**
- * @defgroup UART header define.
+ * @name UART header define.
  * @{
  */
 /*-----------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ extern "C" {
  *---------------------------------------------------------------------------------*/
 #define HEADER_FLAG      	                    0xAA55
 #define HEADER_SIZE  	                        4
-/** @} */ /* End of group UART header define. */
+/** @} */ /* UART header define. */
 
 /*******************************************************************************
  * Function prototypes
@@ -52,18 +52,18 @@ extern "C" {
  * @param  [in] _index     UART index.
  * @param  [in] _baudrate  Baud rate.
  * @param  [in] _data_bits Data bits:
- *              @arg UART_DATA_BITS_8  8 bits data.
- *              @arg UART_DATA_BITS_9  9 bits data.
- *              @arg UART_DATA_BITS_10 10 bits data.
+ *  - UART_DATA_BITS_8:  8 bits data.
+ *  - UART_DATA_BITS_9:  9 bits data.
+ *  - UART_DATA_BITS_10: 10 bits data.
  * @param  [in] _stop_bits Stop bits:
- *              @arg UART_STOP_BITS_0_5 0.5 stop bit.
- *              @arg UART_STOP_BITS_1   1 stop bit.
- *              @arg UART_STOP_BITS_1_5 1.5 stop bits.
- *              @arg UART_STOP_BITS_2   2 stop bits.
+ *  - UART_STOP_BITS_0_5: 0.5 stop bit.
+ *  - UART_STOP_BITS_1:   1 stop bit.
+ *  - UART_STOP_BITS_1_5: 1.5 stop bits.
+ *  - UART_STOP_BITS_2:   2 stop bits.
  * @param  [in] _parity Partity:
-                @arg UART_PARITY_MODE_NONE No parity.
- *              @arg UART_PARITY_MODE_EVEN Even parity.
- *              @arg UART_PARITY_MODE_ODD  Odd parity.
+ *  - UART_PARITY_MODE_NONE: No parity.
+ *  - UART_PARITY_MODE_EVEN: Even parity.
+ *  - UART_PARITY_MODE_ODD:  Odd parity.
  * @return Success(0) or failure(other values).
  */
 int32_t uart_init(const uint8_t _index, const uint32_t _baudrate, const uint32_t _data_bits, const uint32_t _stop_bits, const uint32_t _parity);

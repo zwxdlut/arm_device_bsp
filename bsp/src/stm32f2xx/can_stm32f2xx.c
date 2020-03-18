@@ -284,7 +284,7 @@ int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode)
 }
 
 /**
- * @defgroup IRQ handlers.
+ * @name IRQ handlers.
  * @{
  */
 /*
@@ -318,7 +318,7 @@ void CAN1_TRANS_INH_IRQ_HANDLER(void)
 {
 	HAL_GPIO_EXTI_IRQHandler(CAN1_TRANS_INH_PIN);
 }
-/** @} */ /* End of group IRQ handlers. */
+/** @} */ /* IRQ handlers. */
 
 /*******************************************************************************
  * Local Functions

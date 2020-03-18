@@ -185,7 +185,7 @@ int32_t wdog_disable(void)
 }
 
 /**
- * @defgroup IRQ handlers.
+ * @name IRQ handlers.
  * @{
  */
 /**
@@ -215,7 +215,7 @@ void WWDG_IRQHandler(void)
 {
 	sys_reset();
 }
-/** @} */ /* End of group IRQ handlers. */
+/** @} */ /* IRQ handlers. */
 
 /*******************************************************************************
  * Local Functions

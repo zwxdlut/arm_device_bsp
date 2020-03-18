@@ -16,7 +16,7 @@ extern "C" {
  * Definitions
  ******************************************************************************/                             
 /**
- * @defgroup LEDs configuration.
+ * @name LEDs configuration.
  * @{
  */
 #define LED0_PORT       					    PORTE
@@ -30,20 +30,20 @@ extern "C" {
 #define LED2_PIN        	    			    4
 #define LED_ON          					    1
 #define LED_OFF         					    0
-/** @} */ /* End of group LEDs configuration. */
+/** @} */ /* LEDs configuration. */
 
 /**
- * @defgroup Button configuration.
+ * @name Button configuration.
  * @{
  */
 #define BTN_PORT        					    PORTD
 #define BTN_GPIO        					    PTD
 #define BTN_PIN         					    15
 #define BTN_IRQ                                 PORTD_IRQn
-/** @} */ /* End of group Button configuration. */
+/** @} */ /* Button configuration. */
 
 /**
- * @defgroup UART configuration.
+ * @name UART configuration.
  * @{
  */
 #define UART0_PORT                              PORTB
@@ -56,10 +56,10 @@ extern "C" {
 #define UART1_TX_PIN                            7
 #define UART1_GPIO_AF                           PORT_MUX_ALT2
 #define UART1_IRQ                               LPUART1_RxTx_IRQn
-/** @} */ /* End of group UART configuration. */
+/** @} */ /* UART configuration. */
 
 /** 
- * @defgroup CAN configuration.
+ * @name CAN configuration.
  * @{
  */
 #define CAN0_PORT                               PORTE
@@ -78,10 +78,10 @@ extern "C" {
 #define CAN1_ORED_IRQ                           CAN1_ORed_IRQn
 #define CAN1_ERROR_IRQ                          CAN1_Error_IRQn
 #define CAN1_ORED_0_15_IRQ                      CAN1_ORed_0_15_MB_IRQn
-/** @} */ /* End of group CAN configuration. */
+/** @} */ /* CAN configuration. */
 
 /** 
- * @defgroup I2C configuration.
+ * @name I2C configuration.
  * @{
  */
 #define I2C0_PORT                               PORTA
@@ -92,7 +92,7 @@ extern "C" {
 /** @} */ /* End of I2C configuration. */
 
 /**
- * @defgroup SPI configuration.
+ * @name SPI configuration.
  * @{
  */
 #define SPI0_SCK_PORT                           PORTB
@@ -105,7 +105,7 @@ extern "C" {
 #define SPI0_CS_PIN                             3
 #define SPI0_GPIO_AF                            PORT_MUX_ALT3
 #define SPI0_IRQ                                LPSPI1_IRQn
-/** @} */ /* End of group SPI configuration. */
+/** @} */ /* SPI configuration. */
 
 #ifdef __cplusplus
 }

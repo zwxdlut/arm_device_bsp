@@ -18,35 +18,35 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
- * @defgroup SPI module index.
+ * @name SPI module index.
  * @{
  */
 #define SPI0_INDEX       		                0
-/** @} */ /* End of group SPI module index. */
+/** @} */ /* SPI module index. */
 
 /**
- * @defgroup SPI clock polarity.
+ * @name SPI clock polarity.
  * @{
  */
 #define SPI_CPOL_LOW      		                0
 #define SPI_CPOL_HIGH      		                1
-/** @} */ /* End of group SPI clock polarity. */
+/** @} */ /* SPI clock polarity. */
 
 /**
- * @defgroup SPI clock phase.
+ * @name SPI clock phase.
  * @{
  */
 #define SPI_CPHA_1EDGE      		            0
 #define SPI_CPHA_2EDGE      		            1
-/** @} */ /* End of group SPI clock phase. */
+/** @} */ /* SPI clock phase. */
 
 /**
- * @defgroup SPI data bits.
+ * @name SPI data bits.
  * @{
  */
 #define SPI_DATA_BITS_8      		            8
 #define SPI_DATA_BITS_16      		            16
-/** @} */ /* End of group SPI data bits. */
+/** @} */ /* SPI data bits. */
 
 /*******************************************************************************
  * Function prototypes
@@ -57,14 +57,14 @@ extern "C" {
  * @param  [in] _index    SPI index.
  * @param  [in] _baudrate Baud rate.
  * @param  [in] _cpol     Clock polarity:
- *              @arg SPI_CPOL_LOW  Clock is idle low.
- *              @arg SPI_CPOL_HIGH Clock is idle high.
+ *  - SPI_CPOL_LOW:  Clock is idle low.
+ *  - SPI_CPOL_HIGH: Clock is idle high.
  * @param  [in] _cpha Clock phase:
- *              @arg SPI_CPHA_1EDGE Data is sampled on clock 1st edge, changed on 2nd.
- *              @arg SPI_CPHA_2EDGE Data is sampled on clock 2nd edge, changed on 1st.
+ *  - SPI_CPHA_1EDGE: Data is sampled on clock 1st edge, changed on 2nd.
+ *  - SPI_CPHA_2EDGE: Data is sampled on clock 2nd edge, changed on 1st.
  * @param  [in] _data_bits Data bits:
- *              @arg SPI_DATA_BITS_8  8 bits data.
- *              @arg SPI_DATA_BITS_16 16 bits data.
+ *  - SPI_DATA_BITS_8:  8 bits data.
+ *  - SPI_DATA_BITS_16: 16 bits data.
  * @param  [in] _lsb_first Select LSB or MSB first.
  * @return Success(0) or failure(other values).
  */
@@ -103,14 +103,14 @@ int32_t spi_master_transmit(const uint8_t _index, const uint8_t *const _buf, con
  *
  * @param  [in] _index SPI index.
  * @param  [in] _cpol  Clock polarity:
- *              @arg SPI_CPOL_LOW  Signal is idle low.
- *              @arg SPI_CPOL_HIGH Signal is idle high.
+ *  - SPI_CPOL_LOW:  Signal is idle low.
+ *  - SPI_CPOL_HIGH: Signal is idle high.
  * @param  [in] _cpha Clock phase:
- *              @arg SPI_CPOL_1EDGE Data is sampled on SCK 1st edge, changed on 2nd.
- *              @arg SPI_CPOL_2EDGE Data is sampled on SCK 2nd edge, changed on 1st.
+ *  - SPI_CPOL_1EDGE: Data is sampled on SCK 1st edge, changed on 2nd.
+ *  - SPI_CPOL_2EDGE: Data is sampled on SCK 2nd edge, changed on 1st.
  * @param  [in] _data_bits Data bits:
- *              @arg SPI_DATA_BITS_8  8 bits data.
- *              @arg SPI_DATA_BITS_16 16 bits data.
+ *  - SPI_DATA_BITS_8:  8 bits data.
+ *  - SPI_DATA_BITS_16: 16 bits data.
  * @param  [in] _lsb_first Select LSB or MSB first.
  * @return Success(0) or failure(other values).
  */

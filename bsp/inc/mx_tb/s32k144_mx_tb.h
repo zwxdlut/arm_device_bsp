@@ -16,7 +16,7 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /** 
- * @defgroup LEDs configuration.
+ * @name LEDs configuration.
  * @{
  */
 #define LED0_PORT       					    PORTE
@@ -30,20 +30,20 @@ extern "C" {
 #define LED2_PIN           					    4
 #define LED_ON          					    1
 #define LED_OFF         					    0
-/** @} */ /* End of group LEDs configuration. */
+/** @} */ /* LEDs configuration. */
  
 /** 
- * @defgroup Button configuration.
+ * @name Button configuration.
  * @{
  */                                       
 #define BTN_PORT        					    PORTA
 #define BTN_GPIO        					    PTA
 #define BTN_PIN         					    0
 #define BTN_IRQ                                 PORTA_IRQn
-/** @} */ /* End of group Button configuration. */
+/** @} */ /* Button configuration. */
 
 /**
- * @defgroup Upper computer configuration.
+ * @name Upper computer configuration.
  * @{
  */
 #define UC_POWER_PORT						    PORTE
@@ -55,20 +55,20 @@ extern "C" {
 #define UC_RESET_PORT						    PORTA
 #define UC_RESET_GPIO 					        PTA
 #define UC_RESET_PIN						    13
-/** @} */ /* End of group Upper computer configuration. */
+/** @} */ /* Upper computer configuration. */
 
 /**
- * @defgroup Ignition configuration.
+ * @name Ignition configuration.
  * @{
  */
 #define IGN_PORT        					    PORTD
 #define IGN_GPIO        					    PTD
 #define IGN_PIN         					    16
 #define IGN_IRQ                                 PORTD_IRQn
-/** @} */ /* End of group Ignition configuration. */                                        
+/** @} */ /* Ignition configuration. */                                        
 
 /**
- * @defgroup UART configuration.
+ * @name UART configuration.
  * @{
  */
 #define UART0_PORT                              PORTB
@@ -81,10 +81,10 @@ extern "C" {
 #define UART1_TX_PIN                            7
 #define UART1_GPIO_AF                           PORT_MUX_ALT2
 #define UART1_IRQ                               LPUART2_RxTx_IRQn
-/** @} */ /* End of group UART configuration. */
+/** @} */ /* UART configuration. */
 
 /** 
- * @defgroup CAN configuration.
+ * @name CAN configuration.
  * @{
  */
 #define CAN0_PORT                               PORTE
@@ -123,10 +123,10 @@ extern "C" {
 #define CAN1_TRANS_INH_GPIO    			        PTB
 #define CAN1_TRANS_INH_PIN					    2
 #define CAN1_TRANS_INH_IRQ  		            PORTB_IRQn
-/** @} */ /* End of group CAN configuration. */
+/** @} */ /* CAN configuration. */
 
 /** 
- * @defgroup I2C configuration.
+ * @name I2C configuration.
  * @{
  */
 #define I2C0_PORT                               PORTA
@@ -137,7 +137,7 @@ extern "C" {
 /** @} */ /* End of I2C configuration. */
 
 /**
- * @defgroup SPI configuration.
+ * @name SPI configuration.
  * @{
  */
 #define SPI0_SCK_PORT                           PORTB
@@ -150,7 +150,7 @@ extern "C" {
 #define SPI0_CS_PIN                             3
 #define SPI0_GPIO_AF                            PORT_MUX_ALT3
 #define SPI0_IRQ                                LPSPI1_IRQn
-/** @} */ /* End of group SPI configuration. */
+/** @} */ /* SPI configuration. */
 
 #ifdef __cplusplus
 }

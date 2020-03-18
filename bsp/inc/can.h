@@ -18,20 +18,20 @@ extern "C" {
  * Definitions
  ******************************************************************************/
 /**
- * @defgroup CAN module index.
+ * @name CAN module index.
  * @{
  */
 #define CAN0_INDEX                              0
 #define CAN1_INDEX                              1
-/** @} */ /* End of group CAN module index. */
+/** @} */ /* End of name CAN module index. */
 
 /**
- * @defgroup CAN power modes.
+ * @name CAN power modes.
  * @{
  */
 #define CAN_PWR_MODE_SLEEP                      0
 #define CAN_PWR_MODE_RUN                        1
-/** @} */ /* End of group CAN power modes. */
+/** @} */ /* CAN power modes. */
 
 #define CAN_BUFFER_SIZE                         10 /**< CAN rx queue max size */
 
@@ -60,6 +60,7 @@ int32_t can_init(const uint8_t _index, const uint32_t *_filter_id_list, const ui
 
 /**
  * @brief  Deinitialize CAN module.
+ * 
  * @param  [in] _index CAN index.
  * @return Success(0) or failure(other values).
  */
@@ -92,8 +93,8 @@ uint8_t can_transmit(const uint8_t _index, const uint32_t _id, const uint8_t *co
  *
  * @param  [in] _index CAN index.
  * @param  [in] _mode  Power mode:
-				@arg CAN_PWR_MODE_SLEEP Sleep.
-				@arg CAN_PWR_MODE_RUN   Run.
+ *  - CAN_PWR_MODE_SLEEP: Sleep.
+ *  - CAN_PWR_MODE_RUN:   Run.
  * @return Success(0) or failure(other values).
  */
 int32_t can_pwr_mode_trans(const uint8_t _index, const uint8_t _mode);
