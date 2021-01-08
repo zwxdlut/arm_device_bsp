@@ -14,7 +14,7 @@
 extern SemaphoreHandle_t g_uart_tx_mutex[UART1_INDEX + 1]; // Tx mutex
 #endif
 
-extern uint8_t  g_uart_rx_queue[UART1_INDEX + 1][UART_BUFFER_SIZE]; // Ring queue
+extern uint8_t g_uart_rx_queue[UART1_INDEX + 1][UART_BUFFER_SIZE]; // Ring queue
 extern uint16_t g_uart_rx_queue_head[UART1_INDEX + 1]; // Ring queue head
 extern uint16_t g_uart_rx_queue_tail[UART1_INDEX + 1]; // Ring queue tail
 

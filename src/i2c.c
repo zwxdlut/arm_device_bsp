@@ -8,7 +8,7 @@
 #include "i2c.h"
 
 #if defined USING_OS_FREERTOS
-extern SemaphoreHandle_t g_i2c_mutex[I2C0_INDEX + 1]; /**< Rx/Tx Mutex */
+extern SemaphoreHandle_t g_i2c_mutex[I2C0_INDEX + 1]; // Rx/Tx Mutex
 #endif
 
 /******************************************************************************

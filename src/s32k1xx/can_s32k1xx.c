@@ -21,6 +21,7 @@ typedef struct
 	uint8_t      tx_pin_;
 	port_mux_t   gpio_af_;
 	IRQn_Type    irqs_[5];
+
 #if defined MX_TB
 	PORT_Type    *trans_stb_n_port_;
 	GPIO_Type    *trans_stb_n_gpio_;

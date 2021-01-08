@@ -17,7 +17,7 @@
 extern void rtos_start(void);
 #define PEX_RTOS_START rtos_start
 #else
-extern void prv_main(void);
+extern void main_impl(void);
 #endif 
 
 volatile int exit_code = 0;
@@ -46,7 +46,7 @@ int main(void)
 
   /* Write your code here */
 #if !defined USING_OS_FREERTOS
-    prv_main();
+    main_impl();
 #endif
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/

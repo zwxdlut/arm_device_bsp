@@ -832,9 +832,9 @@
               <FilePath>..\main.c</FilePath>
             </File>
             <File>
-              <FileName>prv_main.c</FileName>
+              <FileName>main_impl.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\prv_main.c</FilePath>
+              <FilePath>..\main_impl.c</FilePath>
             </File>
             <File>
               <FileName>rtos.c</FileName>

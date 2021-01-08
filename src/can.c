@@ -7,9 +7,9 @@
 
 #include "can.h"
 
-extern can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_BUFFER_SIZE]; /**< Rx ring queue */
-extern uint8_t   g_can_rx_queue_head[CAN1_INDEX + 1];             /**< Rx queue head */
-extern uint8_t   g_can_rx_queue_tail[CAN1_INDEX + 1];             /**< Rx queue tail */
+extern can_msg_t g_can_rx_queue[CAN1_INDEX + 1][CAN_BUFFER_SIZE]; // Rx ring queue
+extern uint8_t g_can_rx_queue_head[CAN1_INDEX + 1]; // Rx queue head
+extern uint8_t g_can_rx_queue_tail[CAN1_INDEX + 1]; // Rx queue tail
 
 /*******************************************************************************
  * Definitions
