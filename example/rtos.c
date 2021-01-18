@@ -26,7 +26,7 @@ static TimerHandle_t  g_timer; // Uart tx timer handle
  * Function prototypes
  ******************************************************************************/
 /******************************************************************************
- * Local Function prototypes
+ * Local function prototypes
  ******************************************************************************/
 static void prv_task( void *pvParameters );
 static void prv_on_timer( TimerHandle_t xTimer );
@@ -68,7 +68,7 @@ void rtos_start( void )
 }
 
 /******************************************************************************
- * Local Functions
+ * Local functions
  ******************************************************************************/
 static void prv_task( void *pvParameters )
 {

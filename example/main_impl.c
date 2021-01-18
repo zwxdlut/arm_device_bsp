@@ -21,7 +21,7 @@
 #endif
 
 /*******************************************************************************
- * Local Function prototypes
+ * Local function prototypes
  ******************************************************************************/
 static void test_flash(void);
 static void test_i2c(void);
@@ -93,9 +93,9 @@ void main_impl(void)
 }
 
 /**
- * Timer IRQ callback.
+ * The timer IRQ callback.
  *
- * @param _index Timer index.
+ * @param _index the timer index
  */
 void timer_irq_callback(const uint8_t _index)
 {
@@ -104,7 +104,7 @@ void timer_irq_callback(const uint8_t _index)
 }
 
 /*******************************************************************************
- * Local Functions
+ * Local functions
  ******************************************************************************/
 /**
  * Test flash.
@@ -115,16 +115,16 @@ static void test_flash(void)
 	
 	assert(0 == flash_ctrl_init());
 	
-	// Erase and vefiry sectors
+	// erase and vefiry the sectors
 	assert(0 == flash_ctrl_erase_sector(FLASH_USER_START_ADDR, FLASH_ERASE_SIZE));
 	assert(0 == flash_ctrl_verify_sector(FLASH_USER_START_ADDR, FLASH_ERASE_SIZE));
 
-	//  Program and vefify
+	//  program and vefify
 	memset(buf, 0xAA, sizeof(buf));
 	assert(0 == flash_ctrl_program(FLASH_USER_START_ADDR, sizeof(buf), buf));
 	assert(0 == flash_ctrl_program_verify(FLASH_USER_START_ADDR, sizeof(buf), buf));
 	
-    // Write EEPROM
+    // write the EEPROM
 	memset(buf, 0xBB, 4);
     assert(0 == flash_ctrl_write_e2(0, 4, buf));
 	assert(0 == flash_ctrl_deinit());
@@ -141,7 +141,7 @@ static void test_i2c(void)
 	
 	assert(0 == i2c_master_init(I2C0_INDEX, 400000, false));
 	
-	// Write then read EEPROM and verify
+	// write and read the EEPROM then verify
 	assert(0 == eeprom_write(EEPROM_ADDR_RESET_TYPE, &temp1, EEPROM_SIZE_RESET_TYPE));
 	delay(10);
 	assert(0 == eeprom_read(EEPROM_ADDR_RESET_TYPE, &temp2, EEPROM_SIZE_RESET_TYPE));

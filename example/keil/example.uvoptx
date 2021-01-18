@@ -213,7 +213,7 @@
   </Group>
 
   <Group>
-    <GroupName>driver</GroupName>
+    <GroupName>drivers</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
