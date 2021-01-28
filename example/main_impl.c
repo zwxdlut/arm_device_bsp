@@ -77,7 +77,7 @@ void main_impl(void)
 		{
 			if(0 != (size = uart_receive(i, buf, sizeof(buf))))
 			{
-				uart_transmit(i, buf, size);
+				uart_send(i, buf, size);
 			}
 		}
 
@@ -86,7 +86,7 @@ void main_impl(void)
 			if(0 != (size = can_receive(i, &id, buf, sizeof(buf))))
 			{
 				run_time = sys_time();
-				can_transmit(i, id, buf, size);
+				can_send(i, id, buf, size);
 			}
 		}
 	}
@@ -115,16 +115,16 @@ static void test_flash(void)
 	
 	assert(0 == flash_ctrl_init());
 	
-	// erase and vefiry the sectors
+	/* erase and vefiry the sectors */
 	assert(0 == flash_ctrl_erase_sector(FLASH_USER_START_ADDR, FLASH_ERASE_SIZE));
 	assert(0 == flash_ctrl_verify_sector(FLASH_USER_START_ADDR, FLASH_ERASE_SIZE));
 
-	//  program and vefify
+	/* program and vefify */
 	memset(buf, 0xAA, sizeof(buf));
 	assert(0 == flash_ctrl_program(FLASH_USER_START_ADDR, sizeof(buf), buf));
 	assert(0 == flash_ctrl_program_verify(FLASH_USER_START_ADDR, sizeof(buf), buf));
 	
-    // write the EEPROM
+    /* write the EEPROM */
 	memset(buf, 0xBB, 4);
     assert(0 == flash_ctrl_write_e2(0, 4, buf));
 	assert(0 == flash_ctrl_deinit());
@@ -141,7 +141,7 @@ static void test_i2c(void)
 	
 	assert(0 == i2c_master_init(I2C0_INDEX, 400000, false));
 	
-	// write and read the EEPROM then verify
+	/* write and read the EEPROM then verify */
 	assert(0 == eeprom_write(EEPROM_ADDR_RESET_TYPE, &temp1, EEPROM_SIZE_RESET_TYPE));
 	delay(10);
 	assert(0 == eeprom_read(EEPROM_ADDR_RESET_TYPE, &temp2, EEPROM_SIZE_RESET_TYPE));

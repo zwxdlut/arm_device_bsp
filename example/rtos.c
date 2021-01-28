@@ -20,7 +20,7 @@
 #define BG_TASK_PRIORITY		            ( tskIDLE_PRIORITY + 2 )
 #define	GEN_TASK_PRIORITY		            ( tskIDLE_PRIORITY + 1 )
 
-static TimerHandle_t  g_timer; // Uart tx timer handle
+static TimerHandle_t  g_timer; /* UART tx timer handle */
 
 /******************************************************************************
  * Function prototypes
@@ -84,7 +84,7 @@ static void prv_task( void *pvParameters )
 		{
 			if (0 != (size = uart_receive(i, buf, sizeof(buf))))
 			{
-				uart_transmit(i, buf, size);
+				uart_send(i, buf, size);
 			}
 		}
 		
@@ -92,7 +92,7 @@ static void prv_task( void *pvParameters )
 		{
 			if (0 != (size = can_receive(i, &id, buf, sizeof(buf))))
 			{
-				can_transmit(i, id, buf, size);
+				can_send(i, id, buf, size);
 			}
 		}
 	}
