@@ -41,9 +41,9 @@
 			<locationURI>PARENT-1-PROJECT_LOC/main.c</locationURI>
 		</link>
 		<link>
-			<name>src/main_impl.c</name>
+			<name>src/test.c</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/main_impl.c</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/test.c</locationURI>
 		</link>
 	</linkedResources>
 	<filteredResources>

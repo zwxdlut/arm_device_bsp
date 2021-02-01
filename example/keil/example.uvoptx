@@ -1257,8 +1257,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\main_impl.c</PathWithFileName>
-      <FilenameWithoutPath>main_impl.c</FilenameWithoutPath>
+      <PathWithFileName>..\rtos.c</PathWithFileName>
+      <FilenameWithoutPath>rtos.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1269,8 +1269,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\rtos.c</PathWithFileName>
-      <FilenameWithoutPath>rtos.c</FilenameWithoutPath>
+      <PathWithFileName>..\test.c</PathWithFileName>
+      <FilenameWithoutPath>test.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

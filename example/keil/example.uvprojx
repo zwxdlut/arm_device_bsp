@@ -832,14 +832,14 @@
               <FilePath>..\main.c</FilePath>
             </File>
             <File>
-              <FileName>main_impl.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\main_impl.c</FilePath>
-            </File>
-            <File>
               <FileName>rtos.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\rtos.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\test.c</FilePath>
             </File>
           </Files>
         </Group>
