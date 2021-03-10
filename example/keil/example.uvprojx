@@ -14,16 +14,16 @@
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STM32F205RETx</Device>
+          <Device>STM32F105RC</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F2xx_DFP.2.9.0</PackID>
-          <PackURL>http://www.keil.com/pack</PackURL>
-          <Cpu>IRAM(0x20000000,0x00020000) IROM(0x08000000,0x00080000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
+          <PackID>Keil.STM32F1xx_DFP.2.3.0</PackID>
+          <PackURL>http://www.keil.com/pack/</PackURL>
+          <Cpu>IRAM(0x20000000,0x00010000) IROM(0x08000000,0x00040000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F2xx_1024 -FS08000000 -FL080000 -FP0($$Device:STM32F205RETx$CMSIS\Flash\STM32F2xx_1024.FLM))</FlashDriverDll>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F10x_CL -FS08000000 -FL080000 -FP0($$Device:STM32F105RC$Flash\STM32F10x_CL.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:STM32F205RETx$Drivers\CMSIS\Device\ST\STM32F2xx\Include\stm32f2xx.h</RegisterFile>
+          <RegisterFile>$$Device:STM32F105RC$Device\Include\stm32f10x.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -33,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:STM32F205RETx$CMSIS\SVD\STM32F20x.svd</SFDFile>
+          <SFDFile>$$Device:STM32F105RC$SVD\STM32F105xx.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -110,11 +110,11 @@
         </CommonProperty>
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
-          <SimDllArguments> -REMAP -MPU</SimDllArguments>
+          <SimDllArguments> -REMAP</SimDllArguments>
           <SimDlgDll>DCM.DLL</SimDlgDll>
           <SimDlgDllArguments>-pCM3</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
-          <TargetDllArguments> -MPU</TargetDllArguments>
+          <TargetDllArguments></TargetDllArguments>
           <TargetDlgDll>TCM.DLL</TargetDlgDll>
           <TargetDlgDllArguments>-pCM3</TargetDlgDllArguments>
         </DllOption>
@@ -244,12 +244,12 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x20000</Size>
+                <Size>0x10000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x80000</Size>
+                <Size>0x40000</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -274,7 +274,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x80000</Size>
+                <Size>0x40000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -299,7 +299,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x20000</Size>
+                <Size>0x10000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -335,9 +335,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>STM32F205xx,MX_TB</Define>
+              <Define>STM32F10X_CL,CPATAIN_DESIGN</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\CMSIS\Include;..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\CMSIS\Device\ST\STM32F2xx\Include;..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Inc;..\..\sdks\STM32Cube_FW_F2_V1.8.0\Middlewares\Third_Party\FreeRTOS\Source\include;..\..\sdks\STM32Cube_FW_F2_V1.8.0\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM3;..\..\inc;inc</IncludePath>
+              <IncludePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\CMSIS\CM3\CoreSupport;..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\CMSIS\CM3\DeviceSupport\ST\STM32F10x;..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\inc;..\..\sdks\STM32Cube_FW_F2_V1.8.0\Middlewares\Third_Party\FreeRTOS\Source\include;..\..\sdks\STM32Cube_FW_F2_V1.8.0\Middlewares\Third_Party\FreeRTOS\Source\portable\RVDS\ARM_CM3;..\..\inc;inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -382,14 +382,14 @@
           <GroupName>CMSIS</GroupName>
           <Files>
             <File>
-              <FileName>startup_stm32f205xx.s</FileName>
+              <FileName>startup_stm32f10x_cl.s</FileName>
               <FileType>2</FileType>
-              <FilePath>.\src\startup_stm32f205xx.s</FilePath>
+              <FilePath>.\src\startup_stm32f10x_cl.s</FilePath>
             </File>
             <File>
-              <FileName>system_stm32f2xx.c</FileName>
+              <FileName>system_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\system_stm32f2xx.c</FilePath>
+              <FilePath>.\src\system_stm32f10x.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -397,324 +397,119 @@
           <GroupName>drivers</GroupName>
           <Files>
             <File>
-              <FileName>stm32f2xx_hal.c</FileName>
+              <FileName>misc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\misc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_adc.c</FileName>
+              <FileName>stm32f10x_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_adc.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_adc_ex.c</FileName>
+              <FileName>stm32f10x_bkp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_adc_ex.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_bkp.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_cortex.c</FileName>
+              <FileName>stm32f10x_can.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_cortex.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_can.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_crc.c</FileName>
+              <FileName>stm32f10x_cec.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_crc.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_cec.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_cryp.c</FileName>
+              <FileName>stm32f10x_crc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_cryp.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_crc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_dac.c</FileName>
+              <FileName>stm32f10x_dac.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dac.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dac.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_dac_ex.c</FileName>
+              <FileName>stm32f10x_dbgmcu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dac_ex.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dbgmcu.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_dcmi.c</FileName>
+              <FileName>stm32f10x_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dcmi.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_dma.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_dcmi_ex.c</FileName>
+              <FileName>stm32f10x_exti.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dcmi_ex.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_exti.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_dma.c</FileName>
+              <FileName>stm32f10x_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_flash.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_dma_ex.c</FileName>
+              <FileName>stm32f10x_fsmc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_dma_ex.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_fsmc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_eth.c</FileName>
+              <FileName>stm32f10x_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_eth.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_exti.c</FileName>
+              <FileName>stm32f10x_i2c.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_exti.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_i2c.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_flash.c</FileName>
+              <FileName>stm32f10x_iwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_flash.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_iwdg.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_flash_ex.c</FileName>
+              <FileName>stm32f10x_pwr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_flash_ex.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_pwr.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_gpio.c</FileName>
+              <FileName>stm32f10x_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_gpio.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_rcc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_hash.c</FileName>
+              <FileName>stm32f10x_rtc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hash.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_rtc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_hcd.c</FileName>
+              <FileName>stm32f10x_sdio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_hcd.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_sdio.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_i2c.c</FileName>
+              <FileName>stm32f10x_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_i2c.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_spi.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_i2s.c</FileName>
+              <FileName>stm32f10x_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_i2s.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_irda.c</FileName>
+              <FileName>stm32f10x_usart.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_irda.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_usart.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f2xx_hal_iwdg.c</FileName>
+              <FileName>stm32f10x_wwdg.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_iwdg.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_mmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_mmc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_nand.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_nand.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_nor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_nor.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_pccard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_pccard.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_pcd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_pcd.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_pcd_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_pcd_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_pwr.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_pwr_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_pwr_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_rcc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rcc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_rcc_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rcc_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_rng.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rng.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rtc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_rtc_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_rtc_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_sd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_sd.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_smartcard.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_smartcard.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_sram.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_sram.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_tim_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_tim_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_wwdg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_hal_wwdg.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_crc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_crc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_dac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_dac.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_exti.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_fsmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_fsmc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_pwr.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_rcc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_rcc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_rng.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_rng.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_rtc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_sdmmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_sdmmc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_tim.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_tim.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_usb.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_usb.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_ll_utils.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\stm32f2xx_ll_utils.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f2xx_hal_can.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\sdks\STM32Cube_FW_F2_V1.8.0\Drivers\STM32F2xx_HAL_Driver\Src\Legacy\stm32f2xx_hal_can.c</FilePath>
+              <FilePath>..\..\sdks\STM32F10x_StdPeriph_Lib_V3.5.0\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_wwdg.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -787,39 +582,39 @@
               <FilePath>..\..\src\uart.c</FilePath>
             </File>
             <File>
-              <FileName>board_stm32f2xx.c</FileName>
+              <FileName>board_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\stm32f2xx\board_stm32f2xx.c</FilePath>
+              <FilePath>..\..\src\stm32f10x\board_stm32f10x.c</FilePath>
             </File>
             <File>
-              <FileName>can_stm32f2xx.c</FileName>
+              <FileName>can_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\stm32f2xx\can_stm32f2xx.c</FilePath>
+              <FilePath>..\..\src\stm32f10x\can_stm32f10x.c</FilePath>
             </File>
             <File>
-              <FileName>flash_ctrl_stm32f2xx.c</FileName>
+              <FileName>flash_ctrl_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\stm32f2xx\flash_ctrl_stm32f2xx.c</FilePath>
+              <FilePath>..\..\src\stm32f10x\flash_ctrl_stm32f10x.c</FilePath>
             </File>
             <File>
-              <FileName>i2c_stm32f2xx.c</FileName>
+              <FileName>i2c_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\stm32f2xx\i2c_stm32f2xx.c</FilePath>
+              <FilePath>..\..\src\stm32f10x\i2c_stm32f10x.c</FilePath>
             </File>
             <File>
-              <FileName>spi_stm32f2xx.c</FileName>
+              <FileName>spi_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\stm32f2xx\spi_stm32f2xx.c</FilePath>
+              <FilePath>..\..\src\stm32f10x\spi_stm32f10x.c</FilePath>
             </File>
             <File>
-              <FileName>timer_stm32f2xx.c</FileName>
+              <FileName>timer_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\stm32f2xx\timer_stm32f2xx.c</FilePath>
+              <FilePath>..\..\src\stm32f10x\timer_stm32f10x.c</FilePath>
             </File>
             <File>
-              <FileName>uart_stm32f2xx.c</FileName>
+              <FileName>uart_stm32f10x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\src\stm32f2xx\uart_stm32f2xx.c</FilePath>
+              <FilePath>..\..\src\stm32f10x\uart_stm32f10x.c</FilePath>
             </File>
           </Files>
         </Group>
