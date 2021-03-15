@@ -394,7 +394,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>drivers</GroupName>
+          <GroupName>driver</GroupName>
           <Files>
             <File>
               <FileName>misc.c</FileName>
