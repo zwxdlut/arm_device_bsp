@@ -162,7 +162,7 @@ void print_buf(const char *_prefix, const uint32_t _id, const uint8_t _buf[], co
 		printf("%02X ", _buf[i]);
 	}
 
-	printf("\n");
+	printf("\r\n");
 
 #if defined USING_OS_FREERTOS
 	xSemaphoreGive( g_debug_mutex );
