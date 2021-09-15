@@ -563,12 +563,12 @@ Section Cross References
     uart.o(i.uart_receive) refers to assert.o(.text) for __aeabi_assert
     uart.o(i.uart_receive) refers to uart_stm32f10x.o(.bss) for g_uart_rx_queue
     uart.o(i.uart_receive) refers to uart_stm32f10x.o(.data) for g_uart_rx_queue_head
-    uart.o(i.uart_receive_with_header_poll) refers (Special) to use_no_semi_2.o(.text) for __use_no_semihosting
-    uart.o(i.uart_receive_with_header_poll) refers to assert.o(.text) for __aeabi_assert
-    uart.o(i.uart_receive_with_header_poll) refers to uart.o(i.uart_receive) for uart_receive
-    uart.o(i.uart_send_with_header) refers (Special) to use_no_semi_2.o(.text) for __use_no_semihosting
-    uart.o(i.uart_send_with_header) refers to assert.o(.text) for __aeabi_assert
-    uart.o(i.uart_send_with_header) refers to uart_stm32f10x.o(i.uart_send) for uart_send
+    uart.o(i.uart_receive_with_format_polling) refers (Special) to use_no_semi_2.o(.text) for __use_no_semihosting
+    uart.o(i.uart_receive_with_format_polling) refers to assert.o(.text) for __aeabi_assert
+    uart.o(i.uart_receive_with_format_polling) refers to uart.o(i.uart_receive) for uart_receive
+    uart.o(i.uart_send_with_format) refers (Special) to use_no_semi_2.o(.text) for __use_no_semihosting
+    uart.o(i.uart_send_with_format) refers to assert.o(.text) for __aeabi_assert
+    uart.o(i.uart_send_with_format) refers to uart_stm32f10x.o(i.uart_send) for uart_send
     uart.o(.data) refers (Special) to use_no_semi_2.o(.text) for __use_no_semihosting
     board_stm32f10x.o(i.EXTI15_10_IRQHandler) refers to stm32f10x_exti.o(i.EXTI_GetITStatus) for EXTI_GetITStatus
     board_stm32f10x.o(i.EXTI15_10_IRQHandler) refers to stm32f10x_exti.o(i.EXTI_ClearITPendingBit) for EXTI_ClearITPendingBit
@@ -1527,8 +1527,8 @@ Removing Unused input sections from the image.
     Removing uart.o(i.debug), (2 bytes).
     Removing uart.o(i.fputc), (2 bytes).
     Removing uart.o(i.print_buf), (2 bytes).
-    Removing uart.o(i.uart_receive_with_header_poll), (240 bytes).
-    Removing uart.o(i.uart_send_with_header), (144 bytes).
+    Removing uart.o(i.uart_receive_with_format_polling), (240 bytes).
+    Removing uart.o(i.uart_send_with_format), (144 bytes).
     Removing uart.o(.data), (4 bytes).
     Removing board_stm32f10x.o(i.gpio_deinit), (116 bytes).
     Removing board_stm32f10x.o(i.wdog_disable), (48 bytes).
