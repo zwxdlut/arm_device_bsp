@@ -582,11 +582,6 @@
               <FilePath>..\..\src\uart.c</FilePath>
             </File>
             <File>
-              <FileName>board_stm32f10x.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\stm32f10x\board_stm32f10x.c</FilePath>
-            </File>
-            <File>
               <FileName>can_stm32f10x.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\stm32f10x\can_stm32f10x.c</FilePath>
@@ -605,6 +600,11 @@
               <FileName>spi_stm32f10x.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\stm32f10x\spi_stm32f10x.c</FilePath>
+            </File>
+            <File>
+              <FileName>system_stm32f10x.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\stm32f10x\system_stm32f10x.c</FilePath>
             </File>
             <File>
               <FileName>timer_stm32f10x.c</FileName>

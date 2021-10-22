@@ -9,7 +9,7 @@
 #include "queue.h"
 #include "timers.h"
 
-#include "board.h"
+#include "system.h"
 #include "uart.h"
 #include "can.h"
 

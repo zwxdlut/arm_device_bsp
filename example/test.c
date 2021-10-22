@@ -1,7 +1,7 @@
 #include <string.h>
 #include <assert.h>
 
-#include "board.h"
+#include "system.h"
 #include "uart.h"
 #include "can.h"
 #include "timer.h"
@@ -56,7 +56,7 @@ void test(void)
 		GPIO_TOGGLE_PIN(LED0_GPIO, LED0_PIN);
 
 #if defined TEST_LOW_PWR_MODE
-		if (RUN_TIME_THRESHOLD <= sys_time() - run_time)
+		if (RUN_TIME_THRESHOLD <= clock() - run_time)
 		{
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_ON);
 			GPIO_WRITE_PIN(LED1_GPIO, LED1_PIN, LED_OFF);
@@ -66,7 +66,7 @@ void test(void)
 			pwr_mode_trans(PWR_MODE_DEEPSLEEP);
 			can_pwr_mode_trans(CAN0_INDEX, CAN_PWR_MODE_RUN);
 			can_pwr_mode_trans(CAN1_INDEX, CAN_PWR_MODE_RUN);
-			run_time = sys_time();
+			run_time = clock();
 			timer_start(TIMER0_INDEX);
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_OFF);
 			wdog_refresh();
@@ -85,7 +85,7 @@ void test(void)
 		{
 			if(0 != (size = can_receive(i, &id, buf, sizeof(buf))))
 			{
-				run_time = sys_time();
+				run_time = clock();
 				can_send(i, id, buf, size);
 			}
 		}
