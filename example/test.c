@@ -45,6 +45,8 @@ void test(void)
 	uart_init(UART1_INDEX, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
 	can_init(CAN0_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
 	can_init(CAN1_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
+	can_init(CAN0_INDEX, NULL, 0);
+	can_init(CAN1_INDEX, NULL, 0);
 	timer_init(TIMER0_INDEX, 500);
 	timer_start(TIMER0_INDEX);
 	wdog_enable();
