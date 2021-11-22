@@ -1,2 +1,4 @@
 Objects/
 JLinkLog.txt
+Listings/example.map
+Listings/startup_stm32f10x_cl.lst
