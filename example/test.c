@@ -14,6 +14,7 @@
 #define TEST_LOW_PWR_MODE
 #define RUN_TIME_THRESHOLD                      5000
 #define FLASH_USER_START_ADDR   	            (FLASH_BASE_ADDR + 0x20000)
+
 #if defined FLASH_SECTOR_SIZE
 #define FLASH_ERASE_SIZE                        FLASH_SECTOR_SIZE
 #else
@@ -45,8 +46,6 @@ void test(void)
 	uart_init(UART1_INDEX, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
 	can_init(CAN0_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
 	can_init(CAN1_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
-	can_init(CAN0_INDEX, NULL, 0);
-	can_init(CAN1_INDEX, NULL, 0);
 	timer_init(TIMER0_INDEX, 500);
 	timer_start(TIMER0_INDEX);
 	wdog_enable();
@@ -79,6 +78,7 @@ void test(void)
 		{
 			if(0 != (size = uart_receive(i, buf, sizeof(buf))))
 			{
+				print_buf("UART-RX", i, buf, size);
 				uart_send(i, buf, size);
 			}
 		}
@@ -87,6 +87,7 @@ void test(void)
 		{
 			if(0 != (size = can_receive(i, &id, buf, sizeof(buf))))
 			{
+				print_buf("CAN-RX", id, buf, size);
 				run_time = clock();
 				can_send(i, id, buf, size);
 			}
@@ -97,7 +98,7 @@ void test(void)
 /**
  * Timer IRQ callback.
  *
- * @param _index Timer index
+ * @param _index The Timer index
  */
 void timer_irq_callback(const uint8_t _index)
 {

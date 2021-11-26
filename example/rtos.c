@@ -20,7 +20,7 @@
 #define BG_TASK_PRIORITY		            ( tskIDLE_PRIORITY + 2 )
 #define	GEN_TASK_PRIORITY		            ( tskIDLE_PRIORITY + 1 )
 
-static TimerHandle_t  g_timer; /* UART tx timer handle */
+static TimerHandle_t  g_timer; /* UART sending timer handle */
 
 /******************************************************************************
  * Function prototypes
