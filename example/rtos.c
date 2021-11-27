@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-/* Kernel includes */
+/* kernel includes */
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
