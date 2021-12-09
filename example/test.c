@@ -16,9 +16,9 @@
 #define FLASH_USER_START_ADDR   	            (FLASH_BASE_ADDR + 0x20000)
 
 #if defined FLASH_SECTOR_SIZE
-#define FLASH_ERASE_SIZE                        FLASH_SECTOR_SIZE
+	#define FLASH_ERASE_SIZE                    FLASH_SECTOR_SIZE
 #else
-#define FLASH_ERASE_SIZE                        4096
+	#define FLASH_ERASE_SIZE                    4096
 #endif
 
 /*******************************************************************************
@@ -32,7 +32,7 @@ static void test_i2c(void);
  ******************************************************************************/
 void test(void)
 {
-	uint8_t  buf[100];
+	uint8_t buf[100];
 	uint16_t size = 0;
 	uint32_t id = 0;
 	uint32_t run_time = 0;
@@ -42,12 +42,12 @@ void test(void)
 	gpio_init();
 	test_flash();
 	test_i2c();
-	uart_init(UART0_INDEX, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
-	uart_init(UART1_INDEX, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
-	can_init(CAN0_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
-	can_init(CAN1_INDEX, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
-	timer_init(TIMER0_INDEX, 500);
-	timer_start(TIMER0_INDEX);
+	uart_init(UART_CH0, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
+	uart_init(UART_CH1, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
+	can_init(CAN_CH0, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
+	can_init(CAN_CH1, filter_id_list, sizeof(filter_id_list) / sizeof(uint32_t));
+	timer_init(TIMER0, 500);
+	timer_start(TIMER0);
 	wdog_enable();
 	
 	while (1)
@@ -61,20 +61,20 @@ void test(void)
 		{
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_ON);
 			GPIO_WRITE_PIN(LED1_GPIO, LED1_PIN, LED_OFF);
-			timer_stop(TIMER0_INDEX);
-			can_pwr_mode_trans(CAN0_INDEX, CAN_PWR_MODE_SLEEP);
-			can_pwr_mode_trans(CAN1_INDEX, CAN_PWR_MODE_SLEEP);
+			timer_stop(TIMER0);
+			can_pwr_mode_trans(CAN_CH0, CAN_PWR_MODE_SLEEP);
+			can_pwr_mode_trans(CAN_CH1, CAN_PWR_MODE_SLEEP);
 			pwr_mode_trans(PWR_MODE_DEEPSLEEP);
-			can_pwr_mode_trans(CAN0_INDEX, CAN_PWR_MODE_RUN);
-			can_pwr_mode_trans(CAN1_INDEX, CAN_PWR_MODE_RUN);
+			can_pwr_mode_trans(CAN_CH0, CAN_PWR_MODE_RUN);
+			can_pwr_mode_trans(CAN_CH1, CAN_PWR_MODE_RUN);
 			run_time = clock();
-			timer_start(TIMER0_INDEX);
+			timer_start(TIMER0);
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_OFF);
 			wdog_refresh();
 		}
 #endif
 
-		for (uint8_t i = UART0_INDEX; i <= UART1_INDEX; i++)
+		for (uint8_t i = UART_CH0; i <= UART_CH1; i++)
 		{
 			if(0 != (size = uart_receive(i, buf, sizeof(buf))))
 			{
@@ -83,7 +83,7 @@ void test(void)
 			}
 		}
 
-		for (uint8_t i = CAN0_INDEX; i <= CAN1_INDEX; i++)
+		for (uint8_t i = CAN_CH0; i <= CAN_CH1; i++)
 		{
 			if(0 != (size = can_receive(i, &id, buf, sizeof(buf))))
 			{
@@ -98,11 +98,11 @@ void test(void)
 /**
  * Timer IRQ callback.
  *
- * @param _index the Timer index
+ * @param _num the timer number
  */
-void timer_irq_callback(const uint8_t _index)
+void timer_irq_callback(const uint8_t _num)
 {
-	(void)_index;
+	(void)_num;
 	GPIO_TOGGLE_PIN(LED1_GPIO, LED1_PIN);
 }
 
@@ -118,11 +118,11 @@ static void test_flash(void)
 	
 	assert(0 == flash_ctrl_init());
 	
-	/* erase and vefiry the sectors */
+	/* erase and vefiry continuous sectors */
 	assert(0 == flash_ctrl_erase_sector(FLASH_USER_START_ADDR, FLASH_ERASE_SIZE));
 	assert(0 == flash_ctrl_verify_sector(FLASH_USER_START_ADDR, FLASH_ERASE_SIZE));
 
-	/* program and vefify */
+	/* program and vefify a flash memory area */
 	memset(buf, 0xAA, sizeof(buf));
 	assert(0 == flash_ctrl_program(FLASH_USER_START_ADDR, sizeof(buf), buf));
 	assert(0 == flash_ctrl_program_verify(FLASH_USER_START_ADDR, sizeof(buf), buf));
@@ -142,13 +142,13 @@ static void test_i2c(void)
 	uint8_t temp1 = 0xAA;
 	uint8_t temp2 = 0;
 	
-	assert(0 == i2c_master_init(I2C0_INDEX, 400000, false));
+	assert(0 == i2c_master_init(I2C_CH0, 400000, false));
 	
 	/* write and read the EEPROM then verify */
 	assert(0 == eeprom_write(EEPROM_ADDR_RESET_TYPE, &temp1, EEPROM_SIZE_RESET_TYPE));
 	delay(10);
 	assert(0 == eeprom_read(EEPROM_ADDR_RESET_TYPE, &temp2, EEPROM_SIZE_RESET_TYPE));
 	assert(temp1 == temp2);
-	assert(0 == i2c_master_deinit(I2C0_INDEX));
+	assert(0 == i2c_master_deinit(I2C_CH0));
 #endif
 }

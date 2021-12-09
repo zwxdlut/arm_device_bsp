@@ -20,11 +20,12 @@
 #define BG_TASK_PRIORITY		            ( tskIDLE_PRIORITY + 2 )
 #define	GEN_TASK_PRIORITY		            ( tskIDLE_PRIORITY + 1 )
 
-static TimerHandle_t  g_timer; /* UART sending timer handle */
+static TimerHandle_t g_timer; /* UART sending timer handle */
 
 /******************************************************************************
  * Function prototypes
  ******************************************************************************/
+
 /******************************************************************************
  * Local function prototypes
  ******************************************************************************/
@@ -38,10 +39,10 @@ void rtos_start( void )
 {	
 	sys_init();
 	gpio_init();
-	uart_init(UART0_INDEX, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
-	uart_init(UART1_INDEX, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
-	can_init(CAN0_INDEX, NULL, 0);
-	can_init(CAN1_INDEX, NULL, 0);	
+	uart_init(UART_CH0, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
+	uart_init(UART_CH1, 115200, UART_DATA_BITS_8, UART_STOP_BITS_1, UART_PARITY_MODE_NONE);
+	can_init(CAN_CH0, NULL, 0);
+	can_init(CAN_CH1, NULL, 0);	
 	
 	/* Start the four tasks as described in the comments at the top of this file */
 	xTaskCreate( prv_task, "prv_task", configMINIMAL_STACK_SIZE, NULL, BG_TASK_PRIORITY, NULL );
@@ -80,7 +81,7 @@ static void prv_task( void *pvParameters )
 	
 	while (1)
 	{		
-		for (uint8_t i = UART0_INDEX; i <= UART1_INDEX; i++)
+		for (uint8_t i = UART_CH0; i <= UART_CH1; i++)
 		{
 			if (0 != (size = uart_receive(i, buf, sizeof(buf))))
 			{
@@ -88,7 +89,7 @@ static void prv_task( void *pvParameters )
 			}
 		}
 		
-		for (uint8_t i = CAN0_INDEX; i <= CAN1_INDEX; i++)
+		for (uint8_t i = CAN_CH0; i <= CAN_CH1; i++)
 		{
 			if (0 != (size = can_receive(i, &id, buf, sizeof(buf))))
 			{
@@ -114,11 +115,11 @@ static void prv_on_timer( TimerHandle_t xTimer )
 		if (10 < count)
 		{
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_ON);
-			can_pwr_mode_trans(CAN0_INDEX, CAN_PWR_MODE_SLEEP);
-			can_pwr_mode_trans(CAN1_INDEX, CAN_PWR_MODE_SLEEP);
+			can_pwr_mode_trans(CAN_CH0, CAN_PWR_MODE_SLEEP);
+			can_pwr_mode_trans(CAN_CH1, CAN_PWR_MODE_SLEEP);
 			pwr_mode_trans(PWR_MODE_DEEPSLEEP);
-			can_pwr_mode_trans(CAN0_INDEX, CAN_PWR_MODE_RUN);
-			can_pwr_mode_trans(CAN1_INDEX, CAN_PWR_MODE_RUN);
+			can_pwr_mode_trans(CAN_CH0, CAN_PWR_MODE_RUN);
+			can_pwr_mode_trans(CAN_CH1, CAN_PWR_MODE_RUN);
 			count = 0;
 			GPIO_WRITE_PIN(LED0_GPIO, LED0_PIN, LED_OFF);
 		}
